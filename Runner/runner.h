@@ -15,7 +15,7 @@ class Runner
 {
 public:
 	Runner();
-	Runner(Vector2 position, int life, int speed); //ajout sprite
+	Runner(Vector2 & position, int life, int speed); //ajout sprite
 	~Runner();
 	void move(Direction direction);
 	void stop();
@@ -29,10 +29,10 @@ public:
 	//getters
 	int get_life() {return _life;}
 	int get_speed() {return _speed;}
-	Vector2 get_position() {return _position;}
+	Vector2* get_position() {return _position;}
 	
 private:
-	Vector2 _position;
+	Vector2* _position;
 	int _life;
 	double _speed;
 	//Ajout sprite

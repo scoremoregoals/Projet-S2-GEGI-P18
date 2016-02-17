@@ -11,11 +11,9 @@
 
 RESTE À AJOUTER
 -Platform : implementation .cpp
-			tableau de position vector2 (facon de l'utilisé -> ex. par reference, valeur ou pointeur)
-			getters/setters
+			include liste, ajout liste a constructeur
 			
 -Obstacle : implementation .cpp
-			ajout tableau de position validSpawn + modifier constructeur pour ajouter validSpawn
 			apporter les modifs pour pouvoir utiliser les obstacles dans la liste (un lien vers autres obstacle, changer constructeur dans cet optique etc)
 			
 -Runner : implementation .cpp
@@ -37,6 +35,9 @@ using namespace std;
 
 int main()
 {
+	Vector2 vector(1,2);
+	Runner player(vector, 1,1);
+	cout << player.get_position()->get_positionX();
 	return 0;
 }
 

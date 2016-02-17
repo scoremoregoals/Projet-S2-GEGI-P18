@@ -2,9 +2,6 @@
 #define VECTOR2_H
 
 
-/*
-Je savais pas s'il y'avait deja une classe qui existait pour ca fek j'en ai faite une
-*/
 
 class Vector2
 {

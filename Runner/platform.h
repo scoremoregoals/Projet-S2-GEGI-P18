@@ -11,20 +11,29 @@ class Platform
 {
 public:
 	Platform();
-	//Platform(Liste obstacles, Runner player, double obstacleBaseSpeed);      //ajout du tableau de positions
+	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS]);      //ajout liste obstacle
 	~Platform();
+	
 	void checkPhoneme();
 	void checkCollision();
 	void moveObstacles();
 	void moveCar();
 	
 	//setters
+	void set_player(Runner & player);
+	void set_obstacleBaseSpeed(double obstacleBaseSpeed);
+	void set_positions(Vector2 positions[MAX_POSITIONS]);
+	//liste
+	
 	//getters
+	Runner* get_player() {return _player;}
+	Vector2 get_position(int index) {return *_positions[index];}
+	double get_obstacleBaseSpeed() {return _obstacleBaseSpeed;}
 
 private:
 	//Liste _obstacles;	
-	Runner _player;
-	//Vector2 _positions[MAX_POSITIONS];      //ajout du tableau de position
+	Runner* _player;
+	Vector2* _positions[MAX_POSITIONS];      //ajout du tableau de position
 	double _obstacleBaseSpeed;
 };
 
