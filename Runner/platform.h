@@ -6,15 +6,18 @@
 #include "vector2.h"
 #include "liste.h"
 
-const int MAX_POSITIONS = 20; //A CHANGER SELON NBR CASES
+const int MAX_POSITIONS = 5; //A CHANGER SELON NBR CASES
+const int MAX_OBSTACLES = 4; //CONTIENT LE NBR D'OBJETS DIFFERENTS DU JEU
 
 class Platform
 {
 public:
 	Platform();
-	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], Liste& listeObstacle);     
+	Platform( Runner & player, double obstacleBaseSpeed, Vector2* positions[MAX_POSITIONS], Liste& liste);     
 	~Platform();
 	
+	void creerObstacle(Obstacle& obstacle);
+	void ajouter(Obstacle& obstacle);
 	void checkPhoneme();
 	void checkCollision();
 	void moveObstacles();
@@ -30,10 +33,14 @@ public:
 	Runner* get_player() {return _player;}
 	Vector2 get_position(int index) {return *_positions[index];}
 	double get_obstacleBaseSpeed() {return _obstacleBaseSpeed;}
-	Liste* get_listeObstacle(){return _listeObstacles;}
+	Liste* get_listeObstacles(){return _listeObstacles;}
+	Obstacle* get_obstacleByIndex(int index) {return _obstacles[index];}
+	int get_nbrObstacles() {return _nbrObstacles;}
 
 private:
-	Liste*  _listeObstacles;	
+	Liste*  _listeObstacles;			//liste d'obstacle actifs sur la plateforme
+	Obstacle* _obstacles[MAX_OBSTACLES]; //tableau d'obstacles pouvant etre ajouter au jeu a n'importe quel moment
+	int _nbrObstacles;
 	Runner* _player;
 	Vector2* _positions[MAX_POSITIONS];      //ajout du tableau de position
 	double _obstacleBaseSpeed;

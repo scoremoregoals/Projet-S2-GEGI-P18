@@ -22,7 +22,7 @@ Obstacle::Obstacle(Obstacle* lien)
 	_lien = lien;
 }
 
-Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN], Obstacle* lien)
+Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]) //CONSTRUCTEUR POUR TABLEAU OBSTACLES DANS PLATEFOR
 {
 	_speed = speed;
 	_width = width;
@@ -33,7 +33,6 @@ Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vect
 	{
 		_validSpawn[i] = validSpawn[i];
 	}
-	_lien = lien;
 }
 Obstacle::~Obstacle()
 {
@@ -46,7 +45,6 @@ Obstacle::~Obstacle()
 
 void Obstacle::spawn()            // choisi une position random a partir de validSpawn et l'assigne a la position de l'obstacle
 {
-	srand((unsigned)time(0)); 
     int random = rand() % MAX_VALIDSPAWN;
     set_position(_validSpawn[random]);
 }

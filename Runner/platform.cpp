@@ -10,22 +10,42 @@ Platform::Platform()
 		{
 			_positions[i] = NULL;	
 		}
+		_nbrObstacles = 0;
 }
 
 Platform::~Platform()
-{}
+{
+	for (int i = 0; i < MAX_POSITIONS; i++)
+	{
+		delete _positions[i];
+		_positions[i] = NULL;
+	}
+}
 
-Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], Liste& listeObstacles) 
+Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2* positions[MAX_POSITIONS], Liste& liste)
 {
 		//_obstacles = obstacles;
 		_player = &player;
 		_obstacleBaseSpeed = obstacleBaseSpeed;
 		for (int i = 0; i < MAX_POSITIONS; i++)
 		{
-			_positions[i] = &positions[i];	
+			_positions[i] = positions[i];	
 		}
-		_listeObstacles = &listeObstacles;
+		_nbrObstacles = 0;
+		_listeObstacles = &liste;
 		
+}
+
+void Platform::creerObstacle(Obstacle& obstacle)
+{
+	if (_nbrObstacles >= MAX_OBSTACLES)    //ne peut ajouter plus que le max, modifier max (.h) pour ajouter plus
+		return;
+	_obstacles[_nbrObstacles] = &obstacle;
+	_nbrObstacles++;
+}
+void Platform::ajouter(Obstacle& obstacle)
+{
+	_listeObstacles->ajouter(obstacle);	
 }
 
 //setters

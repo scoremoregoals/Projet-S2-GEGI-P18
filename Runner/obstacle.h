@@ -3,15 +3,15 @@
 
 #include "vector2.h"
 
-const int MAX_VALIDSPAWN = 4; //A CHANGER SELON NBR colonnes
+const int MAX_VALIDSPAWN = 3; //A CHANGER SELON NBR colonnes
 
 class Obstacle
 {
 public:
 	Obstacle();
 	Obstacle(Obstacle* lien);
-    Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN], Obstacle* lien);
-	~Obstacle();
+    Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); 
+	~Obstacle();																										 	
 	
 	void spawn();           // choisi une position random a partir de validSpawn
 	
@@ -31,7 +31,7 @@ public:
 	double get_speed() {return _speed;}
 	int get_width() {return _width;}
 	int get_height() {return _height;}
-	int get_id() {return _id;}
+	int get_ID() {return _id;}
 	int get_damage() {return _damage;}
 	Obstacle* get_lien(){return _lien;}
 	

@@ -14,13 +14,13 @@ Liste::~Liste()
 
 
 
-void Liste::ajouter()                 ///< ajouter un element la liste (cree un objet et l'ajoute à la tete)
+void Liste::ajouter(Objet& objet)                 ///< ajouter un element la liste (cree un objet et l'ajoute à la tete)
 {
-   Objet* nouveau = new Objet(p_head);
-   p_head = nouveau;
-   p_courant = nouveau;
+   objet.set_lien(p_head);
+   p_head = &objet;
+   p_courant = &objet;
    if (p_longueur == 0)
-      p_dernier = nouveau;
+      p_dernier = &objet;
    p_longueur ++;  
 }
 

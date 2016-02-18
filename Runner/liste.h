@@ -23,7 +23,7 @@ class Liste
 public:
    Liste();                   ///< Constructeur de base
    ~Liste();                  ///< Destructeur
-   void ajouter();            ///< ajouter un element la liste (cree un objet et l'ajoute à la tete)
+   void ajouter(Obstacle& obstacle);            ///< ajouter un element la liste (cree un objet et l'ajoute à la tete)
    void suivant();            ///< le courant avance de un element dans la liste
    int precedent();            ///< le courant recule de un element dans la liste
    void premier();           ///< l'element courant devient le premier de la liste
