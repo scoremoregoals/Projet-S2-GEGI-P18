@@ -9,8 +9,8 @@ class Obstacle
 {
 public:
 	Obstacle();
-	Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN]);
-        Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN], Obstacle* lien);
+	Obstacle(Obstacle* lien);
+    Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN], Obstacle* lien);
 	~Obstacle();
 	
 	void spawn();           // choisi une position random a partir de validSpawn
@@ -33,7 +33,7 @@ public:
 	int get_height() {return _height;}
 	int get_id() {return _id;}
 	int get_damage() {return _damage;}
-	Obstacle* get_lien(){return o_lien;}
+	Obstacle* get_lien(){return _lien;}
 	
 private:
 	Vector2* _position;
@@ -44,7 +44,7 @@ private:
 	int _height;
 	//Sprite _sprite;
 	int _damage;
-	obstacle* o_lien;
+	Obstacle* _lien;
 };
 
 #endif //OBSTACLE_H

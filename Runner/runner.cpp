@@ -41,8 +41,8 @@ void Runner:: stop()
 {
 // Le runner arrete d'avancer et sa vie est nulle, il vient de se faire attraper. 
 // Sont corps reste la ou il est.
-	_speed=NULL;
-	_life=NULL;
+	_speed = 0;
+	_life = 0;
 }
 
 

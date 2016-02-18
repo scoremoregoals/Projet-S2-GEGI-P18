@@ -12,8 +12,7 @@ class Platform
 {
 public:
 	Platform();
-	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], 
-        liste& ListeObstacle);     
+	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], Liste& listeObstacle);     
 	~Platform();
 	
 	void checkPhoneme();
@@ -31,10 +30,10 @@ public:
 	Runner* get_player() {return _player;}
 	Vector2 get_position(int index) {return *_positions[index];}
 	double get_obstacleBaseSpeed() {return _obstacleBaseSpeed;}
-	Liste* get_listeObstacle(){return _ListeObstacle;}
+	Liste* get_listeObstacle(){return _listeObstacles;}
 
 private:
-	Liste*  _ListeObstacles;	
+	Liste*  _listeObstacles;	
 	Runner* _player;
 	Vector2* _positions[MAX_POSITIONS];      //ajout du tableau de position
 	double _obstacleBaseSpeed;
