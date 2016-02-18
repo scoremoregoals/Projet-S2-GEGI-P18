@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip>
 
 /**
 
@@ -34,10 +33,27 @@ using namespace std;
 
 
 int main()
-{
+{ 
+	//TESTS
 	Vector2 vector(1,2);
 	Runner player(vector, 1,1);
-	cout << player.get_position()->get_positionX();
+	cout << "player pos : " << player.get_position()->get_positionX() << endl;
+	
+	Vector2* valid[4];
+	valid[0] = new Vector2(6,2);
+	valid[1] = new Vector2(2,2);
+	valid[2] = new Vector2(3,2);
+	valid[3] = new Vector2(4,2);
+	
+	Obstacle obstacle(1, 2, 3, 4, 5, valid);
+	cout << valid[0]->get_positionX() << endl;
+	cout << valid[1]->get_positionX() << endl;
+	cout << valid[2]->get_positionX() << endl;
+	cout << valid[3]->get_positionX() << endl;
+	obstacle.spawn();
+	cout << "obstacle pos : " << obstacle.get_position()->get_positionX() << endl;
+	
+	
 	return 0;
 }
 

@@ -9,18 +9,19 @@ class Obstacle
 {
 public:
 	Obstacle();
-	Obstacle(double speed, int width, int height, int id, int damage, Vector2 positions[MAX_VALIDSPAWN]);
+	Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN]);
 	~Obstacle();
 	
 	void spawn();           // choisi une position random a partir de validSpawn
 	
 	//setters
+	void set_position(Vector2* position);
 	void set_speed(double speed);
 	void set_width(int width);
 	void set_height(int height);
 	void set_ID(int id);
 	void set_damage(int damage);
-	void set_validSpawn(Vector2 positions[MAX_VALIDSPAWN]);
+	void set_validSpawn(Vector2* validSpawn[MAX_VALIDSPAWN]);
 	//void set_sprite();
 	
 	//getters
