@@ -15,7 +15,7 @@ Platform::Platform()
 Platform::~Platform()
 {}
 
-Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS]) //liste obstacle
+Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], liste& ListeObstacle) 
 {
 		//_obstacles = obstacles;
 		_player = &player;
@@ -24,6 +24,7 @@ Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions
 		{
 			_positions[i] = &positions[i];	
 		}
+		_ListeObstacle=ListeObstacle;
 		
 }
 

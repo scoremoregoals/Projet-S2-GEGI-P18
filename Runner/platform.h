@@ -4,6 +4,7 @@
 #include "obstacle.h"
 #include "runner.h"
 #include "vector2.h"
+#include "liste.h"
 
 const int MAX_POSITIONS = 20; //A CHANGER SELON NBR CASES
 
@@ -11,7 +12,8 @@ class Platform
 {
 public:
 	Platform();
-	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS]);      //ajout liste obstacle
+	Platform( Runner & player, double obstacleBaseSpeed, Vector2 positions[MAX_POSITIONS], 
+        liste& ListeObstacle);     
 	~Platform();
 	
 	void checkPhoneme();
@@ -29,9 +31,10 @@ public:
 	Runner* get_player() {return _player;}
 	Vector2 get_position(int index) {return *_positions[index];}
 	double get_obstacleBaseSpeed() {return _obstacleBaseSpeed;}
+	Liste* get_listeObstacle(){return _ListeObstacle;}
 
 private:
-	//Liste _obstacles;	
+	Liste*  _ListeObstacles;	
 	Runner* _player;
 	Vector2* _positions[MAX_POSITIONS];      //ajout du tableau de position
 	double _obstacleBaseSpeed;

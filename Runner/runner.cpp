@@ -23,19 +23,28 @@ void Runner::move(Direction direction)
 	switch (direction)
 	{
 		case haut:
-			std::cout << "player move haut" << std::endl;
+			std::cout << "player move high" << std::endl;
 			break;
 		case bas:
-			std::cout << "player move bas" << std::endl;
+			std::cout << "player move low" << std::endl;
 			break;
 		case gauche:
-			std::cout << "player move gauche" << std::endl;
+			std::cout << "player move left" << std::endl;
 			break;
 		case droite:
-			std::cout << "player move droit" << std::endl;
+			std::cout << "player move right" << std::endl;
 			break;
 	}
 }
+
+void Runner:: stop()
+{
+// Le runner arrete d'avancer et sa vie est nulle, il vient de se faire attraper. 
+// Sont corps reste la ou il est.
+	_speed=NULL;
+	_life=NULL;
+}
+
 
 //setters
 void Runner::set_life(int life)
@@ -52,3 +61,5 @@ void Runner::set_position(Vector2 position)
 {
 	_position = &position;
 }
+
+// les getters sont deja code dans le fichier runner.h

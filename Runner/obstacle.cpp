@@ -29,6 +29,19 @@ Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vect
 	}
 }
 
+Obstacle(double speed, int width, int height, int id, int damage, Vector2* positions[MAX_VALIDSPAWN], Obstacle* lien)
+{
+	_speed = speed;
+	_width = width;
+	_height = height;
+	_id = id;
+	_damage = damage;
+	for (int i = 0; i < MAX_VALIDSPAWN; i++)
+	{
+		_validSpawn[i] = validSpawn[i];
+	}
+	o_lien=lien;
+}
 Obstacle::~Obstacle()
 {
 	for (int i = 0; i < MAX_VALIDSPAWN; i++)
@@ -85,8 +98,10 @@ void Obstacle::set_validSpawn(Vector2* validSpawn[MAX_VALIDSPAWN])
 	}
 }
 
-
-
+void set_lien(Obstacle* lien)
+{
+	o_lien=lien;
+}
 
 
 
