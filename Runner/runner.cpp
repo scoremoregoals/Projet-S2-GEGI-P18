@@ -11,9 +11,9 @@ Runner::Runner()
 Runner::~Runner()
 {}
 
-Runner::Runner(Vector2 & position, int life, int speed) //ajout sprite
+Runner::Runner(Vector2* position, int life, int speed) //ajout sprite
 {
-	_position = &position;
+	_position = position; // AJOUTER POSITION INITIALE?
 	_life = life;
 	_speed = speed;
 }
@@ -23,10 +23,10 @@ void Runner::move(Direction direction)
 	switch (direction)
 	{
 		case haut:
-			std::cout << "player move high" << std::endl;
+			std::cout << "player move up" << std::endl;
 			break;
 		case bas:
-			std::cout << "player move low" << std::endl;
+			std::cout << "player move down" << std::endl;
 			break;
 		case gauche:
 			std::cout << "player move left" << std::endl;
@@ -57,9 +57,8 @@ void Runner::set_speed(int speed)
 	_speed = speed;
 }
 
-void Runner::set_position(Vector2 position)
+void Runner::set_position(Vector2* position)
 {
-	_position = &position;
+	_position = position;
 }
 
-// les getters sont deja code dans le fichier runner.h

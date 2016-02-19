@@ -43,9 +43,11 @@ void Platform::creerObstacle(Obstacle& obstacle)
 	_obstacles[_nbrObstacles] = &obstacle;
 	_nbrObstacles++;
 }
-void Platform::ajouter(Obstacle& obstacle)
+
+void Platform::ajouterAuJeu(Obstacle& obstacle)
 {
 	_listeObstacles->ajouter(obstacle);	
+	obstacle.spawn();
 }
 
 //setters

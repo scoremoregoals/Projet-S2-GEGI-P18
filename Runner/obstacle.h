@@ -9,7 +9,6 @@ class Obstacle
 {
 public:
 	Obstacle();
-	Obstacle(Obstacle* lien);
     Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); 
 	~Obstacle();																										 	
 	

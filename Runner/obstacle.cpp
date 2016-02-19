@@ -17,11 +17,6 @@ Obstacle::Obstacle()
 	_lien = NULL;
 }
 
-Obstacle::Obstacle(Obstacle* lien)
-{
-	_lien = lien;
-}
-
 Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]) //CONSTRUCTEUR POUR TABLEAU OBSTACLES DANS PLATEFOR
 {
 	_speed = speed;

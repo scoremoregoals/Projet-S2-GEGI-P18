@@ -17,7 +17,7 @@ public:
 	~Platform();
 	
 	void creerObstacle(Obstacle& obstacle);
-	void ajouter(Obstacle& obstacle);
+	void ajouterAuJeu(Obstacle& obstacle);
 	void checkPhoneme();
 	void checkCollision();
 	void moveObstacles();

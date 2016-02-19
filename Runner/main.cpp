@@ -13,11 +13,19 @@
 
 RESTE À AJOUTER			
 
--Runner : implementation dans  .cpp
-
 -Sprites : ajout des sprites pour les multiples objets du jeu (a faire plus tard avec Qt)
 
 -LOGIQUE DU JEU
+	logique pour le mouvement des obstacles/joueur (par rapport aux positions, "cases de jeu")
+	collisions entre obstacles et joueur
+	fonctions runner::move(), platform::moveObtacles()
+	inputs pour controler le jeu (mouvements, etc
+	boucle de jeu
+	
+- Obstacles:
+	Ajout des differents obstacles du jeu qui herite de Obstacle
+	
+	
 
 -modifier le UML
 
@@ -56,10 +64,10 @@ int main()
 	platform.creerObstacle(obstacle3);
 	platform.creerObstacle(obstacle4);
 	
-	platform.ajouter(obstacle4);
-	platform.ajouter(obstacle3);
-	platform.ajouter(obstacle2);
-	platform.ajouter(obstacle1);
+	platform.ajouterAuJeu(obstacle4);
+	platform.ajouterAuJeu(obstacle3);
+	platform.ajouterAuJeu(obstacle2);
+	platform.ajouterAuJeu(obstacle1);
 	
 	cout << "id : " << platform.get_listeObstacles()->get_courant()->get_ID() << endl;
 	platform.get_listeObstacles()->suivant();
