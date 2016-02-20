@@ -3,6 +3,7 @@
 #include <cstdlib> 
 #include <ctime> 
 
+
 Obstacle::Obstacle()
 {
 	_speed = 0;
@@ -87,6 +88,11 @@ void Obstacle::set_validSpawn(Vector2* validSpawn[MAX_VALIDSPAWN])
 void Obstacle::set_lien(Obstacle* lien)
 {
 	_lien = lien;
+}
+
+void Obstacle::set_type(TypeObstacle type)
+{
+	_type = type;
 }
 
 

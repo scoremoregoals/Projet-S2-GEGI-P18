@@ -8,7 +8,7 @@ class Vector2
 public:
 	Vector2(); 
 	Vector2(int positionX, int positionY);
-	~Vector2();
+	virtual ~Vector2();
 	
 	//setters
 	void set_positionX(int positionX);

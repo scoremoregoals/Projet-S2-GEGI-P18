@@ -5,6 +5,7 @@
 #include "runner.h"
 #include "vector2.h"
 #include "liste.h"
+#include "rectangle.h"
 
 const int MAX_POSITIONS = 5; //A CHANGER SELON NBR CASES
 const int MAX_OBSTACLES = 4; //CONTIENT LE NBR D'OBJETS DIFFERENTS DU JEU
@@ -14,11 +15,11 @@ class Platform
 public:
 	Platform();
 	Platform( Runner & player, double obstacleBaseSpeed, Vector2* positions[MAX_POSITIONS], Liste& liste);     
-	~Platform();
+	virtual ~Platform();
 	
 	void creerObstacle(Obstacle& obstacle);
 	void ajouterAuJeu(Obstacle& obstacle);
-	void checkPhoneme();
+	Direction checkPhoneme();
 	void checkCollision();
 	void moveObstacles();
 	void moveCar();

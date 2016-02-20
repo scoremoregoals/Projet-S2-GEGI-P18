@@ -5,12 +5,18 @@
 
 const int MAX_VALIDSPAWN = 3; //A CHANGER SELON NBR colonnes
 
+enum TypeObstacle   //sert pour savoir avec quoi le joueur collisionne, s'assigne lors de la construction de l'obstacle
+{
+	laser,
+	power  //etc..
+};
+
 class Obstacle
 {
 public:
 	Obstacle();
-    Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); 
-	~Obstacle();																										 	
+    Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); //va etre retirer lorsque les obstacles specifiques
+	virtual ~Obstacle();												 			//vont etre implementer												 	
 	
 	void spawn();           // choisi une position random a partir de validSpawn
 	
@@ -23,6 +29,7 @@ public:
 	void set_damage(int damage);
 	void set_validSpawn(Vector2* validSpawn[MAX_VALIDSPAWN]);
 	void set_lien(Obstacle* lien);
+	void set_type(TypeObstacle type);
 	//void set_sprite();
 	
 	//getters
@@ -33,6 +40,7 @@ public:
 	int get_ID() {return _id;}
 	int get_damage() {return _damage;}
 	Obstacle* get_lien(){return _lien;}
+	TypeObstacle get_type() {return _type;}
 	
 private:
 	Vector2* _position;
@@ -44,6 +52,7 @@ private:
 	//Sprite _sprite;
 	int _damage;
 	Obstacle* _lien;
+	TypeObstacle _type;
 };
 
 #endif //OBSTACLE_H

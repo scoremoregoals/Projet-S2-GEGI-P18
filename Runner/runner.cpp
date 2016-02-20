@@ -6,16 +6,20 @@ Runner::Runner()
 	_position = NULL;
 	_life = 0;
 	_speed = 0;
+	_width = 0;
+	_height = 0;
 }
 
 Runner::~Runner()
 {}
 
-Runner::Runner(Vector2* position, int life, int speed) //ajout sprite
+Runner::Runner(Vector2* position, int life, int speed, int width, int height) //ajout sprite
 {
 	_position = position; // AJOUTER POSITION INITIALE?
 	_life = life;
 	_speed = speed;
+	_width = width;
+	_height = height;
 }
 
 void Runner::move(Direction direction)
@@ -24,17 +28,24 @@ void Runner::move(Direction direction)
 	{
 		case haut:
 			std::cout << "player move up" << std::endl;
+			_position->set_positionY(_position->get_positionY() - _speed);
 			break;
 		case bas:
 			std::cout << "player move down" << std::endl;
+			_position->set_positionY(_position->get_positionY() + _speed);
 			break;
 		case gauche:
 			std::cout << "player move left" << std::endl;
+			_position->set_positionX(_position->get_positionX() - _speed);
 			break;
 		case droite:
 			std::cout << "player move right" << std::endl;
+			_position->set_positionX(_position->get_positionX() + _speed);
+			break;
+		default :
 			break;
 	}
+	std::cout << "new position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
 }
 
 void Runner:: stop()
@@ -60,5 +71,15 @@ void Runner::set_speed(int speed)
 void Runner::set_position(Vector2* position)
 {
 	_position = position;
+}
+
+void Runner::set_width(int width)
+{
+	_width = width;
+}
+
+void Runner::set_height(int height)
+{
+	_height = height;	
 }
 
