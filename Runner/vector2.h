@@ -1,7 +1,13 @@
 #ifndef VECTOR2_H
 #define VECTOR2_H
 
-
+enum Direction
+{
+	haut,
+	bas,
+	gauche,
+	droite
+};
 
 class Vector2
 {

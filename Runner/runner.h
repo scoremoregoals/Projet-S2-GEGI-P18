@@ -3,13 +3,7 @@
 
 #include "vector2.h"
 
-enum Direction
-{
-	haut,
-	bas,
-	gauche,
-	droite
-};
+
 
 class Runner
 {
@@ -17,6 +11,9 @@ public:
 	Runner();
 	Runner(Vector2* position, int life, int speed, int width, int height); //ajout sprite
 	virtual ~Runner();
+	
+	void Update(); //appele a chaque frame, sert a updater la position, la vie, etc selon les actions du frame -> a implementer
+	
 	void move(Direction direction);
 	void stop();
 	

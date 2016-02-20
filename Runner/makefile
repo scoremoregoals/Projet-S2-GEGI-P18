@@ -19,7 +19,7 @@ vector2.o : vector2.cpp vector2.h
 liste.o: liste.cpp liste.h obstacle.h
 	g++ liste.cpp -g -c
 	
-rectangle.o: rectangle.cpp rectangle.h vector2.h
+rectangle.o: rectangle.cpp rectangle.h
 	g++ rectangle.cpp -g -c
 	
 clean :

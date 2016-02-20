@@ -22,7 +22,9 @@ public:
 	Direction checkPhoneme();
 	void checkCollision();
 	void moveObstacles();
-	void moveCar();
+	void movePlayer();
+	
+	void Update();    //est appelé a chaque frame, sert a updater les positions du joueur/obstacles et phonemes et collisions ,etc
 	
 	//setters
 	void set_player(Runner & player);

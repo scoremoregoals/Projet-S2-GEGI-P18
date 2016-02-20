@@ -19,6 +19,10 @@ public:
 	virtual ~Obstacle();												 			//vont etre implementer												 	
 	
 	void spawn();           // choisi une position random a partir de validSpawn
+	virtual void draw() = 0;
+	void move();
+	
+	virtual void Update() = 0; // est appelee a chaque frame, update la position, etc -> a implementer
 	
 	//setters
 	void set_position(Vector2* position);

@@ -1,49 +1,53 @@
 #include "rectangle.h"
 
-
 Rectangle::Rectangle()
 {
-	_coordTopLeft = NULL;
-	_coordTopRight = NULL;
-	_coordBottomLeft = NULL;
-	_coordBottomRight = NULL;
+	_topY = 0;
+	_leftX = 0;
+	_rightX = 0;
+	_bottomY = 0;
 }
 
 Rectangle::Rectangle(int width, int height, int positionX, int positionY)
 {
-	_coordTopLeft = new Vector2(positionX, positionY);
-	_coordTopRight = new Vector2(positionX + width, positionY);
-	_coordBottomLeft = new Vector2(positionX, positionY + height);
-	_coordBottomRight = new Vector2(positionX + width, positionY + height);
+	_topY = positionY;
+	_leftX = positionX;
+	_rightX = positionX + width;
+	_bottomY = positionY + height;
 }
 
 Rectangle::~Rectangle()
 {}
 	
-bool Rectangle::checkIntersect(Rectangle* rect)
+bool Rectangle::checkIntersect(Rectangle* rect)   //pas sur, peut etre modifié si pas correcte, a tester
 {
-	return false;
+	if ( this->get_leftX()  > rect->get_rightX() || this->get_rightX()  < rect->get_leftX() ||
+   		 this->get_topY()  > rect->get_bottomY() || this->get_bottomY() < rect->get_topY() ) 
+   	{
+   		return false;
+   	}
+   	return true;
 }
 
 //setters
-void Rectangle::set_coordTL(Vector2* coordTL)
+void Rectangle::set_topY(int topY)
 {
-	_coordTopLeft = coordTL;
+	_topY = topY;
 }
 
-void Rectangle::set_coordTR(Vector2* coordTR)
+void Rectangle::set_leftX(int leftX)
 {
-	_coordTopRight = coordTR;
+	_leftX = leftX;
 }
 
-void Rectangle::set_coordBL(Vector2* coordBL)
+void Rectangle::set_rightX(int rightX)
 {
-	_coordBottomLeft = coordBL;
+	_rightX = rightX;
 }
 
-void Rectangle::set_coordBR(Vector2* coordBR)
+void Rectangle::set_bottomY(int bottomY)
 {
-	_coordBottomRight = coordBR;
+	_bottomY = bottomY;
 }
 
 
