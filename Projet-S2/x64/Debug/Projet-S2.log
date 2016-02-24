@@ -1,22 +1,19 @@
-﻿Build started 2016-02-20 16:47:36.
-     1>Project "D:\Windows\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\Projet-S2.vcxproj" on node 2 (Rebuild target(s)).
+﻿La génération a démarré 2016-02-24 15:56:54.
+     1>Projet "C:\Users\Patrick\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\Projet-S2.vcxproj" sur le nœud 2 (Build cible(s)).
      1>CustomBuild:
          Moc'ing mainwindow.h...
-         Uic'ing mainwindow.ui...
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I. /IC:\Qt\Qt5.5.1\5.5\msvc2013_64\include /IC:\Qt\Qt5.5.1\5.5\msvc2013_64\include\QtWidgets /IC:\Qt\Qt5.5.1\5.5\msvc2013_64\include\QtGui /IC:\Qt\Qt5.5.1\5.5\msvc2013_64\include\QtANGLE /IC:\Qt\Qt5.5.1\5.5\msvc2013_64\include\QtCore /Idebug /I. /I"C:\Qt\Qt5.5.1\5.5\msvc2013_64\mkspecs\win32-msvc2013" /I.\GeneratedFiles /Zi /nologo /W3 /WX- /Od /D _WINDOWS /D UNICODE /D WIN32 /D WIN64 /D QT_WIDGETS_LIB /D QT_GUI_LIB /D QT_CORE_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt -w34100 -w34189 -w44996 GeneratedFiles\Debug\moc_mainwindow.cpp main.cpp mainwindow.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I. /IC:\Qt\5.5\msvc2013_64\include /IC:\Qt\5.5\msvc2013_64\include\QtWidgets /IC:\Qt\5.5\msvc2013_64\include\QtGui /IC:\Qt\5.5\msvc2013_64\include\QtANGLE /IC:\Qt\5.5\msvc2013_64\include\QtCore /Idebug /I. /I"C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013" /I.\GeneratedFiles /Zi /nologo /W3 /WX- /Od /D _WINDOWS /D UNICODE /D WIN32 /D WIN64 /D QT_WIDGETS_LIB /D QT_GUI_LIB /D QT_CORE_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt -w34100 -w34189 -w44996 GeneratedFiles\Debug\moc_mainwindow.cpp mainwindow.cpp
          moc_mainwindow.cpp
-         main.cpp
          mainwindow.cpp
-         Generating Code...
+         Génération de code en cours...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"debug\\Projet-S2.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib /LIBPATH:C:/qt/qt5.5.1/5.5/msvc2013_64/lib /LIBPATH:C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib\qtmaind.lib shell32.lib C:/qt/qt5.5.1/5.5/msvc2013_64/lib\Qt5Cored.lib C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib\Qt5Guid.lib C:\Qt\Qt5.5.1\5.5\msvc2013_64\lib\Qt5Cored.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"debug\Projet-S2.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /MACHINE:X64 "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" x64\Debug\moc_mainwindow.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"debug\\Projet-S2.exe" /NOLOGO /LIBPATH:C:\Qt\5.5\msvc2013_64\lib /LIBPATH:C:/qt/5.5/msvc2013_64/lib /LIBPATH:C:\Qt\5.5\msvc2013_64\lib C:\Qt\5.5\msvc2013_64\lib\qtmaind.lib shell32.lib C:/qt/5.5/msvc2013_64/lib\Qt5Cored.lib C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"debug\Projet-S2.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /MACHINE:X64 "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" x64\Debug\moc_mainwindow.obj
          x64\Debug\main.obj
          x64\Debug\mainwindow.obj
-         LINK : debug\\Projet-S2.exe not found or not built by the last incremental link; performing full link
-         Projet-S2.vcxproj -> D:\Windows\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\debug\Projet-S2.exe
-     1>Done Building Project "D:\Windows\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\Projet-S2.vcxproj" (Rebuild target(s)).
+         Projet-S2.vcxproj -> C:\Users\Patrick\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\debug\Projet-S2.exe
+     1>Génération du projet "C:\Users\Patrick\Documents\GitHub\Projet-S2-GEGI-P18\Projet-S2\Projet-S2.vcxproj" terminée (Build cible(s)).
 
-Build succeeded.
+La génération a réussi.
 
-Time Elapsed 00:00:02.61
+Temps écoulé 00:00:04.36
