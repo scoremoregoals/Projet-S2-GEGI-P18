@@ -2,12 +2,15 @@
 #include "vector2.h"
 #include "runner.h"
 #include "obstacle.h"
-#include "liste.h"
+#include "Hlaser.h"
+#include "Vlaser.h"
+#include "powerUp.h"
 
 #include <iostream>
 #include <string>
 #include <cstdlib> 
 #include <ctime> 
+#include <list>
 #include "mainwindow.h"
 #include <QApplication>
 
@@ -48,17 +51,76 @@ DERNIER CHANGEMENTS: -Debut de la fonction check collision, ajout d'une classe r
 
 using namespace std;
 
+void Update(Platform& platform, int input)
+{
+	platform.Update(input);
+}
+
+void Draw(Platform& platform)
+{
+
+}
+
+
 int main(int argc, char *argv[])
 { 
 	QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
+	//Initiate player, platform, list, validspawn pour spawn obstacles
+	//ex. platform de 100x100
+	Runner player(new Vector2(50,100), 100, 10, 10, 10);
+	list<Obstacle*> liste;
+	Platform platform(player, liste);
 
-	std::cout << "Yolo" << std::endl;
+	Vector2* verticalValidSpawn[5];
+	verticalValidSpawn[0] = new Vector2(10, 0);
+	verticalValidSpawn[0] = new Vector2(30, 0);
+	verticalValidSpawn[0] = new Vector2(50, 0);
+	verticalValidSpawn[0] = new Vector2(70, 0);
+	verticalValidSpawn[0] = new Vector2(90, 0);
+
+	Vector2* horizontalValidSpawn[5];
+	horizontalValidSpawn[0] = new Vector2(0, 10);
+	horizontalValidSpawn[0] = new Vector2(0, 30);
+	horizontalValidSpawn[0] = new Vector2(0, 50);
+	horizontalValidSpawn[0] = new Vector2(0, 70);
+	horizontalValidSpawn[0] = new Vector2(0, 90);
+
+	//Creer moules obstacles, contucteur d'Obstacle car classes filles non implémentés (laser, powerup)
+	Obstacle* hLaser = new Obstacle(10, 3, 1, 1, 10, horizontalValidSpawn);
+	Obstacle* vLaser = new Obstacle(10, 1, 3, 2, 10, verticalValidSpawn);
+	Obstacle* powerUp1 = new Obstacle(10, 2, 2, 3, 0, verticalValidSpawn);
+	Obstacle* powerUp2 = new Obstacle(10, 2, 2, 4, 0, verticalValidSpawn);
+
+	//ajouter au tableau d'obstacle
+	platform.creerObstacle(hLaser);
+	platform.creerObstacle(vLaser);
+	platform.creerObstacle(powerUp1);
+	platform.creerObstacle(powerUp2);
+
+
+
+
+	//début game loop
+	int userInput;
+	do
+	{
+		//User input 1->haut, 2->bas, 3->gauche, 4->droite
+		cin >> userInput;
+
+		//Update frame
+		Update(platform, userInput);
+
+		//Draw frame
+		Draw(platform);
+
+	} while (userInput != 5);
 
     return a.exec();
 }
+
 
 
 

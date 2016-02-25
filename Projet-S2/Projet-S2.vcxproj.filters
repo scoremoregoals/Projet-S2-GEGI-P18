@@ -74,7 +74,13 @@
     <ClCompile Include="vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="liste.cpp">
+    <ClCompile Include="Hlaser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vlaser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="powerUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +113,13 @@
     <ClInclude Include="vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="liste.h">
+    <ClInclude Include="Hlaser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vlaser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="powerUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

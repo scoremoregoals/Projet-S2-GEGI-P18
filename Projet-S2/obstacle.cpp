@@ -39,8 +39,33 @@ Obstacle::~Obstacle()
 	}
 }
 
+void Obstacle::Update()
+{
+	switch (_type)
+	{
+		case hlaser :
+			_position->set_positionX(_position->get_positionX() + _speed);
+			break;
+		case vlaser:
+			_position->set_positionY(_position->get_positionY() + _speed);
+			break;
+		case powerUp :
+			_position->set_positionY(_position->get_positionY() + _speed);
+			break;
+		default:
+			break;
+	}
+
+	std::cout << "new position obstacle id : " << _id << " : x = " << _position->get_positionX() << " y = " 
+		<< _position->get_positionY() << std::endl;
+}
+
+void Obstacle::draw()
+{}
+
 void Obstacle::spawn()            // choisi une position random a partir de validSpawn et l'assigne a la position de l'obstacle
 {
+	srand(time(NULL));
     int random = rand() % MAX_VALIDSPAWN;
     set_position(_validSpawn[random]);
 }

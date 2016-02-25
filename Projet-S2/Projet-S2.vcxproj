@@ -142,14 +142,16 @@
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="liste.cpp" />
+    <ClCompile Include="Hlaser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="platform.cpp" />
+    <ClCompile Include="powerUp.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="runner.cpp" />
     <ClCompile Include="vector2.cpp" />
+    <ClCompile Include="Vlaser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.h">
@@ -188,12 +190,14 @@ endlocal
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
-    <ClInclude Include="liste.h" />
+    <ClInclude Include="Hlaser.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="platform.h" />
+    <ClInclude Include="powerUp.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="runner.h" />
     <ClInclude Include="vector2.h" />
+    <ClInclude Include="Vlaser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

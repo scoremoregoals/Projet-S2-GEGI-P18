@@ -3,12 +3,13 @@
 
 #include "vector2.h"
 
-const int MAX_VALIDSPAWN = 3; //A CHANGER SELON NBR colonnes
+const int MAX_VALIDSPAWN = 5; //A CHANGER SELON NBR colonnes
 
 enum TypeObstacle   //sert pour savoir avec quoi le joueur collisionne, s'assigne lors de la construction de l'obstacle
 {
-	laser,
-	power  //etc..
+	hlaser,
+	vlaser,
+	powerUp  //etc..
 };
 
 class Obstacle
@@ -19,10 +20,10 @@ public:
 	virtual ~Obstacle();												 			//vont etre implementer												 	
 	
 	void spawn();           // choisi une position random a partir de validSpawn
-	virtual void draw() = 0;
+	virtual void draw();
 	void move();
 	
-	virtual void Update() = 0; // est appelee a chaque frame, update la position, etc -> a implementer
+	virtual void Update(); // est appelee a chaque frame, update la position, etc -> a implementer
 	
 	//setters
 	void set_position(Vector2* position);
