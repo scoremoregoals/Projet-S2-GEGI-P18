@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include<QKeyEvent>
 
 namespace Ui {
 class MainWindow;
@@ -16,10 +17,11 @@ public:
     ~MainWindow();
 
 private slots:
-	void on_pushButton_clicked();
+    void on_pbStartGame_clicked();
 
 private:
     Ui::MainWindow *ui;
+    void keyPressEvent(QKeyEvent *keyevent);
 };
 
 #endif // MAINWINDOW_H
