@@ -14,8 +14,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -34,8 +34,10 @@ public:
     QPushButton *pushButton;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *verticalLayout_2;
-    QLabel *lb1;
     QMenuBar *menuBar;
+    QMenu *menuFichier;
+    QMenu *menuAbout;
+    QMenu *menuOption;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -43,12 +45,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(426, 352);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(100, 160, 160, 80));
+        verticalLayoutWidget->setGeometry(QRect(-1, 240, 421, 61));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -61,21 +63,22 @@ public:
 
         verticalLayoutWidget_2 = new QWidget(centralWidget);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(100, 10, 160, 80));
+        verticalLayoutWidget_2->setGeometry(QRect(0, 0, 421, 241));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        lb1 = new QLabel(verticalLayoutWidget_2);
-        lb1->setObjectName(QStringLiteral("lb1"));
-
-        verticalLayout_2->addWidget(lb1);
-
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuBar->setGeometry(QRect(0, 0, 426, 21));
+        menuFichier = new QMenu(menuBar);
+        menuFichier->setObjectName(QStringLiteral("menuFichier"));
+        menuAbout = new QMenu(menuBar);
+        menuAbout->setObjectName(QStringLiteral("menuAbout"));
+        menuOption = new QMenu(menuBar);
+        menuOption->setObjectName(QStringLiteral("menuOption"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -83,6 +86,10 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFichier->menuAction());
+        menuBar->addAction(menuOption->menuAction());
+        menuBar->addAction(menuAbout->menuAction());
 
         retranslateUi(MainWindow);
 
@@ -93,7 +100,9 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton->setText(QApplication::translate("MainWindow", "PushButton", 0));
-        lb1->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
+        menuAbout->setTitle(QApplication::translate("MainWindow", "About", 0));
+        menuOption->setTitle(QApplication::translate("MainWindow", "Options", 0));
     } // retranslateUi
 
 };

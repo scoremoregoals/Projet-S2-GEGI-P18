@@ -18,7 +18,7 @@ Obstacle::Obstacle()
 	_lien = NULL;
 }
 
-Obstacle::Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]) //CONSTRUCTEUR POUR TABLEAU OBSTACLES DANS PLATEFOR
+Obstacle::Obstacle(int speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]) //CONSTRUCTEUR POUR TABLEAU OBSTACLES DANS PLATEFOR
 {
 	_speed = speed;
 	_width = width;
@@ -52,7 +52,7 @@ void Obstacle::set_position(Vector2* position)
 	_position = position;
 }
 
-void Obstacle::set_speed(double speed)
+void Obstacle::set_speed(int speed)
 {
 	_speed = speed;
 }

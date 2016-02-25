@@ -8,6 +8,8 @@
 #include <string>
 #include <cstdlib> 
 #include <ctime> 
+#include "mainwindow.h"
+#include <QApplication>
 
 /**
 
@@ -46,9 +48,16 @@ DERNIER CHANGEMENTS: -Debut de la fonction check collision, ajout d'une classe r
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 { 
-	return 0;
+	QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+
+	std::cout << "Yolo" << std::endl;
+
+    return a.exec();
 }
 
 

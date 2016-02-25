@@ -142,6 +142,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="liste.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="obstacle.cpp" />
@@ -187,6 +188,7 @@ endlocal
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
+    <ClInclude Include="liste.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="platform.h" />
     <ClInclude Include="rectangle.h" />

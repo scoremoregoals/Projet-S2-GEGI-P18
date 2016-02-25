@@ -1,41 +1,28 @@
 #include "platform.h"
 #include <iostream> 
 
+
+
 Platform::Platform()
 {
 		//_obstacles = obstacles;
 		_player = NULL;
-		_obstacleBaseSpeed = 0;
-		for (int i = 0; i < MAX_POSITIONS; i++)
-		{
-			_positions[i] = NULL;	
-		}
 		_nbrObstacles = 0;
 }
 
 Platform::~Platform()
 {
-	for (int i = 0; i < MAX_POSITIONS; i++)
-	{
-		delete _positions[i];
-		_positions[i] = NULL;
-	}
 }
 
-Platform::Platform( Runner & player, double obstacleBaseSpeed, Vector2* positions[MAX_POSITIONS], Liste& liste)
+Platform::Platform( Runner & player, list<Obstacle*> liste)
 {
 		//_obstacles = obstacles;
 		_player = &player;
-		_obstacleBaseSpeed = obstacleBaseSpeed;
-		for (int i = 0; i < MAX_POSITIONS; i++)
-		{
-			_positions[i] = positions[i];	
-		}
 		_nbrObstacles = 0;
-		_listeObstacles = &liste;
+		_listeObstacles = liste;
 		
 }
-
+/*
 void Platform::Update() //a modifier, selon les fonctions Runner::Update() et Obstacle::Update()
 {
 	Direction directionJoueur = checkPhoneme(); //on va cherche le phoneme
@@ -47,13 +34,13 @@ void Platform::Update() //a modifier, selon les fonctions Runner::Update() et Ob
 		_listeObstacles->suivant();
 	}
 	checkCollision();
-}
+}*/
 
 Direction Platform::checkPhoneme() // a implementer
 {
 	return droite;
 }
-
+/*
 void Platform::checkCollision()
 {
 	Rectangle* playerRect = new Rectangle(_player->get_width(), _player->get_height(), _player->get_position()->get_positionX(),
@@ -86,8 +73,8 @@ void Platform::checkCollision()
 		delete temp;
 	}
 	delete playerRect;
-}
-
+}*/
+/*
 void Platform::creerObstacle(Obstacle& obstacle)
 {
 	if (_nbrObstacles >= MAX_OBSTACLES)    //ne peut ajouter plus que le max, modifier max (.h) pour ajouter plus
@@ -100,7 +87,7 @@ void Platform::ajouterAuJeu(Obstacle& obstacle)
 {
 	_listeObstacles->ajouter(obstacle);	
 	obstacle.spawn();
-}
+}*/
 
 //setters
 void Platform::set_player(Runner & player)
@@ -108,18 +95,6 @@ void Platform::set_player(Runner & player)
 	_player = &player;
 }
 
-void Platform::set_obstacleBaseSpeed(double obstacleBaseSpeed)
-{
-	_obstacleBaseSpeed = obstacleBaseSpeed;
-}
-
-void Platform::set_positions(Vector2 positions[MAX_POSITIONS])
-{
-	for (int i = 0; i < MAX_POSITIONS; i++)
-	{
-		_positions[i] = &positions[i];
-	}
-}
 
 
 

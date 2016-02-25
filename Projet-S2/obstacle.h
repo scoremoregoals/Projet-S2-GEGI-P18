@@ -15,7 +15,7 @@ class Obstacle
 {
 public:
 	Obstacle();
-    Obstacle(double speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); //va etre retirer lorsque les obstacles specifiques
+    Obstacle(int speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); //va etre retirer lorsque les obstacles specifiques
 	virtual ~Obstacle();												 			//vont etre implementer												 	
 	
 	void spawn();           // choisi une position random a partir de validSpawn
@@ -26,7 +26,7 @@ public:
 	
 	//setters
 	void set_position(Vector2* position);
-	void set_speed(double speed);
+	void set_speed(int speed);
 	void set_width(int width);
 	void set_height(int height);
 	void set_ID(int id);
@@ -38,7 +38,7 @@ public:
 	
 	//getters
 	Vector2* get_position() {return _position;}
-	double get_speed() {return _speed;}
+	int get_speed() {return _speed;}
 	int get_width() {return _width;}
 	int get_height() {return _height;}
 	int get_ID() {return _id;}
@@ -50,7 +50,7 @@ private:
 	Vector2* _position;
 	Vector2* _validSpawn[MAX_VALIDSPAWN]; 
 	int _id;
-	double _speed;
+	int _speed;
 	int _width;
 	int _height;
 	//Sprite _sprite;

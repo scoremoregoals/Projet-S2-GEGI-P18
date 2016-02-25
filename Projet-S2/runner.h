@@ -37,7 +37,7 @@ private:
 	int _width;
 	int _height;
 	int _life;
-	double _speed;
+	int _speed;
 	//Ajout sprite
 };
 
