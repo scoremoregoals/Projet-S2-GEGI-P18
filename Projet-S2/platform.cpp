@@ -106,9 +106,9 @@ void Platform::creerObstacle(Obstacle* obstacle)
 	_nbrObstacles++;
 }
 
-void Platform::ajouterAuJeu(Obstacle* obstacle)
+void Platform::ajouterAuJeu(int position) //1->hlaserm 2->vlaser, 3->powerUp1, 4->powerUp2
 {
-	_listeObstacles.push_front(obstacle);
+	_listeObstacles.push_front(_obstacles[position]);
 	_listeObstacles.front()->spawn();
 }
 

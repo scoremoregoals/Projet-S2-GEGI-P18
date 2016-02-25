@@ -22,7 +22,7 @@ public:
 	void spawn();           // choisi une position random a partir de validSpawn
 	virtual void draw();
 	void move();
-	
+	void afficherDetails();
 	virtual void Update(); // est appelee a chaque frame, update la position, etc -> a implementer
 	
 	//setters

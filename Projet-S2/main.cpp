@@ -64,10 +64,6 @@ void Draw(Platform& platform)
 
 int main(int argc, char *argv[])
 { 
-	QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
 	//Initiate player, platform, list, validspawn pour spawn obstacles
 	//ex. platform de 100x100
 	Runner player(new Vector2(50,100), 100, 10, 10, 10);
@@ -100,13 +96,24 @@ int main(int argc, char *argv[])
 	platform.creerObstacle(powerUp1);
 	platform.creerObstacle(powerUp2);
 
+	//ajouter 4 objets differents au jeu
+	platform.ajouterAuJeu(0);
+	platform.ajouterAuJeu(1);
+	platform.ajouterAuJeu(2);
+	platform.ajouterAuJeu(3);
 
-
-
-	//début game loop
+	//debut game loop
 	int userInput;
 	do
 	{
+		//test des positions
+		list<Obstacle*>::iterator temp;
+		for (temp = platform.get_listeObstacles().begin(); temp != platform.get_listeObstacles().end(); temp++)
+		{
+			(*temp)->afficherDetails();
+		}
+		platform.get_player()->afficherDetails();
+
 		//User input 1->haut, 2->bas, 3->gauche, 4->droite
 		cin >> userInput;
 
@@ -117,8 +124,7 @@ int main(int argc, char *argv[])
 		Draw(platform);
 
 	} while (userInput != 5);
-
-    return a.exec();
+	return 0;
 }
 
 

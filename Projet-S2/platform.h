@@ -19,7 +19,7 @@ public:
 	virtual ~Platform();
 	
 	void creerObstacle(Obstacle* obstacle);
-	void ajouterAuJeu(Obstacle* obstacle);
+	void ajouterAuJeu(int position);
 	void effacerObstacle(Obstacle* obstacle);
 	Direction checkPhoneme(int input);
 	void checkCollision();

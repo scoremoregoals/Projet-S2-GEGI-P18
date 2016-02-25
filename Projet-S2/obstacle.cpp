@@ -39,6 +39,11 @@ Obstacle::~Obstacle()
 	}
 }
 
+void Obstacle::afficherDetails() //a modif pour ajouter dautres trucs a afficher
+{
+	std::cout << "new position obstacle id : " << _id << " : x = " << _position->get_positionX() << " y = "
+		<< _position->get_positionY() << std::endl;
+}
 void Obstacle::Update()
 {
 	switch (_type)
@@ -55,9 +60,7 @@ void Obstacle::Update()
 		default:
 			break;
 	}
-
-	std::cout << "new position obstacle id : " << _id << " : x = " << _position->get_positionX() << " y = " 
-		<< _position->get_positionY() << std::endl;
+	afficherDetails();
 }
 
 void Obstacle::draw()

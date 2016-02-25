@@ -22,6 +22,11 @@ Runner::Runner(Vector2* position, int life, int speed, int width, int height) //
 	_height = height;
 }
 
+void Runner::afficherDetails()
+{
+	std::cout << "new position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
+}
+
 void Runner::move(Direction direction)
 {
 	switch (direction)
@@ -45,7 +50,7 @@ void Runner::move(Direction direction)
 		default :
 			break;
 	}
-	std::cout << "new position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
+	afficherDetails();
 }
 
 void Runner:: stop()

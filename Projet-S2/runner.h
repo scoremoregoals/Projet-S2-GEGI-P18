@@ -13,7 +13,7 @@ public:
 	virtual ~Runner();
 	
 	void Update(); //appele a chaque frame, sert a updater la position, la vie, etc selon les actions du frame -> a implementer
-	
+	void afficherDetails();
 	void move(Direction direction);
 	void stop();
 	
