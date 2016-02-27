@@ -3,7 +3,8 @@
 
 #include "vector2.h"
 
-const int MAX_VALIDSPAWN = 5; //A CHANGER SELON NBR colonnes
+const int MAX_VALIDSPAWN_VERT = 5; //A CHANGER SELON NBR colonnes
+const int MAX_VALIDSPAWN_HORIZ = 5; //A CHANGER SELON NBR LIGNES
 
 enum TypeObstacle   //sert pour savoir avec quoi le joueur collisionne, s'assigne lors de la construction de l'obstacle
 {
@@ -16,23 +17,22 @@ class Obstacle
 {
 public:
 	Obstacle();
-    Obstacle(int speed, int width, int height, int id, int damage, Vector2* validSpawn[MAX_VALIDSPAWN]); //va etre retirer lorsque les obstacles specifiques
-	virtual ~Obstacle();												 			//vont etre implementer												 	
-	
-	void spawn();           // choisi une position random a partir de validSpawn
-	virtual void draw();
-	void move();
-	void afficherDetails();
-	virtual void Update(); // est appelee a chaque frame, update la position, etc -> a implementer
+	virtual ~Obstacle();												 														 	
+
+	//virtuals
+	virtual void draw() = 0;
+	virtual void afficherDetails() = 0;
+	virtual void Update() = 0; // est appelee a chaque frame, update la position, etc -> a implementer
+	virtual void spawnHorizontal() = 0;
+	virtual void spawnVertical() = 0;
 	
 	//setters
 	void set_position(Vector2* position);
 	void set_speed(int speed);
 	void set_width(int width);
 	void set_height(int height);
-	void set_ID(int id);
+	void set_id(int id);
 	void set_damage(int damage);
-	void set_validSpawn(Vector2* validSpawn[MAX_VALIDSPAWN]);
 	void set_lien(Obstacle* lien);
 	void set_type(TypeObstacle type);
 	//void set_sprite();
@@ -42,14 +42,13 @@ public:
 	int get_speed() {return _speed;}
 	int get_width() {return _width;}
 	int get_height() {return _height;}
-	int get_ID() {return _id;}
+	int get_id() {return _id;}
 	int get_damage() {return _damage;}
 	Obstacle* get_lien(){return _lien;}
 	TypeObstacle get_type() {return _type;}
 	
 private:
-	Vector2* _position;
-	Vector2* _validSpawn[MAX_VALIDSPAWN]; 
+	Vector2* _position; 
 	int _id;
 	int _speed;
 	int _width;

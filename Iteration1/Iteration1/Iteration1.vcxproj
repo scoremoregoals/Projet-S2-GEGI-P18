@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Hlaser.cpp" />
+    <ClCompile Include="..\id.cpp" />
+    <ClCompile Include="..\liste..cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\obstacle.cpp" />
     <ClCompile Include="..\platform.cpp" />
@@ -23,6 +25,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Hlaser.h" />
+    <ClInclude Include="..\id.h" />
+    <ClInclude Include="..\liste.h" />
     <ClInclude Include="..\obstacle.h" />
     <ClInclude Include="..\platform.h" />
     <ClInclude Include="..\powerUp.h" />

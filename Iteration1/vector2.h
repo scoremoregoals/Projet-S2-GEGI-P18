@@ -6,7 +6,8 @@ enum Direction
 	haut,
 	bas,
 	gauche,
-	droite
+	droite,
+	nulle
 };
 
 class Vector2

@@ -2,42 +2,55 @@
 #include <iostream> 
 
 
-
 Platform::Platform()
 {
-		//_obstacles = obstacles;
 		_player = NULL;
-		_nbrObstacles = 0;
 }
 
 Platform::~Platform()
 {
 }
 
-Platform::Platform( Runner & player, list<Obstacle*> liste)
+Platform::Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS],
+	Vector2* verticalValidSpawn[MAX_VALIDSPAWN_VERT], Vector2* horizontalValidSpawn[MAX_VALIDSPAWN_HORIZ])
 {
-		//_obstacles = obstacles;
-		_player = &player;
-		_nbrObstacles = 0;
-		_listeObstacles = liste;
-		
+	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)
+	{
+		_tableauID[i] = id[i];
+	}
+	for (int i = 0; i < MAX_VALIDSPAWN_VERT; i++)
+	{	
+		_verticalValidSpawn[i] = verticalValidSpawn[i];
+	}
+	for (int i = 0; i < MAX_VALIDSPAWN_HORIZ;  i++)
+	{
+		_horizontalValidSpawn[i] = horizontalValidSpawn[i];
+	}
+	_listeObstaclesActifs = &liste;
+	_player = &player;
 }
 
 void Platform::Update(int input) //a modifier, selon les fonctions Runner::Update() et Obstacle::Update()
 {
 	Direction directionJoueur = checkPhoneme(input); //on va cherche le phoneme
 	_player->move(directionJoueur);
-	list<Obstacle*>::iterator temp;
 
-	list<Obstacle*>::iterator it;
-	for (list< Obstacle* >::iterator i = _listeObstacles.begin(); i != _listeObstacles.end(); ++i)
+	if (_listeObstaclesActifs->get_longueur() < 1)   //n'update pas et ne check pas collisions si liste vide
+		return;
+
+	_listeObstaclesActifs->premier();
+	Obstacle* temp = _listeObstaclesActifs->get_courant();
+	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
-		(*i)->Update();
+		temp->Update();
+		temp->afficherDetails();
+		_listeObstaclesActifs->suivant();
+		temp = _listeObstaclesActifs->get_courant();
 	}
 	checkCollision();
 }
 
-Direction Platform::checkPhoneme(int input) // a implementer
+Direction Platform::checkPhoneme(int input)
 {
 	switch (input)
 	{
@@ -54,6 +67,7 @@ Direction Platform::checkPhoneme(int input) // a implementer
 		return droite;
 		break;
 	default:
+		return nulle;
 		break;
 	}
 }
@@ -63,30 +77,33 @@ void Platform::checkCollision()
 	Rectangle* playerRect = new Rectangle(_player->get_width(), _player->get_height(), _player->get_position()->get_positionX(),
 		_player->get_position()->get_positionY());   //rectangle de collision du joueur
 
-	list<Obstacle*>::iterator temp;
-	for (temp = _listeObstacles.begin(); temp != _listeObstacles.end(); temp++)
+	Obstacle* temp =_listeObstaclesActifs->get_head();
+	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
-		Rectangle* obstacleRect = new Rectangle((*temp)->get_width(), (*temp)->get_height(), (*temp)->get_position()->get_positionX(),
-			(*temp)->get_position()->get_positionY());
+		temp = _listeObstaclesActifs->get_courant();
+		Rectangle* obstacleRect = new Rectangle(temp->get_width(), temp->get_height(), temp->get_position()->get_positionX(),
+			temp->get_position()->get_positionY());
 		if (playerRect->checkIntersect(obstacleRect))
 		{
 			//IL Y A COLLISION, FAIRE ACTIONS...
 			//REGARDER NATURE DU L'OBSTACLE (QUI FAIT DU DEGAT, QUI DONNE UN BOOST, ETC) ET MODIFIER LES ATTRIBUTS DU JOUEUR EN CONSEQUENCE
-			switch ((*temp)->get_type())
+			switch (temp->get_type())
 			{
 			case powerUp:
 				cout << "player collision with powerUp" << endl;
-				//effacerObstacle((*temp));
+				effacerObstacle(temp);
 				//...
 				break;
 			case hlaser:
 				cout << "player collision with hlaser" << endl;
-				//effacerObstacle((*temp));
+				get_player()->set_life(get_player()->get_life() - temp->get_damage());
+				effacerObstacle(temp);
 				//...
 				break;
 			case vlaser:
 				cout << "player collision with vlaser" << endl;
-				//effacerObstacle((*temp));
+				get_player()->set_life(get_player()->get_life() - temp->get_damage());
+				effacerObstacle(temp);
 				//...
 				break;
 			default:
@@ -94,42 +111,90 @@ void Platform::checkCollision()
 			}
 		}
 		delete obstacleRect;
+		_listeObstaclesActifs->suivant();
 	}
 	delete playerRect;
 	return;
 }
 
-
-void Platform::creerObstacle(Obstacle* obstacle)
+void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerUp1, 4->powerUp2
 {
-	if (_nbrObstacles >= MAX_OBSTACLES)    //ne peut ajouter plus que le max, modifier max (.h) pour ajouter plus
+	ObstacleID* newID = new ObstacleID();
+	bool foundValidID = false;
+	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)
+	{
+		if (_tableauID[i]->isTaken() == false)
+		{
+			_tableauID[i]->set_taken(true);
+			newID = _tableauID[i];
+			foundValidID = true;
+			break;
+		}
+	}
+
+	if (!foundValidID)
+	{
 		return;
-	_obstacles[_nbrObstacles] = obstacle;
-	_nbrObstacles++;
-}
+	}
 
-void Platform::ajouterAuJeu(int position) //1->hlaserm 2->vlaser, 3->powerUp1, 4->powerUp2
-{
-	_listeObstacles.push_front(_obstacles[position]);
-	_listeObstacles.front()->spawn();
+	Obstacle* temp;
+	switch (type)
+	{
+	case hlaser:
+		temp = new Hlaser(5, 3, 1, 10, _horizontalValidSpawn);
+		temp->set_id(newID->get_id());
+		_listeObstaclesActifs->ajouter(temp);
+		_listeObstaclesActifs->get_courant()->spawnHorizontal();
+		break;
+	case vlaser:
+		temp = new Vlaser(5, 3, 1, 10, _verticalValidSpawn);
+		temp->set_id(newID->get_id());
+		_listeObstaclesActifs->ajouter(temp);
+		_listeObstaclesActifs->get_courant()->spawnVertical();
+		break;
+	case powerUp:
+		temp = new PowerUp(5, 2, 2, 0, _verticalValidSpawn);
+		temp->set_id(newID->get_id());
+		_listeObstaclesActifs->ajouter(temp);
+		_listeObstaclesActifs->get_courant()->spawnVertical();
+		break;
+	default:
+		break;
+	}
+
 }
 
 void Platform::effacerObstacle(Obstacle* obstacle)
 {
-	_listeObstacles.remove(obstacle);
-	switch (obstacle->get_type())
+	if (_listeObstaclesActifs->get_longueur() < 1)  //n'efface rien si liste vide
+		return;
+	int obstacleEffacerID = obstacle->get_id();
+
+	_listeObstaclesActifs->premier();
+	Obstacle* temp = _listeObstaclesActifs->get_courant();
+	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
-	case powerUp:
-		cout << "powerUp delete" << endl;
-		break;
-	case hlaser:
-		cout << "hlaser delete" << endl;
-		break;
-	case vlaser:
-		cout << "vlaser delete" << endl;
-		break;
-	default:
-		break;
+		if (temp == obstacle)
+		{
+			_tableauID[obstacleEffacerID]->set_taken(false);
+			_listeObstaclesActifs->effacer();
+			switch (obstacle->get_type())
+			{
+			case powerUp:
+				cout << "powerUp delete" << endl;
+				break;
+			case hlaser:
+				cout << "hlaser delete" << endl;
+				break;
+			case vlaser:
+				cout << "vlaser delete" << endl;
+				break;
+			default:
+				break;
+			}
+		}
+		_listeObstaclesActifs->suivant();
+		temp = _listeObstaclesActifs->get_courant();
 	}
 }
 

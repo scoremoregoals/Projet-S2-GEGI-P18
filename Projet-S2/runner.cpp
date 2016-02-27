@@ -24,7 +24,7 @@ Runner::Runner(Vector2* position, int life, int speed, int width, int height) //
 
 void Runner::afficherDetails()
 {
-	std::cout << "new position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
+	std::cout << "player position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
 }
 
 void Runner::move(Direction direction)
