@@ -21,9 +21,7 @@ class Platform
 {
 public:
 	Platform();
-	Platform(Runner & player, list<Obstacle*> liste);
-	Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS],
-		Vector2* verticalValidSpawn[MAX_VALIDSPAWN_VERT], Vector2* horizontalValidSpawn[MAX_VALIDSPAWN_HORIZ]);
+	Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS]);
 	virtual ~Platform();
 
 	void ajouterAuJeu(TypeObstacle type);
@@ -49,9 +47,7 @@ private:
 	int _nbrObstaclesActifs;
 	ObstacleID* _tableauID[MAX_OBSTACLES_ACTIFS];
 	Liste* _listeObstaclesActifs;
-	Vector2* _verticalValidSpawn[MAX_VALIDSPAWN_VERT];
-	Vector2* _horizontalValidSpawn[MAX_VALIDSPAWN_HORIZ];
-
+	Direction _lastPhoneme;
 };
 
 #endif //PLATFORM_H

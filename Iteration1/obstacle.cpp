@@ -1,7 +1,6 @@
 #include "obstacle.h"
 #include <iostream>
 #include <cstdlib> 
-#include <ctime> 
 
 
 Obstacle::Obstacle()
@@ -9,6 +8,18 @@ Obstacle::Obstacle()
 
 Obstacle::~Obstacle()
 {}
+
+void Obstacle::spawnHorizontal()    // random position en Y, puis X en dehors de la map pour pas qu'on voit l'obstaacle quand il spawn
+{   //a modifier pour enlever positions trop pres du bord
+	int random = rand() % SCREEN_HEIGHT;
+	set_position(new Vector2(0 - get_width(), random));
+}
+
+void Obstacle::spawnVertical()   // random position en X, puis Y en dehors de la map pour pas qu'on voit l'obstaacle quand il spawn
+{    //a modifier pour enlever positions trop pres du bord
+	int random = rand() % SCREEN_WIDTH;
+	set_position(new Vector2(random, 0 - (get_height())));
+}
 
 //setters
 void Obstacle::set_position(Vector2* position)

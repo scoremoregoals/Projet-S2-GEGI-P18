@@ -3,8 +3,8 @@
 
 #include "vector2.h"
 
-const int MAX_VALIDSPAWN_VERT = 5; //A CHANGER SELON NBR colonnes
-const int MAX_VALIDSPAWN_HORIZ = 5; //A CHANGER SELON NBR LIGNES
+const int SCREEN_WIDTH = 100;   //dimensions de la fenetre de jeu pour les spawns
+const int SCREEN_HEIGHT = 100;
 
 enum TypeObstacle   //sert pour savoir avec quoi le joueur collisionne, s'assigne lors de la construction de l'obstacle
 {
@@ -23,8 +23,9 @@ public:
 	virtual void draw() = 0;
 	virtual void afficherDetails() = 0;
 	virtual void Update() = 0; // est appelee a chaque frame, update la position, etc -> a implementer
-	virtual void spawnHorizontal() = 0;
-	virtual void spawnVertical() = 0;
+
+	void spawnHorizontal();
+	void spawnVertical();
 	
 	//setters
 	void set_position(Vector2* position);

@@ -11,11 +11,13 @@
 #include <string>
 #include <cstdlib> 
 #include <ctime> 
+#include <list>
 #include "mainwindow.h"
 #include <QApplication>
 
 
 using namespace std;
+
 
 void Update(Platform& platform, int input)
 {
@@ -24,7 +26,9 @@ void Update(Platform& platform, int input)
 
 void Draw(Platform& platform)
 {
-
+	//draw background
+	//draw obstacles
+	//draw player
 }
 
 
@@ -33,9 +37,9 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	MainWindow w;
 	w.show();
-
+	
 	//Initiate player, platform, list, validspawn pour spawn obstacles
-	//ex. platform de 100x100
+	//ex. platform de 100x100, dimension dans obstacle.h
 
 	//liste of IDs
 	ObstacleID* id[MAX_OBSTACLES_ACTIFS];
@@ -46,25 +50,10 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 
-	Runner player(new Vector2(50,100), 100, 10, 10, 10);
-	//list<Obstacle*> liste;
+	Runner player(new Vector2(0,0), 100, 10, 10, 10);
+	player.set_position(new Vector2(SCREEN_WIDTH / 2 - player.get_width() / 2, SCREEN_HEIGHT - player.get_height()));
 	Liste liste;
-
-	Vector2* verticalValidSpawn[5];
-	verticalValidSpawn[0] = new Vector2(10, 0);
-	verticalValidSpawn[1] = new Vector2(30, 0);
-	verticalValidSpawn[2] = new Vector2(50, 0);
-	verticalValidSpawn[3] = new Vector2(70, 0);
-	verticalValidSpawn[4] = new Vector2(90, 0);
-
-	Vector2* horizontalValidSpawn[5];
-	horizontalValidSpawn[0] = new Vector2(0, 10);
-	horizontalValidSpawn[1] = new Vector2(0, 30);
-	horizontalValidSpawn[2] = new Vector2(0, 50);
-	horizontalValidSpawn[3] = new Vector2(0, 70);
-	horizontalValidSpawn[4] = new Vector2(0, 90);
-
-	Platform platform(player, liste, id, verticalValidSpawn, horizontalValidSpawn);
+	Platform platform(player, liste, id);
 
 	//ajouter 4 objets differents au jeu
 	platform.ajouterAuJeu(hlaser);
@@ -73,9 +62,9 @@ int main(int argc, char *argv[])
 	platform.ajouterAuJeu(powerUp);
 
 	//afficher valeurs initiales
+	cout << "valeurs initiales : " << endl;
 	platform.get_player()->afficherDetails();
 	Obstacle* temp = platform.get_listeObstaclesActifs()->get_head();
-	cout << "valeurs initiales : " << endl;
 	for (int i = 0; i < platform.get_listeObstaclesActifs()->get_longueur(); i++)
 	{
 		temp->afficherDetails();
@@ -87,10 +76,10 @@ int main(int argc, char *argv[])
 	int userInput;
 	do
 	{
+		cout << endl;
 		//User input 1->haut, 2->bas, 3->gauche, 4->droite
 		cout << "User Input : ";
 		cin >> userInput;
-		cout << endl;
 
 		//TEST AJOUT D'OBSTACLES
 		if (userInput == 4)
@@ -99,13 +88,13 @@ int main(int argc, char *argv[])
 			platform.ajouterAuJeu(powerUp);
 		}
 		Update(platform, userInput);
-		platform.effacerObstacle(platform.get_listeObstaclesActifs()->get_courant());
+		//TEST EFFACE OBSTACLE
+		//platform.effacerObstacle(platform.get_listeObstaclesActifs()->get_courant());
 
 		//Draw frame
 		Draw(platform);
 
 	} while (userInput != 5);
-
 	return a.exec();
 }
 

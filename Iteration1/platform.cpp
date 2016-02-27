@@ -11,29 +11,27 @@ Platform::~Platform()
 {
 }
 
-Platform::Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS],
-	Vector2* verticalValidSpawn[MAX_VALIDSPAWN_VERT], Vector2* horizontalValidSpawn[MAX_VALIDSPAWN_HORIZ])
+Platform::Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS])
 {
 	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)
 	{
 		_tableauID[i] = id[i];
 	}
-	for (int i = 0; i < MAX_VALIDSPAWN_VERT; i++)
-	{	
-		_verticalValidSpawn[i] = verticalValidSpawn[i];
-	}
-	for (int i = 0; i < MAX_VALIDSPAWN_HORIZ;  i++)
-	{
-		_horizontalValidSpawn[i] = horizontalValidSpawn[i];
-	}
 	_listeObstaclesActifs = &liste;
 	_player = &player;
+	_lastPhoneme = nulle;
 }
 
 void Platform::Update(int input) //a modifier, selon les fonctions Runner::Update() et Obstacle::Update()
 {
 	Direction directionJoueur = checkPhoneme(input); //on va cherche le phoneme
-	_player->move(directionJoueur);
+	if (directionJoueur == nulle)   // si aucun phoneme n'est detecte, on garde la meme direction qu'au frame d'avant
+	{
+		_lastPhoneme = _player->move(_lastPhoneme);
+	}
+	else
+		_lastPhoneme = _player->move(directionJoueur);
+	_player->afficherDetails();
 
 	if (_listeObstaclesActifs->get_longueur() < 1)   //n'update pas et ne check pas collisions si liste vide
 		return;
@@ -52,7 +50,7 @@ void Platform::Update(int input) //a modifier, selon les fonctions Runner::Updat
 
 Direction Platform::checkPhoneme(int input)
 {
-	switch (input)
+	switch (input)   //direction dans laquelle le joueur va aller selon le input
 	{
 	case 1:
 		return haut;
@@ -77,12 +75,12 @@ void Platform::checkCollision()
 	Rectangle* playerRect = new Rectangle(_player->get_width(), _player->get_height(), _player->get_position()->get_positionX(),
 		_player->get_position()->get_positionY());   //rectangle de collision du joueur
 
-	Obstacle* temp =_listeObstaclesActifs->get_head();
+	_listeObstaclesActifs->premier();
+	Obstacle* temp =_listeObstaclesActifs->get_courant();
 	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
-		temp = _listeObstaclesActifs->get_courant();
 		Rectangle* obstacleRect = new Rectangle(temp->get_width(), temp->get_height(), temp->get_position()->get_positionX(),
-			temp->get_position()->get_positionY());
+			temp->get_position()->get_positionY());   //rectangle de collision pour obstacle
 		if (playerRect->checkIntersect(obstacleRect))
 		{
 			//IL Y A COLLISION, FAIRE ACTIONS...
@@ -91,27 +89,29 @@ void Platform::checkCollision()
 			{
 			case powerUp:
 				cout << "player collision with powerUp" << endl;
+				//...
 				effacerObstacle(temp);
 				//...
 				break;
 			case hlaser:
 				cout << "player collision with hlaser" << endl;
 				get_player()->set_life(get_player()->get_life() - temp->get_damage());
-				effacerObstacle(temp);
 				//...
+				effacerObstacle(temp);
 				break;
 			case vlaser:
 				cout << "player collision with vlaser" << endl;
 				get_player()->set_life(get_player()->get_life() - temp->get_damage());
-				effacerObstacle(temp);
 				//...
+				effacerObstacle(temp);
 				break;
 			default:
 				break;
 			}
 		}
 		delete obstacleRect;
-		_listeObstaclesActifs->suivant();
+		_listeObstaclesActifs->suivant();              //increment temp au prochain element de la liste
+		temp = _listeObstaclesActifs->get_courant();
 	}
 	delete playerRect;
 	return;
@@ -121,18 +121,18 @@ void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerU
 {
 	ObstacleID* newID = new ObstacleID();
 	bool foundValidID = false;
-	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)
+	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)   //on verifie si il reste un ID disponible
 	{
 		if (_tableauID[i]->isTaken() == false)
 		{
 			_tableauID[i]->set_taken(true);
-			newID = _tableauID[i];
-			foundValidID = true;
+			newID = _tableauID[i];                 //place un ID disponible dans une variable
+			foundValidID = true;                
 			break;
 		}
 	}
 
-	if (!foundValidID)
+	if (!foundValidID)                   //si pas de ID disponible, on ne peu ajouter d'obstacle nouveau
 	{
 		return;
 	}
@@ -140,23 +140,24 @@ void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerU
 	Obstacle* temp;
 	switch (type)
 	{
+		//Modifier les dimensions selon les sprites-> width = 2e parametre, height = 3e parametre
 	case hlaser:
-		temp = new Hlaser(5, 3, 1, 10, _horizontalValidSpawn);
-		temp->set_id(newID->get_id());
-		_listeObstaclesActifs->ajouter(temp);
-		_listeObstaclesActifs->get_courant()->spawnHorizontal();
+		temp = new Hlaser(5, 20, 10, 10);    //on cre l'obstacle
+		temp->set_id(newID->get_id());              //on donne a l'obstacle le ID disponible obtenu plus haut
+		_listeObstaclesActifs->ajouter(temp);        //on l'ajoute a la liste
+		temp->spawnHorizontal();   //l'obstacle spawn dans le jeu
 		break;
 	case vlaser:
-		temp = new Vlaser(5, 3, 1, 10, _verticalValidSpawn);
+		temp = new Vlaser(5, 10, 10, 10);
 		temp->set_id(newID->get_id());
 		_listeObstaclesActifs->ajouter(temp);
-		_listeObstaclesActifs->get_courant()->spawnVertical();
+		temp->spawnVertical();
 		break;
 	case powerUp:
-		temp = new PowerUp(5, 2, 2, 0, _verticalValidSpawn);
-		temp->set_id(newID->get_id());
+		temp = new PowerUp(5, 20, 18, 0);
+		temp->set_id(newID->get_id()); 
 		_listeObstaclesActifs->ajouter(temp);
-		_listeObstaclesActifs->get_courant()->spawnVertical();
+		temp->spawnVertical();
 		break;
 	default:
 		break;
@@ -174,9 +175,9 @@ void Platform::effacerObstacle(Obstacle* obstacle)
 	Obstacle* temp = _listeObstaclesActifs->get_courant();
 	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
-		if (temp == obstacle)
+		if (temp == obstacle)          //si temp = l'obstacle a effacer, on efface temp
 		{
-			_tableauID[obstacleEffacerID]->set_taken(false);
+			_tableauID[obstacleEffacerID]->set_taken(false); // on rend l'ID de l'obstacle effacer disponible
 			_listeObstaclesActifs->effacer();
 			switch (obstacle->get_type())
 			{
@@ -193,7 +194,7 @@ void Platform::effacerObstacle(Obstacle* obstacle)
 				break;
 			}
 		}
-		_listeObstaclesActifs->suivant();
+		_listeObstaclesActifs->suivant();          // on icremente dans la liste
 		temp = _listeObstaclesActifs->get_courant();
 	}
 }

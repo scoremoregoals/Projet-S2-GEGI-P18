@@ -24,33 +24,42 @@ Runner::Runner(Vector2* position, int life, int speed, int width, int height) //
 
 void Runner::afficherDetails()
 {
-	std::cout << "player position : x = " << _position->get_positionX() << " y = " << _position->get_positionY() << std::endl;
+	std::cout << "player position : x = " << _position->get_positionX() << " y = " 
+		<< _position->get_positionY() << " hp = " << _life << std::endl;
 }
 
-void Runner::move(Direction direction)
+Direction Runner::move(Direction direction)
 {
 	switch (direction)
 	{
 		case haut:
 			std::cout << "player move up" << std::endl;
 			_position->set_positionY(_position->get_positionY() - _speed);
+			return haut;
 			break;
 		case bas:
 			std::cout << "player move down" << std::endl;
 			_position->set_positionY(_position->get_positionY() + _speed);
+			return bas;
 			break;
 		case gauche:
 			std::cout << "player move left" << std::endl;
 			_position->set_positionX(_position->get_positionX() - _speed);
+			return gauche;
 			break;
 		case droite:
 			std::cout << "player move right" << std::endl;
 			_position->set_positionX(_position->get_positionX() + _speed);
+			return droite;
+			break;
+		case nulle:
+			std::cout << "player doesn't move" << std::endl;
+			return nulle;
 			break;
 		default :
+			return nulle;
 			break;
 	}
-	afficherDetails();
 }
 
 void Runner:: stop()
