@@ -14,7 +14,6 @@
 
 using namespace std;
 
-const int MAX_OBSTACLES = 4; //CONTIENT LE NBR D'OBJETS DIFFERENTS DU JEU
 const int MAX_OBSTACLES_ACTIFS = 6;
 
 class Platform
@@ -35,6 +34,7 @@ public:
 
 	//setters
 	void set_player(Runner & player);
+	void set_level(int level);
 	//liste
 
 	//getters
@@ -42,7 +42,6 @@ public:
 	Liste* get_listeObstaclesActifs() { return _listeObstaclesActifs; }
 
 private:
-	list<Obstacle*>  _listeObstacles;			//liste d'obstacle actifs sur la plateforme
 	Runner* _player;    //ajout du tableau de position
 	int _nbrObstaclesActifs;
 	ObstacleID* _tableauID[MAX_OBSTACLES_ACTIFS];

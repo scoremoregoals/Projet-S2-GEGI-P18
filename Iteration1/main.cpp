@@ -11,7 +11,6 @@
 #include <string>
 #include <cstdlib> 
 #include <ctime> 
-#include <list>
 
 
 using namespace std;
@@ -32,7 +31,6 @@ void Draw(Platform& platform)
 
 int main(int argc, char *argv[])
 { 
-	//Initiate player, platform, list, validspawn pour spawn obstacles
 	//ex. platform de 100x100, dimension dans obstacle.h
 
 	//liste of IDs
@@ -44,6 +42,7 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 
+	//initialisation
 	Runner player(new Vector2(0,0), 100, 10, 10, 10);
 	player.set_position(new Vector2(SCREEN_WIDTH / 2 - player.get_width() / 2, SCREEN_HEIGHT - player.get_height()));
 	Liste liste;
@@ -71,15 +70,25 @@ int main(int argc, char *argv[])
 	do
 	{
 		cout << endl;
-		//User input 1->haut, 2->bas, 3->gauche, 4->droite
+		//User input 1->haut, 2->bas, 3->gauche, 4->droite, 5-> quit
+		//6-> spawn hlaser, 7->spawn vlaser, 8-> spawn powerUp
 		cout << "User Input : ";
 		cin >> userInput;
 
 		//TEST AJOUT D'OBSTACLES
-		if (userInput == 4)
+		switch (userInput)
 		{
+		case 6:
 			platform.ajouterAuJeu(hlaser);
+			break;
+		case 7:
+			platform.ajouterAuJeu(vlaser);
+			break;
+		case 8 :
 			platform.ajouterAuJeu(powerUp);
+			break;
+		default :
+			break;
 		}
 		Update(platform, userInput);
 		//TEST EFFACE OBSTACLE

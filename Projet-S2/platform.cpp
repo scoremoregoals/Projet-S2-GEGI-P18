@@ -3,13 +3,10 @@
 
 
 Platform::Platform()
-{
-		_player = NULL;
-}
+{}
 
 Platform::~Platform()
-{
-}
+{}
 
 Platform::Platform(Runner & player, Liste& liste, ObstacleID* id[MAX_OBSTACLES_ACTIFS])
 {
@@ -40,6 +37,13 @@ void Platform::Update(int input) //a modifier, selon les fonctions Runner::Updat
 	Obstacle* temp = _listeObstaclesActifs->get_courant();
 	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
 	{
+		if (temp->get_position()->get_positionY() >= SCREEN_HEIGHT || temp->get_position()->get_positionX() >= SCREEN_WIDTH)
+		{
+			effacerObstacle(temp);
+			_listeObstaclesActifs->suivant();
+			temp = _listeObstaclesActifs->get_courant();
+			continue;
+		}
 		temp->Update();
 		temp->afficherDetails();
 		_listeObstaclesActifs->suivant();
@@ -142,22 +146,25 @@ void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerU
 	{
 		//Modifier les dimensions selon les sprites-> width = 2e parametre, height = 3e parametre
 	case hlaser:
-		temp = new Hlaser(5, 20, 10, 10);    //on cre l'obstacle
+		temp = new Hlaser(10, 20, 10, 10);    //on cre l'obstacle
 		temp->set_id(newID->get_id());              //on donne a l'obstacle le ID disponible obtenu plus haut
 		_listeObstaclesActifs->ajouter(temp);        //on l'ajoute a la liste
 		temp->spawnHorizontal();   //l'obstacle spawn dans le jeu
+		cout << "spawn hlaser" << endl;
 		break;
 	case vlaser:
-		temp = new Vlaser(5, 10, 10, 10);
+		temp = new Vlaser(10, 10, 10, 10);
 		temp->set_id(newID->get_id());
 		_listeObstaclesActifs->ajouter(temp);
 		temp->spawnVertical();
+		cout << "spawn vlaser" << endl;
 		break;
 	case powerUp:
-		temp = new PowerUp(5, 20, 18, 0);
+		temp = new PowerUp(10, 20, 18, 0);
 		temp->set_id(newID->get_id()); 
 		_listeObstaclesActifs->ajouter(temp);
 		temp->spawnVertical();
+		cout << "spawn powerUp" << endl;
 		break;
 	default:
 		break;
@@ -204,7 +211,6 @@ void Platform::set_player(Runner & player)
 {
 	_player = &player;
 }
-
 
 
 
