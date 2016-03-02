@@ -16,7 +16,9 @@
 
 
 using namespace std;
-
+/*
+void Draw(Platform& platform);
+void Update(Platform& platform, int input);
 
 void Update(Platform& platform, int input)
 {
@@ -29,16 +31,17 @@ void Draw(Platform& platform)
 	//draw obstacles
 	//draw player
 }
-
+*/
 
 int main(int argc, char *argv[])
 { 
 	QApplication a(argc, argv);
 	MainWindow w;
 	w.show();
-	
-	//ex. platform de 100x100, dimension dans obstacle.h
 
+
+	//ex. platform de 100x100, dimension dans obstacle.h
+    /*
 	//liste of IDs
 	ObstacleID* id[MAX_OBSTACLES_ACTIFS];
 	for (int i = 0; i < MAX_OBSTACLES_ACTIFS; i++)
@@ -102,8 +105,8 @@ int main(int argc, char *argv[])
 
 		//Draw frame
 		Draw(platform);
-
-	} while (userInput != 5);
+    } while (userInput != 5);
+    */
 	return a.exec();
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>352</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="font">
@@ -19,52 +19,41 @@
    <string>Runner</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>-1</x>
-      <y>280</y>
-      <width>421</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pbStartGame">
-       <property name="font">
-        <font>
-         <pointsize>-1</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Start Game!</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QTabWidget" name="tabApps">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>421</width>
-      <height>41</height>
+      <width>1601</width>
+      <height>861</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="lbInfoLabel">
-       <property name="text">
-        <string>This is where the settings will be for our game!</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tabGame">
+     <attribute name="title">
+      <string>Game</string>
+     </attribute>
+     <widget class="QWidget" name="gameWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1591</width>
+        <height>831</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabSettings">
+     <attribute name="title">
+      <string>Settings</string>
+     </attribute>
+    </widget>
    </widget>
+   <zorder>pbStartGame</zorder>
+   <zorder>tabApps</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
@@ -72,7 +61,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>421</width>
+     <width>1600</width>
      <height>21</height>
     </rect>
    </property>
@@ -80,18 +69,20 @@
     <property name="title">
      <string>Options</string>
     </property>
+    <addaction name="menuSettings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_2"/>
+    <addaction name="menuAbout"/>
    </widget>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionStart_Game_2"/>
+    <addaction name="menuStartGame"/>
+    <addaction name="menuClose"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuOption"/>
@@ -112,14 +103,24 @@
     <string>Version</string>
    </property>
   </action>
-  <action name="actionAbout_2">
+  <action name="menuAbout">
    <property name="text">
     <string>About</string>
    </property>
   </action>
-  <action name="actionStart_Game_2">
+  <action name="menuStartGame">
    <property name="text">
     <string>Start Game</string>
+   </property>
+  </action>
+  <action name="menuSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="menuClose">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>
