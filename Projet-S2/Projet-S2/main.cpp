@@ -19,15 +19,17 @@ int main(int argc, char *argv[])
 { 
 	QApplication a(argc, argv);
 
-	MainWindow w;
-	w.show();
-
-	srand(time(NULL));
-
 	//cree player, platform et liste obstacles
 	Runner * player = new Runner(100, 10, 100, 100);
 	Liste liste;
 	Platform* platform = new Platform(player, liste);
+
+	MainWindow w;
+	w.set_platform(platform);
+	w.show();
+
+	srand(time(NULL));
+
 
 	return a.exec();
 }

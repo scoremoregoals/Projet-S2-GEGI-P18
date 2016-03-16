@@ -25,6 +25,13 @@
 
 using namespace std;
 
+enum GameState
+{
+	NotInitialized,
+	Running,
+	Paused
+};
+
 class Platform : public QObject
 {
 	Q_OBJECT
@@ -36,10 +43,12 @@ public:
 	void effacerObstacle(Obstacle* obstacle);
 	Direction checkPhoneme(int input);
 	void checkCollision();
+	void initialize();
 
 	//getters
 	Runner* get_player() { return _player; }
 	Liste* get_listeObstaclesActifs() { return _listeObstaclesActifs; }
+	QGraphicsView* get_view() { return _view; }
 
 public slots:
 	void Update();
@@ -49,10 +58,12 @@ private:
 	Runner* _player;
 	int _level;
 	bool _isPaused;
+	bool _gameRunning;
+	GameState _gameState;
 	Liste* _listeObstaclesActifs;
 	QGraphicsScene* _scene;
 	QTimer* timerFrame;
-	QElapsedTimer* timer;
+	QElapsedTimer* timerElapsed;
 	QGraphicsView* _view;
 	qint64 currentFrameTime;
 	qint64 lastFrameTime;

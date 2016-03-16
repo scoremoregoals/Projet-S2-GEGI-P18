@@ -15,6 +15,8 @@ Platform::Platform(Runner * player, Liste& liste)// ObstacleID* id[MAX_OBSTACLES
 	_player = player;
 	_level = 1;
 	_isPaused = false;
+	_gameRunning = false;
+	_gameState = NotInitialized;
 
 	//scene
 	_scene = new QGraphicsScene();
@@ -28,7 +30,6 @@ Platform::Platform(Runner * player, Liste& liste)// ObstacleID* id[MAX_OBSTACLES
 	//player
 	_player->setRect(0, 0, _player->get_width(), _player->get_height());
 	_player->setFlag(QGraphicsItem::ItemIsFocusable);
-	_player->setFocus();
 	_scene->addItem(_player);
 	_player->setPos(_view->width() / 2 - _player->rect().width() / 2,
 		_view->height() - _player->rect().height() - 5);
@@ -52,32 +53,117 @@ Platform::Platform(Runner * player, Liste& liste)// ObstacleID* id[MAX_OBSTACLES
 	//timer frame
 	timerFrame = new QTimer();
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
+	timerElapsed = new QElapsedTimer();
+}
+
+void Platform::initialize()
+{
 	timerFrame->setInterval(FRAMETIME);
 	timerFrame->start();
+	timerElapsed->start();
 
 	currentFrameTime = 0;
 	lastFrameTime = 0;
 	timeSinceLastFrame = 0;
 
-	timer = new QElapsedTimer();
-	timer->start();
+	_player->setFocus();
 
-	_view->show();
+	_gameState = Running;
 }
 
 void Platform::Update()
 {
-	if (!_player->get_isRunning()) //on update pas en pause
+	/*if (!_player->get_isRunning() && _gameState != Paused) //si la touche escape a ete appuyee
 	{
-		if (!_isPaused)
+		cout << "game paused" << endl;
+		_gameState = Paused;
+	}*/
+	/*if (_player->get_isRunning() && _gameState == Paused)
+	{
+		cout << "game unpaused" << endl;
+		_gameState = Running;
+	}*/
+	Obstacle* temp;
+	Direction direction;
+	switch (_gameState)
+	{
+	case NotInitialized:
+		return;
+		break;
+	case Paused:
+		if (_player->get_isRunning())
 		{
-			cout << "game paused" << endl;
-			_isPaused = true;
+			cout << "game unpaused" << endl;
+			_gameState = Running;
 		}
 		return;
+		break;
+	case Running:
+		if (!_player->get_isRunning())
+		{
+			cout << "game paused" << endl;
+			_gameState = Paused;
+		}
+		currentFrameTime = timerElapsed->elapsed();
+		timeSinceLastFrame = currentFrameTime - lastFrameTime;
+		lastFrameTime = currentFrameTime;
+		_gameTime->set_value(currentFrameTime / 1000);
+		_gameTime->draw();
+		//cout << "current frame : " <<  currentFrameTime << endl;
+
+		if (currentFrameTime % 2000 < 150)
+		{
+			ajouterAuJeu(vlaser);
+		}
+
+		if (currentFrameTime % 6000 < 150)
+		{
+			ajouterAuJeu(powerUp);
+		}
+
+		if (currentFrameTime % 4000 < 150)
+		{
+			ajouterAuJeu(hlaser);
+		}
+
+		if (currentFrameTime % 10000 < 100)
+		{
+			_level++;
+			MAX_OBSTACLES_ACTIFS++;
+			cout << "------>> level up : " << _level << " ---->> max obstacles -> " << MAX_OBSTACLES_ACTIFS << endl;
+		}
+
+		//MOVE PLAYER
+		direction = checkPhoneme(LAST_PHONEME);
+		_player->move(direction);
+
+		if (_listeObstaclesActifs->get_longueur() < 1)   //n'update pas et ne check pas collisions si liste vide
+			return;
+
+		//MOVE OBSTACLES
+		_listeObstaclesActifs->premier();
+		temp = _listeObstaclesActifs->get_courant();
+		for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+		{
+			temp->update();
+			if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //en dehors du jeu
+			{
+				effacerObstacle(temp);
+			}
+			_listeObstaclesActifs->suivant();
+			temp = _listeObstaclesActifs->get_courant();
+		}
+
+		//CHECK COLLISION ENTRE PLAYER ET OBSTACLES
+		checkCollision();
+		break;
+	default:
+		break;
 	}
+	/*if (!_gameRunning) //jeu pas commencé
+		return;
 	_isPaused = false;
-	currentFrameTime = timer->elapsed();
+	currentFrameTime = timerElapsed->elapsed();
 	timeSinceLastFrame = currentFrameTime - lastFrameTime;
 	lastFrameTime = currentFrameTime;
 	_gameTime->set_value(currentFrameTime / 1000);
@@ -128,7 +214,7 @@ void Platform::Update()
 	}
 
 	//CHECK COLLISION ENTRE PLAYER ET OBSTACLES
-	checkCollision();
+	checkCollision();*/
 }
 
 

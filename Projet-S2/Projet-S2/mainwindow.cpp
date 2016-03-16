@@ -20,6 +20,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_pbStartGame_clicked()
 {
     std::cout << "The game is starting - from the push button" << std::endl;
+	this->hide();
+	_platform->get_view()->show();
+	_platform->initialize();
+
+	//set options to platform (game)
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *keyevent)
@@ -32,4 +37,9 @@ void MainWindow::keyPressEvent(QKeyEvent *keyevent)
         std::cout << "Key Left pressed" << std::endl;
     else if(keyevent->key() == Qt::Key_D)
         std::cout << "Key Right pressed" << std::endl;
+}
+
+void MainWindow::set_platform(Platform* platform)
+{
+	_platform = platform;
 }
