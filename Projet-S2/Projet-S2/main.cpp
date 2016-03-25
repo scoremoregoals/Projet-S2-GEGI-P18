@@ -19,10 +19,7 @@ int main(int argc, char *argv[])
 { 
 	QApplication a(argc, argv);
 
-	//cree player, platform et liste obstacles
-	Runner * player = new Runner(100, 10, 100, 100);
-	Liste liste;
-	Platform* platform = new Platform(player, liste);
+	Platform* platform = new Platform();
 
 	MainWindow w;
 	w.set_platform(platform);

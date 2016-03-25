@@ -2,11 +2,12 @@
 #define RUNNER_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include "global.h"
 
-class Runner : public QGraphicsRectItem
+class Runner : public QGraphicsPixmapItem
 {
 public:
 	Runner();

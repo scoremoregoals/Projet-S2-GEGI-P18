@@ -1,27 +1,30 @@
 #include "Vlaser.h"
 
 Vlaser::Vlaser()
-{}
-
-Vlaser::Vlaser(int speed, int width, int height, int damage)
 {
 	set_type(vlaser);
-	set_speed(speed);
-	set_width(width);
-	set_height(height);
-	set_damage(damage);
+	set_speed(5);
+	set_width(10);
+	set_height(50);
+	set_damage(10);
+
+	//sounds
+	_spawnSound = new QMediaPlayer();
+	_spawnSound->setMedia(QUrl("laserSpawn.wav"));
 }
 
 Vlaser::~Vlaser()
-{}
+{
+	delete _spawnSound;
+}
 
 void Vlaser::update()
 {
 	setPos(x(), y() + get_speed());
-	if (y() > SCREEN_WIDTH)
-	{
-		scene()->removeItem(this);
-		delete this;
-	}
+}
+
+void Vlaser::playSpawnSound()
+{
+	_spawnSound->play();
 }
 

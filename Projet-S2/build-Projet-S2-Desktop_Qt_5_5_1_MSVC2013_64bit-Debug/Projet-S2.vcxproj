@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1466E36E-6DB5-3FD2-868B-3F28117B583D}</ProjectGuid>
+    <ProjectGuid>{E5000004-95A9-3004-83E7-D1F287B28F9E}</ProjectGuid>
     <RootNamespace>Projet-S2</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <PlatformToolSet>v120</PlatformToolSet>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
@@ -25,7 +25,7 @@
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>Projet-S2</PrimaryOutput>
   </PropertyGroup>
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <PlatformToolSet>v120</PlatformToolSet>
     <OutputDirectory>release\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
@@ -36,27 +36,27 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Projet-S2</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">Projet-S2</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
-    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Projet-S2</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Projet-S2</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\Projet-S2;.;C:\Qt\5.5\msvc2013_64\include;C:\Qt\5.5\msvc2013_64\include\QtWidgets;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtANGLE;C:\Qt\5.5\msvc2013_64\include\QtCore;debug;.;C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Projet-S2;.;C:\Qt\5.5\msvc2013_64\include;C:\Qt\5.5\msvc2013_64\include\QtMultimedia;C:\Qt\5.5\msvc2013_64\include\QtWidgets;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtANGLE;C:\Qt\5.5\msvc2013_64\include\QtNetwork;C:\Qt\5.5\msvc2013_64\include\QtCore;debug;.;C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -64,7 +64,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>debug\</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_QML_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_QML_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -73,9 +73,9 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\Qt5Multimediad.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Networkd.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -90,12 +90,12 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_QML_DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_QML_DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\Projet-S2;.;C:\Qt\5.5\msvc2013_64\include;C:\Qt\5.5\msvc2013_64\include\QtWidgets;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtANGLE;C:\Qt\5.5\msvc2013_64\include\QtCore;release;.;C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Projet-S2;.;C:\Qt\5.5\msvc2013_64\include;C:\Qt\5.5\msvc2013_64\include\QtMultimedia;C:\Qt\5.5\msvc2013_64\include\QtWidgets;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtANGLE;C:\Qt\5.5\msvc2013_64\include\QtNetwork;C:\Qt\5.5\msvc2013_64\include\QtCore;release;.;C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:strictStrings -w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -103,9 +103,10 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>release\</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_QML_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_QML_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
-      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>
+      </ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -113,9 +114,9 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\Qt5Multimedia.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Network.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -131,7 +132,7 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_QML_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;WIN64;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_QML_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -149,7 +150,6 @@
     <ClCompile Include="..\Projet-S2\powerUp.cpp" />
     <ClCompile Include="..\Projet-S2\rectangle.cpp" />
     <ClCompile Include="..\Projet-S2\runner.cpp" />
-    <ClCompile Include="..\Projet-S2\vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Projet-S2\Hlaser.h" />
@@ -159,59 +159,94 @@
     <ClInclude Include="..\Projet-S2\id.h" />
     <ClInclude Include="..\Projet-S2\liste.h" />
     <CustomBuild Include="..\Projet-S2\mainwindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\mainwindow.h -o debug\moc_mainwindow.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../Projet-S2/mainwindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_mainwindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\mainwindow.h -o release\moc_mainwindow.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../Projet-S2/mainwindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_mainwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtMultimedia -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtNetwork -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\mainwindow.h -o debug\moc_mainwindow.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC ../Projet-S2/mainwindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_mainwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtMultimedia -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtNetwork -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\mainwindow.h -o release\moc_mainwindow.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC ../Projet-S2/mainwindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_mainwindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="..\Projet-S2\obstacle.h" />
     <CustomBuild Include="..\Projet-S2\platform.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\platform.h -o debug\moc_platform.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../Projet-S2/platform.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\moc_platform.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\platform.h -o release\moc_platform.cpp&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../Projet-S2/platform.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_platform.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtMultimedia -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtNetwork -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\platform.h -o debug\moc_platform.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC ../Projet-S2/platform.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_platform.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.5/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Qt/5.5/msvc2013_64/include -IC:/Qt/5.5/msvc2013_64/include/QtMultimedia -IC:/Qt/5.5/msvc2013_64/include/QtWidgets -IC:/Qt/5.5/msvc2013_64/include/QtGui -IC:/Qt/5.5/msvc2013_64/include/QtANGLE -IC:/Qt/5.5/msvc2013_64/include/QtNetwork -IC:/Qt/5.5/msvc2013_64/include/QtCore -I. ..\Projet-S2\platform.h -o release\moc_platform.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC ../Projet-S2/platform.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_platform.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="..\Projet-S2\player.h" />
     <ClInclude Include="..\Projet-S2\powerUp.h" />
     <ClInclude Include="..\Projet-S2\rectangle.h" />
     <ClInclude Include="..\Projet-S2\runner.h" />
-    <ClInclude Include="..\Projet-S2\vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_mainwindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_mainwindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_platform.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_platform.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Projet-S2\mainwindow.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\Projet-S2\mainwindow.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\uic.exe ..\Projet-S2\mainwindow.ui -o ui_mainwindow.h&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC ../Projet-S2/mainwindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">ui_mainwindow.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\Projet-S2\mainwindow.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">setlocal&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;C:\Qt\5.5\msvc2013_64\bin\uic.exe ..\Projet-S2\mainwindow.ui -o ui_mainwindow.h&#x000D;&#x000A;if errorlevel 1 goto VCEnd&#x000D;&#x000A;endlocal</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC ../Projet-S2/mainwindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">ui_mainwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Projet-S2\mainwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\uic.exe ..\Projet-S2\mainwindow.ui -o ui_mainwindow.h
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIC ../Projet-S2/mainwindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ui_mainwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Projet-S2\mainwindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+if errorlevel 1 goto VCEnd
+C:\Qt\5.5\msvc2013_64\bin\uic.exe ..\Projet-S2\mainwindow.ui -o ui_mainwindow.h
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIC ../Projet-S2/mainwindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ui_mainwindow.h;%(Outputs)</Outputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.png" />
+    <Image Include="hlaser.png" />
+    <Image Include="player.png" />
+    <Image Include="powerup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="backgroundmusic.mp3" />
+    <Media Include="laserCollision.wav" />
+    <Media Include="laserSpawn.wav" />
+    <Media Include="powerUpCollision.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

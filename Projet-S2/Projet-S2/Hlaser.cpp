@@ -1,23 +1,30 @@
 #include "Hlaser.h"
-#include <iostream>
 
 Hlaser::Hlaser()
-{}
-
-Hlaser::Hlaser(int speed, int width, int height, int damage)
 {
 	set_type(hlaser);
-	set_speed(speed);
-	set_width(width);
-	set_height(height);
-	set_damage(damage);
+	set_speed(5);
+	set_width(50);
+	set_height(10);
+	set_damage(10);
+
+	//sounds
+	_spawnSound = new QMediaPlayer();
+	_spawnSound->setMedia(QUrl("laserSpawn.wav"));
 }
 
 Hlaser::~Hlaser()
-{}
+{
+	delete _spawnSound;
+}
 
 void Hlaser::update()
 {
 	setPos(x() + get_speed(), y() + get_speed());
+}
+
+void Hlaser::playSpawnSound()
+{
+	_spawnSound->play();
 }
 

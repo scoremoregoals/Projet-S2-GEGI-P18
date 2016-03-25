@@ -3,24 +3,15 @@
 
 Runner::Runner()
 {
-	_life = 0;
-	_speed = 0;
-	_width = 0;
-	_height = 0;
+	_life = 100;
+	_speed = 10;
+	_width = 100;
+	_height = 100;
 	_isRunning = false;
 }
 
 Runner::~Runner()
 {}
-
-Runner::Runner(int life, int speed, int width, int height) //ajout sprite
-{
-	_life = life;
-	_speed = speed;
-	_width = width;
-	_height = height;
-	_isRunning = false;
-}
 
 void Runner::move(Direction direction)
 {
@@ -37,8 +28,8 @@ void Runner::move(Direction direction)
 	default:
 		break;
 	}
-	if (x() >= scene()->width() - rect().width() - 4)
-		setPos(scene()->width() - rect().width() - 4, y());
+	if (x() >= scene()->width() - _width - 4)
+		setPos(scene()->width() - _width - 4, y());
 	if (x() <= 0)
 		setPos(0, y());
 }

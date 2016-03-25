@@ -1,26 +1,21 @@
 #include "platform.h"
 #include <iostream> 
 
-
-Platform::Platform()
-{	
-}
-
 Platform::~Platform()
 {}
 
-Platform::Platform(Runner * player, Liste& liste)// ObstacleID* id[MAX_OBSTACLES_ACTIFS])
+Platform::Platform()// ObstacleID* id[MAX_OBSTACLES_ACTIFS])
 {
-	_listeObstaclesActifs = &liste;
-	_player = player;
-	_level = 1;
-	_isPaused = false;
-	_gameRunning = false;
+	//gamestate
 	_gameState = NotInitialized;
 
-	//scene
+	//liste d'obstacle
+	_listeObstaclesActifs = new Liste();
+
+	//scene and view
 	_scene = new QGraphicsScene();
 	_view = new QGraphicsView();
+	_view->setBackgroundBrush(QBrush(QImage("background.png")));
 	_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	_view->setFixedSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -28,28 +23,38 @@ Platform::Platform(Runner * player, Liste& liste)// ObstacleID* id[MAX_OBSTACLES
 	_view->setScene(_scene);
 
 	//player
-	_player->setRect(0, 0, _player->get_width(), _player->get_height());
+	_player = new Runner();
+	_player->setPixmap(QPixmap("player.png"));
 	_player->setFlag(QGraphicsItem::ItemIsFocusable);
 	_scene->addItem(_player);
-	_player->setPos(_view->width() / 2 - _player->rect().width() / 2,
-		_view->height() - _player->rect().height() - 5);
+	_player->setPos(_view->width() / 2 - _player->get_width() / 2,
+		_view->height() - _player->get_height() - 5);
 	_player->set_isRunning(true);
 
-	//Text
+	/*Texts*/
+	//health
 	_playerHealth = new Text();
 	_playerHealth->set_value(_player->get_life());
 	_playerHealth->set_name("Health");
 	_playerHealth->setPos(_playerHealth->x(), _playerHealth->y() + 25);
 	_scene->addItem(_playerHealth);
 	_playerHealth->draw();
-	
+	//gametime
 	_gameTime = new Text();
 	_gameTime->set_value(currentFrameTime / 1000);
 	_gameTime->set_name("GameTime");
 	_scene->addItem(_gameTime);
 	_gameTime->draw();
 
-
+	/*SOUNDS*/
+	//background music
+	_bgMusic = new QMediaPlayer();
+	_bgMusic->setMedia(QUrl("backgroundmusic.mp3"));
+	//collisions
+	_laserCollisionSound = new QMediaPlayer();
+	_laserCollisionSound->setMedia(QUrl("laserCollision.wav"));
+	_powerUpCollisionSound = new QMediaPlayer();
+	_powerUpCollisionSound->setMedia(QUrl("powerUpCollision.wav"));
 	//timer frame
 	timerFrame = new QTimer();
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
@@ -69,20 +74,12 @@ void Platform::initialize()
 	_player->setFocus();
 
 	_gameState = Running;
+
+	_bgMusic->play();
 }
 
 void Platform::Update()
 {
-	/*if (!_player->get_isRunning() && _gameState != Paused) //si la touche escape a ete appuyee
-	{
-		cout << "game paused" << endl;
-		_gameState = Paused;
-	}*/
-	/*if (_player->get_isRunning() && _gameState == Paused)
-	{
-		cout << "game unpaused" << endl;
-		_gameState = Running;
-	}*/
 	Obstacle* temp;
 	Direction direction;
 	switch (_gameState)
@@ -96,7 +93,12 @@ void Platform::Update()
 			cout << "game unpaused" << endl;
 			_gameState = Running;
 		}
+		//stop music
+		_bgMusic->pause();
 		return;
+		break;
+	case GameOver:
+		//player loses
 		break;
 	case Running:
 		if (!_player->get_isRunning())
@@ -104,33 +106,34 @@ void Platform::Update()
 			cout << "game paused" << endl;
 			_gameState = Paused;
 		}
+		//play music
+		_bgMusic->play();
+
+		//frame times
 		currentFrameTime = timerElapsed->elapsed();
 		timeSinceLastFrame = currentFrameTime - lastFrameTime;
 		lastFrameTime = currentFrameTime;
-		_gameTime->set_value(currentFrameTime / 1000);
+
+		//text
+		_gameTime->set_value(currentFrameTime/1000);
 		_gameTime->draw();
+
 		//cout << "current frame : " <<  currentFrameTime << endl;
 
-		if (currentFrameTime % 2000 < 150)
+		//le spawn des obstacles a pas tant rapport c'etait juste pour tester
+		if (currentFrameTime % 3000 < 150)
 		{
 			ajouterAuJeu(vlaser);
 		}
 
-		if (currentFrameTime % 6000 < 150)
+		if (currentFrameTime % 6300 < 150)
 		{
 			ajouterAuJeu(powerUp);
 		}
 
-		if (currentFrameTime % 4000 < 150)
+		if (currentFrameTime % 4500 < 150)
 		{
 			ajouterAuJeu(hlaser);
-		}
-
-		if (currentFrameTime % 10000 < 100)
-		{
-			_level++;
-			MAX_OBSTACLES_ACTIFS++;
-			cout << "------>> level up : " << _level << " ---->> max obstacles -> " << MAX_OBSTACLES_ACTIFS << endl;
 		}
 
 		//MOVE PLAYER
@@ -160,61 +163,6 @@ void Platform::Update()
 	default:
 		break;
 	}
-	/*if (!_gameRunning) //jeu pas commencé
-		return;
-	_isPaused = false;
-	currentFrameTime = timerElapsed->elapsed();
-	timeSinceLastFrame = currentFrameTime - lastFrameTime;
-	lastFrameTime = currentFrameTime;
-	_gameTime->set_value(currentFrameTime / 1000);
-	_gameTime->draw();
-	//cout << "current frame : " <<  currentFrameTime << endl;
-
-	if (currentFrameTime % 2000 < 150)
-	{
-		ajouterAuJeu(vlaser);
-	}
-
-	if (currentFrameTime % 6000 < 150)
-	{
-		ajouterAuJeu(powerUp);
-	}
-
-	if (currentFrameTime % 4000 < 150)
-	{
-		ajouterAuJeu(hlaser);
-	}
-
-	if (currentFrameTime % 10000 < 100)
-	{
-		_level++;
-		MAX_OBSTACLES_ACTIFS++;
-		cout << "------>> level up : " << _level << " ---->> max obstacles -> " << MAX_OBSTACLES_ACTIFS << endl;
-	}
-
-	//MOVE PLAYER
-	Direction direction = checkPhoneme(LAST_PHONEME);
-	_player->move(direction);
-
-	if (_listeObstaclesActifs->get_longueur() < 1)   //n'update pas et ne check pas collisions si liste vide
-		return;
-
-	//MOVE OBSTACLES
-	_listeObstaclesActifs->premier();
-	Obstacle* temp = _listeObstaclesActifs->get_courant();
-	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
-	{
-		temp->update();
-		if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //en dehors du jeu
-		{
-			effacerObstacle(temp);
-		}
-		_listeObstaclesActifs->suivant();
-		temp = _listeObstaclesActifs->get_courant();
-	}
-
-	//CHECK COLLISION ENTRE PLAYER ET OBSTACLES
-	checkCollision();*/
 }
 
 
@@ -245,6 +193,7 @@ void Platform::checkCollision()
 	{
 		Rectangle* obstacleRect = new Rectangle(temp->get_width(), temp->get_height(), 
 			temp->x(), temp->y());   //rectangle de collision pour obstacle
+
 		if (playerRect->checkIntersect(obstacleRect))
 		{
 			switch (temp->get_type())
@@ -252,6 +201,9 @@ void Platform::checkCollision()
 			case powerUp:
 				cout << "player collision with powerUp" << endl;
 				//...
+				if (_powerUpCollisionSound->state() == QMediaPlayer::PlayingState)
+					_powerUpCollisionSound->setPosition(0);
+				_powerUpCollisionSound->play();
 				effacerObstacle(temp);
 				//...
 				break;
@@ -260,6 +212,10 @@ void Platform::checkCollision()
 				_player->set_life(_player->get_life() - temp->get_damage());
 				_playerHealth->set_value(_player->get_life());
 				_playerHealth->draw();
+				//play laser sound
+				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
+					_laserCollisionSound->setPosition(0);
+				_laserCollisionSound->play();
 				effacerObstacle(temp);
 				break;
 			case vlaser:
@@ -267,6 +223,10 @@ void Platform::checkCollision()
 				_player->set_life(_player->get_life() - temp->get_damage());
 				_playerHealth->set_value(_player->get_life());
 				_playerHealth->draw();
+				//play laser sound
+				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
+					_laserCollisionSound->setPosition(0);
+				_laserCollisionSound->play();
 				effacerObstacle(temp);
 				break;
 			default:
@@ -282,7 +242,7 @@ void Platform::checkCollision()
 }
 
 
-void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerUp1, 4->powerUp2
+void Platform::ajouterAuJeu(TypeObstacle type)
 {
 	if (_listeObstaclesActifs->get_longueur() == MAX_OBSTACLES_ACTIFS)
 	{
@@ -293,25 +253,27 @@ void Platform::ajouterAuJeu(TypeObstacle type) //1->hlaserm 2->vlaser, 3->powerU
 	switch (type)
 	{
 	case hlaser:
-		temp = new Hlaser(10, 50, 10, 10);    //on cre l'obstacle
+		temp = new Hlaser();    //on cre l'obstacle
 		_listeObstaclesActifs->ajouter(temp);        //on l'ajoute a la liste
-		temp->setRect(0, 0, temp->get_width(), temp->get_height());
+		temp->setPixmap(QPixmap("hlaser.png"));
 		temp->setPos(0 - temp->get_height(), temp->spawnHorizontal());
 		_scene->addItem(temp);
+		temp->playSpawnSound();
 		cout << "spawn hlaser" << endl;
 		break;
 	case vlaser:
-		temp = new Vlaser(10, 10, 50, 10);
+		temp = new Vlaser();
 		_listeObstaclesActifs->ajouter(temp);
-		temp->setRect(0, 0, temp->get_width(), temp->get_height());
+		temp->setPixmap(QPixmap("vlaser.png"));
 		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
 		_scene->addItem(temp);
+		temp->playSpawnSound();
 		cout << "spawn vlaser" << endl;
 		break;
 	case powerUp:
-		temp = new PowerUp(10, 50, 50, 0);
+		temp = new PowerUp();
 		_listeObstaclesActifs->ajouter(temp);
-		temp->setRect(0, 0, temp->get_width(), temp->get_height());
+		temp->setPixmap(QPixmap("powerup.png"));
 		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
 		_scene->addItem(temp);
 		cout << "spawn powerUp" << endl;

@@ -2,11 +2,12 @@
 #define OBSTACLE_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include "vector2.h"
 #include "global.h"
 
-class Obstacle : public QGraphicsRectItem
+class Obstacle : public QGraphicsPixmapItem
 {
 public:
 	Obstacle();
@@ -14,6 +15,7 @@ public:
 
 	//virtuals
 	virtual void update() = 0; // est appelee a chaque frame, update la position, etc -> a implementer
+	virtual void playSpawnSound() = 0 ;
 
 	int spawnHorizontal();
 	int spawnVertical();

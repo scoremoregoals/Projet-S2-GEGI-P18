@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Form Files">
@@ -34,6 +34,15 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Ressources">
+      <UniqueIdentifier>{309d175b-d211-494b-b60b-2051c1f31206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressources\textures">
+      <UniqueIdentifier>{98452c74-50b6-4b9e-b056-1bcbc7e87575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressources\sons">
+      <UniqueIdentifier>{4ac7cecc-6369-4c10-acf6-2aeb2cbd35d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +88,6 @@
     <ClCompile Include="..\Projet-S2\runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Projet-S2\Hlaser.h">
@@ -123,9 +129,6 @@
     <ClInclude Include="..\Projet-S2\runner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_mainwindow.cpp">
@@ -148,5 +151,33 @@
     <CustomBuild Include="..\Projet-S2\mainwindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.png">
+      <Filter>Ressources\textures</Filter>
+    </Image>
+    <Image Include="hlaser.png">
+      <Filter>Ressources\textures</Filter>
+    </Image>
+    <Image Include="player.png">
+      <Filter>Ressources\textures</Filter>
+    </Image>
+    <Image Include="powerup.png">
+      <Filter>Ressources\textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="backgroundmusic.mp3">
+      <Filter>Ressources\sons</Filter>
+    </Media>
+    <Media Include="laserCollision.wav">
+      <Filter>Ressources\sons</Filter>
+    </Media>
+    <Media Include="laserSpawn.wav">
+      <Filter>Ressources\sons</Filter>
+    </Media>
+    <Media Include="powerUpCollision.wav">
+      <Filter>Ressources\sons</Filter>
+    </Media>
   </ItemGroup>
 </Project>

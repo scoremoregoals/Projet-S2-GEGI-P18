@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QTimer>
+#include <QMediaPlayer>
 #include <QKeyEvent>
 #include <QObject>
 #include <QList>
@@ -29,7 +30,8 @@ enum GameState
 {
 	NotInitialized,
 	Running,
-	Paused
+	Paused,
+	GameOver
 };
 
 class Platform : public QObject
@@ -37,7 +39,6 @@ class Platform : public QObject
 	Q_OBJECT
 public:
 	Platform();
-	Platform(Runner * player, Liste& liste);// ObstacleID* id[MAX_OBSTACLES_ACTIFS]);
 	virtual ~Platform();
 
 	void effacerObstacle(Obstacle* obstacle);
@@ -56,18 +57,24 @@ public slots:
 
 private:
 	Runner* _player;
-	int _level;
-	bool _isPaused;
-	bool _gameRunning;
 	GameState _gameState;
 	Liste* _listeObstaclesActifs;
 	QGraphicsScene* _scene;
+	QGraphicsView* _view;
+
+	//sounds
+	QMediaPlayer* _bgMusic;
+	QMediaPlayer* _laserCollisionSound;
+	QMediaPlayer* _powerUpCollisionSound;
+
+	//time
 	QTimer* timerFrame;
 	QElapsedTimer* timerElapsed;
-	QGraphicsView* _view;
 	qint64 currentFrameTime;
 	qint64 lastFrameTime;
 	qint64 timeSinceLastFrame;
+
+	//texts
 	Text* _playerHealth;
 	Text* _gameTime;
 };
