@@ -2,12 +2,20 @@
 #include <iostream> 
 
 Platform::~Platform()
-{}
+{
+	delete _player;
+	delete _listeObstaclesActifs;
+}
 
-Platform::Platform()// ObstacleID* id[MAX_OBSTACLES_ACTIFS])
+Platform::Platform()
 {
 	//gamestate
 	_gameState = NotInitialized;
+	_gameOver = false;
+
+	//level
+	_level = 1;
+	_levelup = false;
 
 	//liste d'obstacle
 	_listeObstaclesActifs = new Liste();
@@ -45,6 +53,13 @@ Platform::Platform()// ObstacleID* id[MAX_OBSTACLES_ACTIFS])
 	_gameTime->set_name("GameTime");
 	_scene->addItem(_gameTime);
 	_gameTime->draw();
+	//level
+	_levelText = new Text();
+	_levelText->set_value(_level);
+	_levelText->set_name("Level");
+	_levelText->setPos(_view->width() / 2 - 10, 0);
+	_scene->addItem(_levelText);
+	_levelText->draw();
 
 	/*SOUNDS*/
 	//background music
@@ -55,10 +70,16 @@ Platform::Platform()// ObstacleID* id[MAX_OBSTACLES_ACTIFS])
 	_laserCollisionSound->setMedia(QUrl("laserCollision.wav"));
 	_powerUpCollisionSound = new QMediaPlayer();
 	_powerUpCollisionSound->setMedia(QUrl("powerUpCollision.wav"));
+	//gameover
+	_gameOverSound = new QMediaPlayer();
+	_gameOverSound->setMedia(QUrl("gameOver.wav"));
+
 	//timer frame
 	timerFrame = new QTimer();
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
 	timerElapsed = new QElapsedTimer();
+
+
 }
 
 void Platform::initialize()
@@ -76,6 +97,8 @@ void Platform::initialize()
 	_gameState = Running;
 
 	_bgMusic->play();
+
+	_view->show();
 }
 
 void Platform::Update()
@@ -84,7 +107,7 @@ void Platform::Update()
 	Direction direction;
 	switch (_gameState)
 	{
-	case NotInitialized:
+	case NotInitialized: //ne fait rien tant que le jeu n'est pas initie
 		return;
 		break;
 	case Paused:
@@ -99,6 +122,25 @@ void Platform::Update()
 		break;
 	case GameOver:
 		//player loses
+		if (!_gameOver)
+		{
+			cout << "GAME OVER!" << endl;
+			_gameOverImage = new QGraphicsPixmapItem();
+			_gameOverImage->setPixmap(QPixmap("gameover.png"));
+			_gameOverImage->setPos(0, 0);
+			_gameOverImage->setOpacity(0.00);
+			_scene->addItem(_gameOverImage);
+			_gameOver = true;
+		}
+		_bgMusic->setVolume(_bgMusic->volume() - 0.015);
+		_gameOverImage->setOpacity(_gameOverImage->opacity() + 0.01);
+		if (_bgMusic->volume() <= 0)
+		{
+			_gameOverSound->play();
+			_bgMusic->stop();
+			timerFrame->stop();
+			delete this;
+		}
 		break;
 	case Running:
 		if (!_player->get_isRunning())
@@ -114,26 +156,39 @@ void Platform::Update()
 		timeSinceLastFrame = currentFrameTime - lastFrameTime;
 		lastFrameTime = currentFrameTime;
 
-		//text
+		//texts
 		_gameTime->set_value(currentFrameTime/1000);
 		_gameTime->draw();
+		_levelText->set_value(_level);
+		_levelText->draw();
 
-		//cout << "current frame : " <<  currentFrameTime << endl;
-
-		//le spawn des obstacles a pas tant rapport c'etait juste pour tester
-		if (currentFrameTime % 3000 < 150)
+		if (currentFrameTime % 1000 < 15)
 		{
 			ajouterAuJeu(vlaser);
 		}
 
-		if (currentFrameTime % 6300 < 150)
+		if (currentFrameTime % 5000 < 15)
 		{
 			ajouterAuJeu(powerUp);
 		}
 
-		if (currentFrameTime % 4500 < 150)
+		if (currentFrameTime % 1100 < 15)
 		{
 			ajouterAuJeu(hlaser);
+		}
+
+		if (currentFrameTime % 9900 < 20)
+			_levelup = true;
+
+		if (currentFrameTime % 10000 < 20 && _levelup)
+		{
+			if (currentFrameTime > 100)
+			{
+				_level++;
+				MAX_OBSTACLES_ACTIFS++;
+				cout << "------------LEVEL UP! LEVEL : " << _level << " max obstacles = " << MAX_OBSTACLES_ACTIFS << endl;
+				_levelup = false;
+			}
 		}
 
 		//MOVE PLAYER
@@ -236,6 +291,11 @@ void Platform::checkCollision()
 		delete obstacleRect;
 		_listeObstaclesActifs->suivant();              //increment temp au prochain element de la liste
 		temp = _listeObstaclesActifs->get_courant();
+
+		//si player meure
+		if (_player->get_life() <= 0)
+			_gameState = GameOver;
+
 	}
 	delete playerRect;
 	return;

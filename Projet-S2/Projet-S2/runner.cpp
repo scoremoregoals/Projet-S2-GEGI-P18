@@ -4,7 +4,7 @@
 Runner::Runner()
 {
 	_life = 100;
-	_speed = 10;
+	_speed = 3;
 	_width = 100;
 	_height = 100;
 	_isRunning = false;

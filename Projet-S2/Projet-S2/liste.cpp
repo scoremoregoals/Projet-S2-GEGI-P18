@@ -1,5 +1,5 @@
 #include "liste.h"
-
+#include <iostream>
 
 Liste::Liste()
 {
@@ -10,7 +10,14 @@ Liste::Liste()
 }
 
 Liste::~Liste()
-{}
+{
+	premier();
+	for (int i = 0; i < get_longueur(); i++)
+	{
+		effacer();
+		suivant();
+	}
+}
 
 
 

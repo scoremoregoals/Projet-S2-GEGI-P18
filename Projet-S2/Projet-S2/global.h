@@ -1,7 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-const int FRAMETIME = 1000 / 20;
+const int FRAMETIME = 1000 / 60;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 extern int MAX_OBSTACLES_ACTIFS;

@@ -56,16 +56,21 @@ public slots:
 	void ajouterAuJeu(TypeObstacle type);
 
 private:
+	int _level;
+	bool _levelup;
+	bool _gameOver;
 	Runner* _player;
 	GameState _gameState;
 	Liste* _listeObstaclesActifs;
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;
+	QGraphicsPixmapItem* _gameOverImage;
 
 	//sounds
 	QMediaPlayer* _bgMusic;
 	QMediaPlayer* _laserCollisionSound;
 	QMediaPlayer* _powerUpCollisionSound;
+	QMediaPlayer* _gameOverSound;
 
 	//time
 	QTimer* timerFrame;
@@ -77,6 +82,7 @@ private:
 	//texts
 	Text* _playerHealth;
 	Text* _gameTime;
+	Text* _levelText;
 };
 
 #endif //PLATFORM_H

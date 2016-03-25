@@ -3,7 +3,7 @@
 Vlaser::Vlaser()
 {
 	set_type(vlaser);
-	set_speed(5);
+	set_speed(2);
 	set_width(10);
 	set_height(50);
 	set_damage(10);

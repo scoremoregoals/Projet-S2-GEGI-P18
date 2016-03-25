@@ -21,7 +21,6 @@ void MainWindow::on_pbStartGame_clicked()
 {
     std::cout << "The game is starting - from the push button" << std::endl;
 	this->hide();
-	_platform->get_view()->show();
 	_platform->initialize();
 
 	//set options to platform (game)

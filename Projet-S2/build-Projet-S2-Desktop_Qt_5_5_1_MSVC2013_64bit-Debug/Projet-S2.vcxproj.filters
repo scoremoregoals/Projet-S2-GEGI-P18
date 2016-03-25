@@ -165,6 +165,9 @@
     <Image Include="powerup.png">
       <Filter>Ressources\textures</Filter>
     </Image>
+    <Image Include="gameover.png">
+      <Filter>Ressources\textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="backgroundmusic.mp3">
@@ -177,6 +180,9 @@
       <Filter>Ressources\sons</Filter>
     </Media>
     <Media Include="powerUpCollision.wav">
+      <Filter>Ressources\sons</Filter>
+    </Media>
+    <Media Include="gameOver.wav">
       <Filter>Ressources\sons</Filter>
     </Media>
   </ItemGroup>

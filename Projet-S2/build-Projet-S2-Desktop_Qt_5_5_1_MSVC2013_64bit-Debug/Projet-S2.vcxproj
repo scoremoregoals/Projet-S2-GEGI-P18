@@ -238,12 +238,14 @@ endlocal</Command>
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />
+    <Image Include="gameover.png" />
     <Image Include="hlaser.png" />
     <Image Include="player.png" />
     <Image Include="powerup.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="backgroundmusic.mp3" />
+    <Media Include="gameOver.wav" />
     <Media Include="laserCollision.wav" />
     <Media Include="laserSpawn.wav" />
     <Media Include="powerUpCollision.wav" />

@@ -1,4 +1,4 @@
 #include "global.h"
 
 int LAST_PHONEME = 0;
-int MAX_OBSTACLES_ACTIFS = 6;
+int MAX_OBSTACLES_ACTIFS = 3;

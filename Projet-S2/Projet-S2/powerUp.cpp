@@ -3,7 +3,7 @@
 PowerUp::PowerUp()
 {
 	set_type(powerUp);
-	set_speed(10);
+	set_speed(5);
 	set_width(50);
 	set_height(50);
 	set_damage(0);
