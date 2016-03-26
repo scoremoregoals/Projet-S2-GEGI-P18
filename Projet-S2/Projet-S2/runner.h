@@ -16,6 +16,7 @@ public:
 
 	void keyPressEvent(QKeyEvent *event);
 	void move(Direction direction);
+	void usePowerUp();
 	
 	//setters
 	void set_life(int life);
@@ -23,6 +24,7 @@ public:
 	void set_width(int width);
 	void set_height(int height);
 	void set_isRunning(bool run);
+	void set_usePowerup(bool use);
 	
 	//getters
 	int get_life() {return _life;}
@@ -30,6 +32,7 @@ public:
 	int get_width() {return _width;}
 	int get_height() {return _height;}
 	bool get_isRunning() { return _isRunning; }
+	bool get_usePowerup() { return _usePowerUp; }
 	
 private:
 	int _width;
@@ -37,6 +40,7 @@ private:
 	int _life;
 	int _speed;
 	bool _isRunning;
+	bool _usePowerUp;
 };
 
 

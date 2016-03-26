@@ -47,6 +47,8 @@ public:
 	Direction checkPhoneme(int input);
 	void checkCollision();
 	void initialize();
+	void usePowerUp();
+	void clearListe();
 
 	//getters
 	Runner* get_player() { return _player; }
@@ -61,6 +63,7 @@ private:
 	int _level;
 	bool _levelup;
 	bool _gameOver;
+	PowerUp* _currentPowerUp;
 	Runner* _player;
 	GameState _gameState;
 	Liste* _listeObstaclesActifs;
@@ -74,6 +77,8 @@ private:
 	QMediaPlayer* _laserCollisionSound;
 	QMediaPlayer* _powerUpCollisionSound;
 	QMediaPlayer* _gameOverSound;
+	QMediaPlayer* _destroySound;
+	QMediaPlayer* _slowDownSound;
 
 	//time
 	QTimer* timerFrame;

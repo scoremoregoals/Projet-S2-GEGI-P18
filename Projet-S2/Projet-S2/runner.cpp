@@ -1,5 +1,5 @@
 #include "runner.h"
-
+#include <iostream>
 
 Runner::Runner()
 {
@@ -8,6 +8,7 @@ Runner::Runner()
 	_width = 100;
 	_height = 100;
 	_isRunning = false;
+	_usePowerUp = false;
 }
 
 Runner::~Runner()
@@ -38,13 +39,15 @@ void Runner::keyPressEvent(QKeyEvent *event)
 {
 	if (event->key() == Qt::Key_Left)
 	{
-		setPos(x() - 10, y());
 		LAST_PHONEME = 1;
 	}
 	else if (event->key() == Qt::Key_Right)
 	{
-		setPos(x() + 10, y());
 		LAST_PHONEME = 2;
+	}
+	else if (event->key() == Qt::Key_Up)
+	{
+		usePowerUp();
 	}
 	else if (event->key() == Qt::Key_Escape)
 	{
@@ -55,7 +58,18 @@ void Runner::keyPressEvent(QKeyEvent *event)
 	}
 }
 
+void Runner::usePowerUp()
+{
+	std::cout << "use power up" << std::endl;
+	_usePowerUp = true;
+}
+
 //setters
+void Runner::set_usePowerup(bool use)
+{
+	_usePowerUp = use;
+}
+
 void Runner::set_life(int life)
 {
 	_life = life;

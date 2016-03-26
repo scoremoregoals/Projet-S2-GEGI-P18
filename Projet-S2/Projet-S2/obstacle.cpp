@@ -37,11 +37,6 @@ void Obstacle::set_height(int height)
 	_height = height;
 }
 
-void Obstacle::set_id(int id)
-{
-	_id = id;
-}
-
 void Obstacle::set_damage(int damage)
 {
 	_damage = damage;

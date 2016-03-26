@@ -20,7 +20,6 @@ Liste::~Liste()
 }
 
 
-
 void Liste::ajouter(Objet* objet)                 ///< ajouter un element la liste (cree un objet et l'ajoute à la tete)
 {
 	objet->set_lien(p_head);

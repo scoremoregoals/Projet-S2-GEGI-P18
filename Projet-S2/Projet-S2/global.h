@@ -21,5 +21,11 @@ enum Direction
 	nulle
 };
 
+enum PowerUpType
+{
+	Slow,
+	Destroy
+};
+
 
 #endif //GLOBAL_H
