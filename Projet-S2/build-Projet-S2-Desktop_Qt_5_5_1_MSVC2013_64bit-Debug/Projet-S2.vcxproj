@@ -139,6 +139,7 @@
     <ClCompile Include="..\Projet-S2\Text.cpp" />
     <ClCompile Include="..\Projet-S2\Vlaser.cpp" />
     <ClCompile Include="..\Projet-S2\animation.cpp" />
+    <ClCompile Include="..\Projet-S2\background.cpp" />
     <ClCompile Include="..\Projet-S2\global.cpp" />
     <ClCompile Include="..\Projet-S2\id.cpp" />
     <ClCompile Include="..\Projet-S2\liste.cpp" />
@@ -165,6 +166,7 @@
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../Projet-S2/animation.h</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\moc_animation.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="..\Projet-S2\background.h" />
     <ClInclude Include="..\Projet-S2\global.h" />
     <ClInclude Include="..\Projet-S2\id.h" />
     <ClInclude Include="..\Projet-S2\liste.h" />

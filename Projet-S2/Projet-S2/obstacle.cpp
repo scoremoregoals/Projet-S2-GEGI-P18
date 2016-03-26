@@ -11,7 +11,7 @@ Obstacle::~Obstacle()
 
 int Obstacle::spawnHorizontal()    // random position en Y, puis X en dehors de la map pour pas qu'on voit l'obstaacle quand il spawn
 {   //a modifier pour enlever positions trop pres du bord
-	int random = rand() % (SCREEN_HEIGHT - 300);
+	int random = rand() % (SCREEN_HEIGHT - 100);
 	return random;
 }
 

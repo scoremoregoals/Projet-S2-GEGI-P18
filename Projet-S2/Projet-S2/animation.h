@@ -11,7 +11,7 @@ class Animation : public QObject
 	Q_OBJECT
 public:
 	Animation();
-	Animation(int width, int height, int numFrames, int fps);
+	Animation(int width, int height, int numFrames, int fps, QString sheetPath);
 	~Animation();
 
 	QGraphicsPixmapItem* get_frame() { return _image; }
@@ -24,6 +24,7 @@ private:
 	QPixmap _frame;
 	QTimer* _frameTimer;
 	QGraphicsPixmapItem* _image;
+	QString _sheetPath;
 	int _numFrames;
 	int _currentFrame;
 	int _frameWidth;

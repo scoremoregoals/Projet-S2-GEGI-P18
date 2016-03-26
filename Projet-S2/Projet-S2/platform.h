@@ -24,6 +24,7 @@
 #include "global.h"
 #include "Text.h"
 #include "animation.h"
+#include "background.h"
 
 using namespace std;
 
@@ -66,6 +67,7 @@ private:
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;
 	QGraphicsPixmapItem* _gameOverImage;
+	BackGround* _background;
 
 	//sounds
 	QMediaPlayer* _bgMusic;
@@ -77,8 +79,9 @@ private:
 	QTimer* timerFrame;
 	QElapsedTimer* timerElapsed;
 	qint64 currentFrameTime;
-	qint64 lastFrameTime;
-	qint64 timeSinceLastFrame;
+	qint64 totalPauseTime;
+	qint64 timeSinceLastPause;
+	qint64 pauseTime;
 
 	//texts
 	Text* _playerHealth;
