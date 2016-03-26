@@ -12,12 +12,12 @@ public:
 	void draw();
 
 	void set_value(int value);
-	void set_name(char * name);
+	void set_name(QString name);
 
 	int get_value() { return _value; }
-	char* get_name() { return _name; }
+	QString get_name() { return _name; }
 private:
-	char* _name;
+	QString _name;
 	int _value;
 };
 

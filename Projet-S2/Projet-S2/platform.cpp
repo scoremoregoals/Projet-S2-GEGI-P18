@@ -79,7 +79,10 @@ Platform::Platform()
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
 	timerElapsed = new QElapsedTimer();
 
-
+	//animation test
+	Animation* animation = new Animation(50, 72, 10, FRAMETIME);
+	animation->get_frame()->setPos(0, 50);
+	_scene->addItem(animation->get_frame());
 }
 
 void Platform::initialize()

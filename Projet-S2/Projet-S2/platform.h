@@ -23,6 +23,7 @@
 #include "powerUp.h"
 #include "global.h"
 #include "Text.h"
+#include "animation.h"
 
 using namespace std;
 
