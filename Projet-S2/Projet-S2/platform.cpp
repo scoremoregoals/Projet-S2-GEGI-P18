@@ -23,12 +23,17 @@ Platform::Platform()
 	//scene and view
 	_scene = new QGraphicsScene();
 	_view = new QGraphicsView();
-	_view->setBackgroundBrush(QBrush(QImage("background.png")));
+	//_view->setBackgroundBrush(QBrush(QImage("background.png")));
 	_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	_view->setFixedSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	_scene->setSceneRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	_view->setScene(_scene);
+
+	//background
+	_background = new BackGround("background.png");
+	_scene->addItem(_background->get_background1());
+	_scene->addItem(_background->get_background2());
 
 	//player
 	_player = new Runner();
@@ -80,9 +85,9 @@ Platform::Platform()
 	timerElapsed = new QElapsedTimer();
 
 	//animation test
-	Animation* animation = new Animation(50, 72, 10, FRAMETIME);
-	animation->get_frame()->setPos(0, 50);
-	_scene->addItem(animation->get_frame());
+	Animation* _animation = new Animation(50, 72, 10, FRAMETIME, "spritesheet.png");
+	_animation->get_frame()->setPos(0, 50);
+	_scene->addItem(_animation->get_frame());
 }
 
 void Platform::initialize()
@@ -92,8 +97,9 @@ void Platform::initialize()
 	timerElapsed->start();
 
 	currentFrameTime = 0;
-	lastFrameTime = 0;
-	timeSinceLastFrame = 0;
+	totalPauseTime = 0;
+	timeSinceLastPause = 0;
+	pauseTime = 0;
 
 	_player->setFocus();
 
@@ -116,10 +122,15 @@ void Platform::Update()
 	case Paused:
 		if (_player->get_isRunning())
 		{
-			cout << "game unpaused" << endl;
+			cout << "GAME RESUMED" << endl;
+			totalPauseTime += timerElapsed->elapsed() - pauseTime;
+			//timerElapsed->restart();
 			_gameState = Running;
 		}
 		//stop music
+		cout << "timer : " << timerElapsed->elapsed() << endl;
+		cout << "pause time : " << pauseTime << endl;
+		cout << "total pause : " << totalPauseTime << endl << endl;
 		_bgMusic->pause();
 		return;
 		break;
@@ -148,19 +159,21 @@ void Platform::Update()
 	case Running:
 		if (!_player->get_isRunning())
 		{
-			cout << "game paused" << endl;
+			cout << "GAME PAUSED" << endl;
+			pauseTime = timerElapsed->elapsed();
 			_gameState = Paused;
 		}
 		//play music
 		_bgMusic->play();
 
-		//frame times
-		currentFrameTime = timerElapsed->elapsed();
-		timeSinceLastFrame = currentFrameTime - lastFrameTime;
-		lastFrameTime = currentFrameTime;
+		//frame time
+		currentFrameTime = timerElapsed->elapsed() - totalPauseTime;
+
+		//background
+		_background->move();
 
 		//texts
-		_gameTime->set_value(currentFrameTime/1000);
+		_gameTime->set_value((float)currentFrameTime / 1000);
 		_gameTime->draw();
 		_levelText->set_value(_level);
 		_levelText->draw();
@@ -170,7 +183,7 @@ void Platform::Update()
 			ajouterAuJeu(vlaser);
 		}
 
-		if (currentFrameTime % 5000 < 15)
+		if (currentFrameTime % 4000 < 25)
 		{
 			ajouterAuJeu(powerUp);
 		}

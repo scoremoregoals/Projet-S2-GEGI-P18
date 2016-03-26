@@ -49,6 +49,9 @@
     <ClCompile Include="..\Projet-S2\animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Projet-S2\background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\Projet-S2\global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +99,9 @@
     <CustomBuild Include="..\Projet-S2\animation.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="..\Projet-S2\background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\Projet-S2\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>

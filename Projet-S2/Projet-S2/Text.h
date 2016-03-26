@@ -11,14 +11,14 @@ public:
 
 	void draw();
 
-	void set_value(int value);
+	void set_value(float value);
 	void set_name(QString name);
 
 	int get_value() { return _value; }
 	QString get_name() { return _name; }
 private:
 	QString _name;
-	int _value;
+	float _value;
 };
 
 #endif // TEXT_H
