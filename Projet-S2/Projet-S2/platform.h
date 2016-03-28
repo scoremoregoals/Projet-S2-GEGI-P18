@@ -70,6 +70,7 @@ private:
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;
 	QGraphicsPixmapItem* _gameOverImage;
+	QGraphicsPixmapItem* _currentPowerUpImage;
 	BackGround* _background;
 
 	//sounds

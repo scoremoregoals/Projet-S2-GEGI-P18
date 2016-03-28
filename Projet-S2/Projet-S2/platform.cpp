@@ -36,6 +36,17 @@ Platform::Platform()
 	_background = new BackGround("background.png");
 	_scene->addItem(_background->get_background1());
 	_scene->addItem(_background->get_background2());
+	//container pour powerUp
+	QGraphicsPixmapItem* powerUpRect = new QGraphicsPixmapItem();
+	powerUpRect->setPixmap(QPixmap("powerUpRect.png"));
+	powerUpRect->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 10, 10);
+	powerUpRect->setZValue(1);
+	_scene->addItem(powerUpRect);
+	_currentPowerUpImage = new QGraphicsPixmapItem();
+	_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
+	_currentPowerUpImage->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 5, 15);
+	_currentPowerUpImage->setZValue(2);
+	_scene->addItem(_currentPowerUpImage);
 
 	//player
 	_player = new Runner();
@@ -273,6 +284,7 @@ void Platform::usePowerUp()
 		}
 		delete _currentPowerUp;
 		_currentPowerUp = nullptr;
+		_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
 	}
 	else
 	{
@@ -328,18 +340,28 @@ void Platform::checkCollision()
 			{
 			case powerUp:
 				cout << "player collision with powerUp" << endl;
-				//...
 				if (_powerUpCollisionSound->state() == QMediaPlayer::PlayingState)
 					_powerUpCollisionSound->setPosition(0);
 				_powerUpCollisionSound->play();
 
-				//creer deep copie du power up
+				//creer deep copie du power up pour affichage dans le coin droit
 				if (_currentPowerUp == nullptr)
 					_currentPowerUp = new PowerUp(temp);
 				else
 					cout << "deja un current powerup non utilise" << endl;
+
+				switch (_currentPowerUp->get_powerUpType())
+				{
+				case Slow:
+					_currentPowerUpImage->setPixmap(QPixmap("powerupSlow.png"));
+					break;
+				case Destroy:
+					_currentPowerUpImage->setPixmap(QPixmap("powerupDestroy.png"));
+					break;
+				default:
+					break;
+				}
 				effacerObstacle(temp);
-				//...
 				break;
 			case hlaser:
 				cout << "player collision with hlaser" << endl;
