@@ -22,6 +22,7 @@ Platform::Platform()
 
 	//powerup
 	_currentPowerUp = nullptr;
+	_slowedDown = false;
 
 	//scene and view
 	_scene = new QGraphicsScene();
@@ -39,12 +40,12 @@ Platform::Platform()
 	//container pour powerUp
 	QGraphicsPixmapItem* powerUpRect = new QGraphicsPixmapItem();
 	powerUpRect->setPixmap(QPixmap("powerUpRect.png"));
-	powerUpRect->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 10, 10);
+	powerUpRect->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 15, 30);
 	powerUpRect->setZValue(1);
 	_scene->addItem(powerUpRect);
 	_currentPowerUpImage = new QGraphicsPixmapItem();
 	_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
-	_currentPowerUpImage->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 5, 15);
+	_currentPowerUpImage->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 10, 35);
 	_currentPowerUpImage->setZValue(2);
 	_scene->addItem(_currentPowerUpImage);
 
@@ -75,9 +76,16 @@ Platform::Platform()
 	_levelText = new Text();
 	_levelText->set_value(_level);
 	_levelText->set_name("Level");
-	_levelText->setPos(_view->width() / 2 - 10, 0);
+	_levelText->setPos(_view->width() / 2 - 35, 0);
 	_scene->addItem(_levelText);
 	_levelText->draw();
+	//current power up
+	currentPowerUpText = new QGraphicsTextItem();
+	currentPowerUpText->setPlainText("Current PowerUp :");
+	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
+	currentPowerUpText->setDefaultTextColor(Qt::white);
+	currentPowerUpText->setFont(QFont("times", 14));
+	_scene->addItem(currentPowerUpText);
 
 	/*SOUNDS*/
 	//background music
@@ -97,6 +105,7 @@ Platform::Platform()
 	//slow down power up
 	_slowDownSound = new QMediaPlayer();
 	_slowDownSound->setMedia(QUrl("slowDownpowerup.wav"));
+	timerSlowDown = new QElapsedTimer();
 
 	//timer frame
 	timerFrame = new QTimer();
@@ -184,9 +193,21 @@ void Platform::Update()
 			pauseTime = timerElapsed->elapsed();
 			_gameState = Paused;
 		}
+		//check si power up utilise
 		if (_player->get_usePowerup())
 		{
 			usePowerUp();
+		}
+		//check si slow down termine
+		currentFrameTime = timerSlowDown->elapsed();
+		if (_slowedDown)
+		{
+			slowDown();
+			if (timerSlowDown->elapsed() - totalPauseTime > 5000 && _slowedDown)
+			{
+				_slowedDown = false;
+				speedUp();
+			}
 		}
 		//play music
 		_bgMusic->play();
@@ -272,6 +293,9 @@ void Platform::usePowerUp()
 		case Slow:
 			cout << "SLOW DOWN POWER UP" << endl;
 			_slowDownSound->play();
+			_slowedDown = true;
+			timerSlowDown->restart();
+			timerSlowDown->start();
 			break;
 		case Destroy:
 			clearListe();
@@ -293,6 +317,35 @@ void Platform::usePowerUp()
 	_player->set_usePowerup(false);
 }
 
+void Platform::slowDown()
+{
+	_listeObstaclesActifs->premier();
+	Obstacle* temp = _listeObstaclesActifs->get_head();
+	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	{
+		temp = _listeObstaclesActifs->get_courant();
+		if (temp->get_type() == powerUp)
+			temp->set_speed(POWERUP_SLOWED_SPEED);
+		else
+			temp->set_speed(LASER_SLOWED_SPEED);
+		_listeObstaclesActifs->suivant();
+	}
+}
+
+void Platform::speedUp()
+{
+	_listeObstaclesActifs->premier();
+	Obstacle* temp = _listeObstaclesActifs->get_head();
+	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	{
+		temp = _listeObstaclesActifs->get_courant();
+		if (temp->get_type() == powerUp)
+			temp->set_speed(POWERUP_BASE_SPEED);
+		else
+			temp->set_speed(LASER_BASE_SPEED);
+		_listeObstaclesActifs->suivant();
+	}
+}
 void Platform::clearListe()
 {
 	_listeObstaclesActifs->premier();

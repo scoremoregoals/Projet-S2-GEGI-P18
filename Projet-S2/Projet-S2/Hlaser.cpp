@@ -3,7 +3,7 @@
 Hlaser::Hlaser()
 {
 	set_type(hlaser);
-	set_speed(2);
+	set_speed(LASER_BASE_SPEED);
 	set_width(50);
 	set_height(10);
 	set_damage(10);

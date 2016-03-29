@@ -4,7 +4,8 @@
 
 
 Obstacle::Obstacle()
-{}
+{
+}
 
 Obstacle::~Obstacle()
 {}

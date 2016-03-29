@@ -49,6 +49,8 @@ public:
 	void initialize();
 	void usePowerUp();
 	void clearListe();
+	void slowDown();
+	void speedUp();
 
 	//getters
 	Runner* get_player() { return _player; }
@@ -63,6 +65,7 @@ private:
 	int _level;
 	bool _levelup;
 	bool _gameOver;
+	bool _slowedDown;
 	PowerUp* _currentPowerUp;
 	Runner* _player;
 	GameState _gameState;
@@ -84,6 +87,7 @@ private:
 	//time
 	QTimer* timerFrame;
 	QElapsedTimer* timerElapsed;
+	QElapsedTimer* timerSlowDown;
 	qint64 currentFrameTime;
 	qint64 totalPauseTime;
 	qint64 timeSinceLastPause;
@@ -93,6 +97,7 @@ private:
 	Text* _playerHealth;
 	Text* _gameTime;
 	Text* _levelText;
+	QGraphicsTextItem* currentPowerUpText;
 };
 
 #endif //PLATFORM_H
