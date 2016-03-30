@@ -31,12 +31,6 @@ public:
 	 */
 	bool checkIntersect(Rectangle* rect);
 	
-	//setters
-	void set_topY(int topY);
-	void set_leftX(int leftX);
-	void set_rightX(int rightX);
-	void set_bottomY(int bottomY);
-	
 	//getters
 	int get_topY() {return _topY;}
 	int get_leftX() {return _leftX;}

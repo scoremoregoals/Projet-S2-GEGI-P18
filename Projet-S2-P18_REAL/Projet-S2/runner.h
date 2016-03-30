@@ -47,15 +47,11 @@ public:
 	
 	//setters
 	void set_life(int life);
-	void set_speed(int speed);
-	void set_width(int width);
-	void set_height(int height);
 	void set_isRunning(bool run);
 	void set_usePowerup(bool use);
 	
 	//getters
 	int get_life() {return _life;}
-	int get_speed() {return _speed;}
 	int get_width() {return _width;}
 	int get_height() {return _height;}
 	bool get_isRunning() { return _isRunning; }

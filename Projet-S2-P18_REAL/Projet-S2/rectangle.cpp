@@ -2,10 +2,6 @@
 
 Rectangle::Rectangle()
 {
-	_topY = 0;
-	_leftX = 0;
-	_rightX = 0;
-	_bottomY = 0;
 }
 
 Rectangle::Rectangle(int width, int height, int positionX, int positionY)
@@ -28,27 +24,5 @@ bool Rectangle::checkIntersect(Rectangle* rect)   //pas sur, peut etre modifié 
    	}
    	return true;
 }
-
-//setters
-void Rectangle::set_topY(int topY)
-{
-	_topY = topY;
-}
-
-void Rectangle::set_leftX(int leftX)
-{
-	_leftX = leftX;
-}
-
-void Rectangle::set_rightX(int rightX)
-{
-	_rightX = rightX;
-}
-
-void Rectangle::set_bottomY(int bottomY)
-{
-	_bottomY = bottomY;
-}
-
 
 

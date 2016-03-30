@@ -4,7 +4,7 @@
 Platform::~Platform()
 {
 	delete _player;
-	delete _listeObstaclesActifs;
+	delete _listOfObstacles;
 }
 
 Platform::Platform()
@@ -18,7 +18,7 @@ Platform::Platform()
 	_levelup = false;
 
 	//liste d'obstacle
-	_listeObstaclesActifs = new Liste();
+	_listOfObstacles = new Liste();
 
 	//powerup
 	_currentPowerUp = nullptr;
@@ -115,177 +115,174 @@ Platform::Platform()
 
 void Platform::initialize()
 {
+	//INITIATE TIMERS
 	timerFrame->setInterval(FRAMETIME);
 	timerFrame->start();
 	timerElapsed->start();
-
 	currentFrameTime = 0;
-	totalPauseTime = 0;
-	timeSinceLastPause = 0;
-	pauseTime = 0;
-
+	//CONTROL FOCUS ON PLAYER
 	_player->setFocus();
-
+	//SET GAMESTATE TO RUNNING
 	_gameState = Running;
-
+	//PLAY BACKGROUND MUSIC
 	_bgMusic->play();
-
+	//SHOW GAME
 	_view->show();
 }
 
 void Platform::Update()
 {
-	Obstacle* temp;
-	Direction direction;
 	switch (_gameState)
 	{
-	case NotInitialized: //ne fait rien tant que le jeu n'est pas initie
+	case NotInitialized: //DOESN'T DO ANYTHING
 		return;
 		break;
-
-
-	case Paused:
-		if (_player->get_isRunning())
-		{
-			cout << "GAME RESUMED" << endl;
-			totalPauseTime += timerElapsed->elapsed() - pauseTime;
-			_gameState = Running;
-		}
-		//stop music
-		_bgMusic->pause();
-		return;
-		break;
-
 
 	case GameOver:
-		//player loses
-		if (!_gameOver)
-		{
-			cout << "GAME OVER!" << endl;
-			_gameOverImage = new QGraphicsPixmapItem();
-			_gameOverImage->setPixmap(QPixmap("gameover.png"));
-			_gameOverImage->setPos(0, 0);
-			_gameOverImage->setOpacity(0.00);
-			_scene->addItem(_gameOverImage);
-			_gameOver = true;
-		}
+		//CHECKS IF GAME HASN'T BEEN INITIALIZED YET
+		initializeGameOver();
+
 		_bgMusic->setVolume(_bgMusic->volume() - 0.015);
 		_gameOverImage->setOpacity(_gameOverImage->opacity() + 0.01);
 		if (_bgMusic->volume() <= 0)
 		{
 			_gameOverSound->play();
 			_bgMusic->stop();
-			timerFrame->stop();
-			delete this;
 		}
 		break;
-
-
 	case Running:
-		if (!_player->get_isRunning())
-		{
-			cout << "GAME PAUSED" << endl;
-			pauseTime = timerElapsed->elapsed();
-			_gameState = Paused;
-		}
-		/*CHECK INPUTS*/
-		switch (_inputMode)
-		{
-		case 0 :
-			//KEYBOARD
-			direction = checkPhoneme(LAST_PHONEME);
-			_player->move(direction);
-			//check si power up utilise
-			if (_player->get_usePowerup())
-			{
-				usePowerUp();
-			}
-			break;
-		case 1:
-			//FPGA
-			checkPhonemeFPGA();
-			break;
-		default :
-			break;
-		}
-
-		//check si slow down termine
-		currentFrameTime = timerSlowDown->elapsed();
-		if (_slowedDown)
-		{
-			slowDown();
-			if (timerSlowDown->elapsed() - totalPauseTime > 5000 && _slowedDown)
-			{
-				_slowedDown = false;
-				speedUp();
-			}
-		}
-		//play music
+		//CHECKS INPUT FOR PLAYER MOVEMENT
+		checkInput();
+		//CHECK FOR END OF SLOW POWERUP
+		checkSlowPowerUpEnd();
+		//PLAY BACKGROUND MUSIC
 		_bgMusic->play();
-
-		//frame time
-		currentFrameTime = timerElapsed->elapsed() - totalPauseTime;
-
-		//background
+		//CALCULATE TIME OF CURRENT FRAME
+		currentFrameTime = timerElapsed->elapsed();
+		//MOVES BACKGROUND
 		_background->move();
-
-		//texts
-		_gameTime->set_value((float)currentFrameTime / 1000);
-		_gameTime->draw();
-		_levelText->set_value(_level);
-		_levelText->draw();
-
-		if (currentFrameTime % 1000 < 15)
-		{
-			ajouterAuJeu(vlaser);
-		}
-
-		if (currentFrameTime % 4000 < 25)
-		{
-			ajouterAuJeu(powerUp);
-		}
-
-		if (currentFrameTime % 1100 < 15)
-		{
-			ajouterAuJeu(hlaser);
-		}
-
-		if (currentFrameTime % 9900 < 20)
-			_levelup = true;
-
-		if (currentFrameTime % 10000 < 20 && _levelup)
-		{
-			if (currentFrameTime > 100)
-			{
-				_level++;
-				MAX_OBSTACLES_ACTIFS++;
-				cout << "------------LEVEL UP! LEVEL : " << _level << " max obstacles = " << MAX_OBSTACLES_ACTIFS << endl;
-				_levelup = false;
-			}
-		}
-
-		if (_listeObstaclesActifs->get_longueur() < 1)   //n'update pas et ne check pas collisions si liste vide
-			return;
-
+		//DRAW ALL OF THE GAME TEXTS
+		drawTexts();
+		//ADD OBSTACLES
+		addObstacles();
+		//CHECKS IF GAME LEVEL UP
+		checkLevelUp();
 		//MOVE OBSTACLES
-		_listeObstaclesActifs->premier();
-		temp = _listeObstaclesActifs->get_courant();
-		for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
-		{
-			temp->update();
-			if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //en dehors du jeu
-			{
-				effacerObstacle(temp);
-			}
-			_listeObstaclesActifs->suivant();
-			temp = _listeObstaclesActifs->get_courant();
-		}
-
-		//CHECK COLLISION ENTRE PLAYER ET OBSTACLES
+		moveObstacle();
+		//CHECK COLLISIONS BETWEEN OBSTACLES AND PLAYER
 		checkCollision();
 		break;
+	default:
+		break;
+	}
+}
 
+void Platform::initializeGameOver()
+{
+	if (!_gameOver)
+	{
+		cout << "GAME OVER!" << endl;
+		_gameOverImage = new QGraphicsPixmapItem();
+		_gameOverImage->setPixmap(QPixmap("gameover.png"));
+		_gameOverImage->setPos(0, 0);
+		_gameOverImage->setOpacity(0.00);
+		_scene->addItem(_gameOverImage);
+		_gameOver = true;
+	}
+}
 
+void Platform::checkLevelUp()
+{
+	if (currentFrameTime % 9900 < 20)
+		_levelup = true;
+	if (currentFrameTime % 10000 < 20 && _levelup)
+	{
+		if (currentFrameTime > 100)
+		{
+			_level++;
+			MAX_OBSTACLES_ACTIFS++;
+			cout << "------------LEVEL UP! LEVEL : " << _level << " max obstacles = " << MAX_OBSTACLES_ACTIFS << endl;
+			_levelup = false;
+		}
+	}
+}
+
+void Platform::checkSlowPowerUpEnd()
+{
+	currentFrameTime = timerSlowDown->elapsed();
+	if (_slowedDown)
+	{
+		slowDown();
+		if (timerSlowDown->elapsed() > 5000 && _slowedDown)
+		{
+			_slowedDown = false;
+			speedUp();
+		}
+	}
+}
+
+void Platform::addObstacles()
+{
+	if (currentFrameTime % 1000 < 15)
+	{
+		addToGame(vlaser);
+	}
+
+	if (currentFrameTime % 4000 < 25)
+	{
+		addToGame(powerUp);
+	}
+
+	if (currentFrameTime % 1100 < 15)
+	{
+		addToGame(hlaser);
+	}
+}
+
+void Platform::moveObstacle()
+{
+	Obstacle* temp;
+	_listOfObstacles->premier();
+	temp = _listOfObstacles->get_courant();
+	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
+	{
+		temp->update();
+		if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //en dehors du jeu
+		{
+			removeObstacle(temp);
+		}
+		_listOfObstacles->suivant();
+		temp = _listOfObstacles->get_courant();
+	}
+}
+
+void Platform::drawTexts()
+{
+	_gameTime->set_value((float)currentFrameTime / 1000);
+	_gameTime->draw();
+	_levelText->set_value(_level);
+	_levelText->draw();
+}
+
+void Platform::checkInput()
+{
+	Direction direction;
+	switch (_inputMode)
+	{
+	case 0:
+		//KEYBOARD
+		direction = checkPhoneme(LAST_PHONEME);
+		_player->move(direction);
+		//check si power up utilise
+		if (_player->get_usePowerup())
+		{
+			usePowerUp();
+		}
+		break;
+	case 1:
+		//FPGA
+		checkPhonemeFPGA();
+		break;
 	default:
 		break;
 	}
@@ -305,7 +302,7 @@ void Platform::usePowerUp()
 			timerSlowDown->start();
 			break;
 		case Destroy:
-			clearListe();
+			clearList();
 			cout << "DESTROY POWER UP" << endl;
 			_destroySound->play();
 			break;
@@ -326,41 +323,41 @@ void Platform::usePowerUp()
 
 void Platform::slowDown()
 {
-	_listeObstaclesActifs->premier();
-	Obstacle* temp = _listeObstaclesActifs->get_head();
-	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	_listOfObstacles->premier();
+	Obstacle* temp = _listOfObstacles->get_head();
+	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
-		temp = _listeObstaclesActifs->get_courant();
+		temp = _listOfObstacles->get_courant();
 		if (temp->get_type() == powerUp)
 			temp->set_speed(POWERUP_SLOWED_SPEED);
 		else
 			temp->set_speed(LASER_SLOWED_SPEED);
-		_listeObstaclesActifs->suivant();
+		_listOfObstacles->suivant();
 	}
 }
 
 void Platform::speedUp()
 {
-	_listeObstaclesActifs->premier();
-	Obstacle* temp = _listeObstaclesActifs->get_head();
-	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	_listOfObstacles->premier();
+	Obstacle* temp = _listOfObstacles->get_head();
+	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
-		temp = _listeObstaclesActifs->get_courant();
+		temp = _listOfObstacles->get_courant();
 		if (temp->get_type() == powerUp)
 			temp->set_speed(POWERUP_BASE_SPEED);
 		else
 			temp->set_speed(LASER_BASE_SPEED);
-		_listeObstaclesActifs->suivant();
+		_listOfObstacles->suivant();
 	}
 }
-void Platform::clearListe()
+void Platform::clearList()
 {
-	_listeObstaclesActifs->premier();
-	Obstacle* temp = _listeObstaclesActifs->get_head();
+	_listOfObstacles->premier();
+	Obstacle* temp = _listOfObstacles->get_head();
 	_scene->removeItem(temp);
-	_listeObstaclesActifs->effacer();
-	if (_listeObstaclesActifs->get_longueur() > 0)
-		clearListe();
+	_listOfObstacles->effacer();
+	if (_listOfObstacles->get_longueur() > 0)
+		clearList();
 	else
 		return;
 }
@@ -406,9 +403,9 @@ void Platform::checkCollision()
 	Rectangle* playerRect = new Rectangle(_player->get_width(), _player->get_height(),
 		_player->x(), _player->y());   //rectangle de collision du joueur
 
-	_listeObstaclesActifs->premier();
-	Obstacle* temp =_listeObstaclesActifs->get_courant();
-	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	_listOfObstacles->premier();
+	Obstacle* temp =_listOfObstacles->get_courant();
+	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
 		Rectangle* obstacleRect = new Rectangle(temp->get_width(), temp->get_height(), 
 			temp->x(), temp->y());   //rectangle de collision pour obstacle
@@ -440,7 +437,7 @@ void Platform::checkCollision()
 				default:
 					break;
 				}
-				effacerObstacle(temp);
+				removeObstacle(temp);
 				break;
 			case hlaser:
 				cout << "player collision with hlaser" << endl;
@@ -451,7 +448,7 @@ void Platform::checkCollision()
 				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
-				effacerObstacle(temp);
+				removeObstacle(temp);
 				break;
 			case vlaser:
 				cout << "player collision with vlaser" << endl;
@@ -462,15 +459,15 @@ void Platform::checkCollision()
 				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
-				effacerObstacle(temp);
+				removeObstacle(temp);
 				break;
 			default:
 				break;
 			}
 		}
 		delete obstacleRect;
-		_listeObstaclesActifs->suivant();              //increment temp au prochain element de la liste
-		temp = _listeObstaclesActifs->get_courant();
+		_listOfObstacles->suivant();              //increment temp au prochain element de la liste
+		temp = _listOfObstacles->get_courant();
 
 		//si player meure
 		if (_player->get_life() <= 0)
@@ -482,9 +479,9 @@ void Platform::checkCollision()
 }
 
 
-void Platform::ajouterAuJeu(TypeObstacle type)
+void Platform::addToGame(TypeObstacle type)
 {
-	if (_listeObstaclesActifs->get_longueur() == MAX_OBSTACLES_ACTIFS)
+	if (_listOfObstacles->get_longueur() == MAX_OBSTACLES_ACTIFS)
 	{
 		return;    //liste pleine
 	}
@@ -494,7 +491,7 @@ void Platform::ajouterAuJeu(TypeObstacle type)
 	{
 	case hlaser:
 		temp = new Hlaser();    //on cre l'obstacle
-		_listeObstaclesActifs->ajouter(temp);        //on l'ajoute a la liste
+		_listOfObstacles->ajouter(temp);        //on l'ajoute a la liste
 		temp->setPixmap(QPixmap("hlaser.png"));
 		temp->setPos(0 - temp->get_height(), temp->spawnHorizontal());
 		_scene->addItem(temp);
@@ -502,7 +499,7 @@ void Platform::ajouterAuJeu(TypeObstacle type)
 		break;
 	case vlaser:
 		temp = new Vlaser();
-		_listeObstaclesActifs->ajouter(temp);
+		_listOfObstacles->ajouter(temp);
 		temp->setPixmap(QPixmap("vlaser.png"));
 		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
 		_scene->addItem(temp);
@@ -511,24 +508,24 @@ void Platform::ajouterAuJeu(TypeObstacle type)
 	case powerUp:
 		temp = new PowerUp();
 		temp->randomizeType();
-		_listeObstaclesActifs->ajouter(temp);
+		_listOfObstacles->ajouter(temp);
 		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
 		_scene->addItem(temp);
 		break;
 	default:
 		break;
 	}
-	cout << "added, new length liste : " << _listeObstaclesActifs->get_longueur() << endl;
+	cout << "added, new length liste : " << _listOfObstacles->get_longueur() << endl;
 }
 
-void Platform::effacerObstacle(Obstacle* obstacle)
+void Platform::removeObstacle(Obstacle* obstacle)
 {
-	if (_listeObstaclesActifs->get_longueur() < 1)  //n'efface rien si liste vide
+	if (_listOfObstacles->get_longueur() < 1)  //n'efface rien si liste vide
 		return;
 
-	_listeObstaclesActifs->premier();
-	Obstacle* temp = _listeObstaclesActifs->get_courant();
-	for (int i = 0; i < _listeObstaclesActifs->get_longueur(); i++)
+	_listOfObstacles->premier();
+	Obstacle* temp = _listOfObstacles->get_courant();
+	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
 		if (temp == obstacle)          //si temp = l'obstacle a effacer, on efface temp
 		{
@@ -547,12 +544,12 @@ void Platform::effacerObstacle(Obstacle* obstacle)
 				break;
 			}
 			_scene->removeItem(temp);                       //enleve de la scene
-			_listeObstaclesActifs->effacer();                //enleve de la liste
+			_listOfObstacles->effacer();                //enleve de la liste
 		}
-		_listeObstaclesActifs->suivant();          // on incremente dans la liste
-		temp = _listeObstaclesActifs->get_courant();
+		_listOfObstacles->suivant();          // on incremente dans la liste
+		temp = _listOfObstacles->get_courant();
 	}
-	cout << "removed, new length liste : " << _listeObstaclesActifs->get_longueur() << endl;
+	cout << "removed, new length liste : " << _listOfObstacles->get_longueur() << endl;
 }
 
 

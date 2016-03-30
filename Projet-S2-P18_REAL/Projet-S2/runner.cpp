@@ -75,21 +75,6 @@ void Runner::set_life(int life)
 	_life = life;
 }
 
-void Runner::set_speed(int speed)
-{
-	_speed = speed;
-}
-
-void Runner::set_width(int width)
-{
-	_width = width;
-}
-
-void Runner::set_height(int height)
-{
-	_height = height;	
-}
-
 void Runner::set_isRunning(bool run)
 {
 	_isRunning = run;

@@ -14,7 +14,6 @@
 #include "obstacle.h"
 #include "runner.h"
 #include "rectangle.h"
-#include <list>
 #include "liste.h"
 #include "Hlaser.h"
 #include "Vlaser.h"
@@ -51,7 +50,13 @@ public:
 	 *
 	 * @param      obstacle  To object to remove
 	 */
-	void effacerObstacle(Obstacle* obstacle);
+	void removeObstacle(Obstacle* obstacle);
+
+	/**
+	* @brief      add obstacle to the game relative to the gametime
+	*/
+	void Platform::addObstacles();
+
 	/**
 	 * @brief      Change the direction with the received input(FPGA)
 	 *
@@ -61,6 +66,28 @@ public:
 	 */
 	Direction checkPhoneme(int input);
 	Direction checkPhonemeFPGA();
+	void checkInput();
+	/**
+	* @brief      checks if slow power up used by the player should end (5 seconds)
+	*/
+	void checkSlowPowerUpEnd();
+
+	/**
+	* @brief      Draw the texts on the screen (gametime, player health)
+	*/
+	void drawTexts();
+
+	/**
+	* @brief      Move the obstacles active in the game
+	*/
+	void moveObstacle();
+
+	/**
+	* @brief      checks if 10 seconds has passed and level up
+	*			  adds 1 to max obstacles each level
+	*/
+	void checkLevelUp();
+
 	/**
 	 * @brief      Look if the runner collide with something
 	 */
@@ -79,7 +106,7 @@ public:
 	/**
 	 * @brief      Clear the current obstacle list
 	 */
-	void clearListe();
+	void clearList();
 	/**
 	 * @brief      Slow the obstacle speed
 	 */
@@ -89,16 +116,28 @@ public:
 	 */
 	void speedUp();
 
-	//getters
-	Runner* get_player() { return _player; }
-	Liste* get_listeObstaclesActifs() { return _listeObstaclesActifs; }
-	QGraphicsView* get_view() { return _view; }
-
+	/**
+	* @brief      Set input method for controls (in interface -> comboBox)
+	*/
 	void set_inputMode(int mode) { _inputMode = mode; }
 
+	/**
+	* @brief      Change the direction with the received input(FPGA)
+	*
+	* @param[in]  type of the obstacle to add
+	*/
+	void addToGame(TypeObstacle type);
+
+	/**
+	* @brief      Initializes settings for gamestate Gameover
+	*/
+	void initializeGameOver();
+
 public slots:
+	/**
+	* @brief      Updates the game each FRAMETIME 
+	*/
 	void Update();
-	void ajouterAuJeu(TypeObstacle type);
 
 private:
 	int _level;
@@ -106,13 +145,13 @@ private:
 	bool _gameOver;
 	bool _slowedDown;
 	int _inputMode;
-	PowerUp* _currentPowerUp;
 	Runner* _player;
 	GameState _gameState;
-	Liste* _listeObstaclesActifs;
+	Liste* _listOfObstacles;
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;
 	QGraphicsPixmapItem* _gameOverImage;
+	PowerUp* _currentPowerUp;
 	QGraphicsPixmapItem* _currentPowerUpImage;
 	BackGround* _background;
 
@@ -124,14 +163,11 @@ private:
 	QMediaPlayer* _destroySound;
 	QMediaPlayer* _slowDownSound;
 
-	//time
+	//timers
 	QTimer* timerFrame;
 	QElapsedTimer* timerElapsed;
 	QElapsedTimer* timerSlowDown;
 	qint64 currentFrameTime;
-	qint64 totalPauseTime;
-	qint64 timeSinceLastPause;
-	qint64 pauseTime;
 
 	//texts
 	Text* _playerHealth;
