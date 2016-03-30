@@ -10,12 +10,39 @@
 class Runner : public QGraphicsPixmapItem
 {
 public:
+	/**
+	 * @brief      Constructor, set the default runner settings
+	 */
 	Runner();
+	/**
+	 * @brief      Set runner with other settings
+	 *
+	 * @param[in]  life    Life of the runner
+	 * @param[in]  speed   Set the speed of the runner
+	 * @param[in]  width   Set the fatness of the runner
+	 * @param[in]  height  Set the height of the runner
+	 */
 	Runner(int life, int speed, int width, int height);
+	/**
+	 * @brief      Deconstructor
+	 */
 	virtual ~Runner();
 
+	/**
+	 * @brief      Event of a global KeyPress
+	 *
+	 * @param      event  Event (the key received)
+	 */
 	void keyPressEvent(QKeyEvent *event);
+	/**
+	 * @brief      Move the runner on the platform
+	 *
+	 * @param[in]  direction  Move the runner and received the direction of an input (FPGA OR KEYS)
+	 */
 	void move(Direction direction);
+	/**
+	 * @brief      True or false if we want to use power ups
+	 */
 	void usePowerUp();
 	
 	//setters

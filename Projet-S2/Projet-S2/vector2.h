@@ -4,8 +4,20 @@
 class Vector2
 {
 public:
-	Vector2(); 
+	/**
+	 * @brief      Constructor
+	 */
+	Vector2();
+	/**
+	 * @brief      New position of an object
+	 *
+	 * @param[in]  positionX  Position X of the object
+	 * @param[in]  positionY  Position Y of the object
+	 */
 	Vector2(int positionX, int positionY);
+	/**
+	 * @brief      Deconstructor
+	 */
 	virtual ~Vector2();
 	
 	//setters

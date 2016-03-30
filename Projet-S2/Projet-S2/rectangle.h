@@ -3,10 +3,31 @@
 class Rectangle
 {
 public:
+	/**
+	 * @brief      Initialize all of the attributs of the class
+	 */
 	Rectangle();
+	/**
+	 * @brief      Initialize a rectangle
+	 *
+	 * @param[in]  width      Width size in pixel
+	 * @param[in]  height     Height size in pixel
+	 * @param[in]  positionX  Position on the frame in X
+	 * @param[in]  positionY  Position on the frame in Y
+	 */
 	Rectangle(int width, int height, int positionX, int positionY);
+	/**
+	 * @brief      Deconstructor
+	 */
 	virtual ~Rectangle();
 	
+	/**
+	 * @brief      Look if the rectangle intersect with the limit of the frame
+	 *
+	 * @param      rect  Rectangle to verify
+	 *
+	 * @return     True or false if collide or not
+	 */
 	bool checkIntersect(Rectangle* rect);
 	
 	//setters

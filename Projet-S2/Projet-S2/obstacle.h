@@ -10,7 +10,13 @@
 class Obstacle : public QGraphicsPixmapItem
 {
 public:
+	/**
+	 * @brief      Constructor
+	 */
 	Obstacle();
+	/**
+	 * @brief      Deconstructor
+	 */
 	virtual ~Obstacle();												 														 	
 
 	//virtuals
@@ -18,7 +24,17 @@ public:
 	virtual void playSpawnSound() = 0 ;
 	virtual void randomizeType() {}   //pour power ups
 
+	/**
+	 * @brief      Spawn an obstacle in horizontal
+	 *
+	 * @return     return a random position
+	 */
 	int spawnHorizontal();
+	/**
+	 * @brief      Spawn an obstacle in vertical
+	 *
+	 * @return     return a random position
+	 */
 	int spawnVertical();
 	
 	//setters
