@@ -13,11 +13,9 @@
 
 #include "obstacle.h"
 #include "runner.h"
-#include "vector2.h"
 #include "rectangle.h"
 #include <list>
 #include "liste.h"
-#include "id.h"
 #include "Hlaser.h"
 #include "Vlaser.h"
 #include "powerUp.h"

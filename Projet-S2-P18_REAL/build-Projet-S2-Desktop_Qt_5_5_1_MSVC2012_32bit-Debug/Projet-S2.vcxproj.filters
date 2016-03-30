@@ -55,9 +55,6 @@
     <ClCompile Include="..\Projet-S2\global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\id.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Projet-S2\liste.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -71,9 +68,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Projet-S2\platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Projet-S2\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Projet-S2\powerUp.cpp">
@@ -105,9 +99,6 @@
     <ClInclude Include="..\Projet-S2\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\id.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Projet-S2\liste.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,9 +111,6 @@
     <CustomBuild Include="..\Projet-S2\platform.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Projet-S2\powerUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>

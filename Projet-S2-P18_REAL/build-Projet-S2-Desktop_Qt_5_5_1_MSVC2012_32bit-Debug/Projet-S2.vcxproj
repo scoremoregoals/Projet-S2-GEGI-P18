@@ -142,13 +142,11 @@
     <ClCompile Include="..\Projet-S2\animation.cpp" />
     <ClCompile Include="..\Projet-S2\background.cpp" />
     <ClCompile Include="..\Projet-S2\global.cpp" />
-    <ClCompile Include="..\Projet-S2\id.cpp" />
     <ClCompile Include="..\Projet-S2\liste.cpp" />
     <ClCompile Include="..\Projet-S2\main.cpp" />
     <ClCompile Include="..\Projet-S2\mainwindow.cpp" />
     <ClCompile Include="..\Projet-S2\obstacle.cpp" />
     <ClCompile Include="..\Projet-S2\platform.cpp" />
-    <ClCompile Include="..\Projet-S2\player.cpp" />
     <ClCompile Include="..\Projet-S2\powerUp.cpp" />
     <ClCompile Include="..\Projet-S2\rectangle.cpp" />
     <ClCompile Include="..\Projet-S2\runner.cpp" />
@@ -177,7 +175,6 @@ endlocal</Command>
     </CustomBuild>
     <ClInclude Include="..\Projet-S2\background.h" />
     <ClInclude Include="..\Projet-S2\global.h" />
-    <ClInclude Include="..\Projet-S2\id.h" />
     <ClInclude Include="..\Projet-S2\liste.h" />
     <CustomBuild Include="..\Projet-S2\mainwindow.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
@@ -216,7 +213,6 @@ endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../Projet-S2/platform.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_platform.cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\player.h" />
     <ClInclude Include="..\Projet-S2\powerUp.h" />
     <ClInclude Include="..\Projet-S2\rectangle.h" />
     <ClInclude Include="..\Projet-S2\runner.h" />
