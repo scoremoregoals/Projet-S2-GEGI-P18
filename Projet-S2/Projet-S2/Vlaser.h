@@ -8,14 +8,7 @@
 class Vlaser : public Obstacle
 {
 public:
-	/**
-	 * @brief      Create a Vertical laser with default settings
-	 */
 	Vlaser();
-
-	/**
-	 * @brief      Deconstructor
-	 */
 	~Vlaser();
 
 	//virtuals

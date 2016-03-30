@@ -22,7 +22,8 @@ PowerUp::PowerUp(Obstacle* copy)
 }
 
 PowerUp::~PowerUp()
-{	
+{
+	
 }
 
 void PowerUp::update()

@@ -40,54 +40,16 @@ class Platform : public QObject
 {
 	Q_OBJECT
 public:
-	/**
-	 * @brief      Initialize all the attribute of the class... and much more
-	 */
 	Platform();
-	/**
-	 * @brief      Deconstructor
-	 */
 	virtual ~Platform();
-	/**
-	 * @brief      Remove an obstacle
-	 *
-	 * @param      obstacle  To object to remove
-	 */
+
 	void effacerObstacle(Obstacle* obstacle);
-	/**
-	 * @brief      Change the direction with the received input(FPGA)
-	 *
-	 * @param[in]  input  The value of the FPGA
-	 *
-	 * @return     The new Direction of the runner
-	 */
 	Direction checkPhoneme(int input);
-	/**
-	 * @brief      Look if the runner collide with something
-	 */
 	void checkCollision();
-
-	/**
-	 * @brief      Start frame time, music and focus window
-	 */
 	void initialize();
-
-	/**
-	 * @brief      Activate the power up
-	 */
 	void usePowerUp();
-
-	/**
-	 * @brief      Clear the current obstacle list
-	 */
 	void clearListe();
-	/**
-	 * @brief      Slow the obstacle speed
-	 */
 	void slowDown();
-	/**
-	 * @brief      Speed up the obstacle speed
-	 */
 	void speedUp();
 
 	//getters
