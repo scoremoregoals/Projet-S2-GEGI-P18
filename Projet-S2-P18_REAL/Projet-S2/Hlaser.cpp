@@ -20,7 +20,34 @@ Hlaser::~Hlaser()
 
 void Hlaser::update()
 {
-	setPos(x() + get_speed(), y() + get_speed());
+	switch (_side)
+	{
+	case 0 :   //moves right
+		setPos(x() + get_speed(), y() + get_speed());
+		break;
+	case 1 :   //moves left
+		setPos(x() - get_speed(), y() + get_speed());
+		break;
+	default:
+		break;
+	}
+}
+
+void Hlaser::spawnHorizontal()
+{
+	_side = rand() % 2;
+	int height = rand() % (SCREEN_HEIGHT - 100);
+	switch (_side)
+	{
+	case 0: //LEFT
+		break;
+	case 1: //RIGHT
+		setPos(SCREEN_WIDTH, height);
+		break;
+	default:
+		setPos(0 - get_width(), height);
+		break;
+	}
 }
 
 void Hlaser::playSpawnSound()

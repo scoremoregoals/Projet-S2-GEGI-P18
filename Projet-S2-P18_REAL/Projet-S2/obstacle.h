@@ -25,16 +25,12 @@ public:
 
 	/**
 	 * @brief      Spawn an obstacle in horizontal
-	 *
-	 * @return     return a random position
 	 */
-	int spawnHorizontal();
+	virtual void spawnHorizontal();
 	/**
 	 * @brief      Spawn an obstacle in vertical
-	 *
-	 * @return     return a random position
 	 */
-	int spawnVertical();
+	void spawnVertical();
 	
 	//setters
 	void set_speed(int speed);

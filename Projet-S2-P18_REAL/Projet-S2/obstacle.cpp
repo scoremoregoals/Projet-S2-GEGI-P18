@@ -10,18 +10,15 @@ Obstacle::Obstacle()
 Obstacle::~Obstacle()
 {}
 
-int Obstacle::spawnHorizontal()    // random position en Y, puis X en dehors de la map pour pas qu'on voit l'obstaacle quand il spawn
-{   //a modifier pour enlever positions trop pres du bord
-	int random = rand() % (SCREEN_HEIGHT - 100);
-	return random;
+void Obstacle::spawnHorizontal()  
+{
 }
 
-int Obstacle::spawnVertical()   // random position en X, puis Y en dehors de la map pour pas qu'on voit l'obstaacle quand il spawn
+void Obstacle::spawnVertical()  
 {  
 	int random = rand() % (SCREEN_WIDTH - 10);
-	return random;
+	setPos(random, 0 - _height);
 }
-
 
 void Obstacle::set_speed(int speed)
 {

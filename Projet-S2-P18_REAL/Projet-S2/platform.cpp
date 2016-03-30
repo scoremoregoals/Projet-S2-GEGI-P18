@@ -266,7 +266,7 @@ void Platform::addObstacles()
 		addToGame(vlaser);
 	}
 
-	if (currentFrameTime % 4000 < 25)
+	if (currentFrameTime % 5000 < 25 && _listOfObstacles->get_longueur() > 5)
 	{
 		addToGame(powerUp);
 	}
@@ -285,7 +285,7 @@ void Platform::moveObstacle()
 	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
 		temp->update();
-		if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //en dehors du jeu
+		if (temp->x() > SCREEN_WIDTH || temp->y() > SCREEN_HEIGHT) //OUTSIDE GAME
 		{
 			removeObstacle(temp);
 		}
@@ -311,7 +311,7 @@ void Platform::checkInput()
 		//KEYBOARD
 		direction = checkPhoneme(LAST_PHONEME);
 		_player->move(direction);
-		//check si power up utilise
+		//CHECK IF POWERUP IS USED
 		if (_player->get_usePowerup())
 		{
 			usePowerUp();
@@ -521,17 +521,17 @@ void Platform::addToGame(TypeObstacle type)
 {
 	if (_listOfObstacles->get_longueur() == MAX_OBSTACLES_ACTIFS)
 	{
-		return;    //liste pleine
+		return;    //LIST FULL
 	}
 
 	Obstacle* temp;
 	switch (type)
 	{
 	case hlaser:
-		temp = new Hlaser();    //on cre l'obstacle
-		_listOfObstacles->ajouter(temp);        //on l'ajoute a la liste
+		temp = new Hlaser();  
+		_listOfObstacles->ajouter(temp);
 		temp->setPixmap(_hLaserTexture);
-		temp->setPos(0 - temp->get_height(), temp->spawnHorizontal());
+		temp->spawnHorizontal();
 		_scene->addItem(temp);
 		temp->playSpawnSound();
 		break;
@@ -539,7 +539,7 @@ void Platform::addToGame(TypeObstacle type)
 		temp = new Vlaser();
 		_listOfObstacles->ajouter(temp);
 		temp->setPixmap(_vLaserTexture);
-		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
+		temp->spawnVertical();
 		_scene->addItem(temp);
 		temp->playSpawnSound();
 		break;
@@ -547,7 +547,7 @@ void Platform::addToGame(TypeObstacle type)
 		temp = new PowerUp();
 		temp->randomizeType();
 		_listOfObstacles->ajouter(temp);
-		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
+		temp->spawnVertical();
 		_scene->addItem(temp);
 		break;
 	default:
@@ -558,14 +558,14 @@ void Platform::addToGame(TypeObstacle type)
 
 void Platform::removeObstacle(Obstacle* obstacle)
 {
-	if (_listOfObstacles->get_longueur() < 1)  //n'efface rien si liste vide
+	if (_listOfObstacles->get_longueur() < 1)  //DOESN'T REMOVE IF LIST EMPTY
 		return;
 
 	_listOfObstacles->premier();
 	Obstacle* temp = _listOfObstacles->get_courant();
 	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
-		if (temp == obstacle)          //si temp = l'obstacle a effacer, on efface temp
+		if (temp == obstacle) 
 		{
 			switch (obstacle->get_type())
 			{
@@ -581,10 +581,10 @@ void Platform::removeObstacle(Obstacle* obstacle)
 			default:
 				break;
 			}
-			_scene->removeItem(temp);                       //enleve de la scene
-			_listOfObstacles->effacer();                //enleve de la liste
+			_scene->removeItem(temp);                     
+			_listOfObstacles->effacer();           
 		}
-		_listOfObstacles->suivant();          // on incremente dans la liste
+		_listOfObstacles->suivant();     
 		temp = _listOfObstacles->get_courant();
 	}
 	cout << "removed, new length liste : " << _listOfObstacles->get_longueur() << endl;

@@ -33,8 +33,14 @@ public:
 	 */
 	void playSpawnSound();
 
+	/**
+	* @brief      Spawn the horizontal laser and chooses side
+	*/
+	void spawnHorizontal();
+
 private:
 	QMediaPlayer* _spawnSound;
+	int _side;
 };
 
 #endif
