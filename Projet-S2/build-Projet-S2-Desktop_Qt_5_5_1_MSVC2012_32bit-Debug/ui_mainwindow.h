@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -20,6 +21,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,7 +41,9 @@ public:
     QPushButton *pbStartGame;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *verticalLayout_2;
-    QLabel *lbInfoLabel;
+    QTextBrowser *textBrowser;
+    QComboBox *comboBox;
+    QLabel *label;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QMenu *menuOption;
@@ -89,12 +93,16 @@ public:
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        lbInfoLabel = new QLabel(verticalLayoutWidget_2);
-        lbInfoLabel->setObjectName(QStringLiteral("lbInfoLabel"));
-        lbInfoLabel->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_2->addWidget(lbInfoLabel);
-
+        textBrowser = new QTextBrowser(centralWidget);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+        textBrowser->setGeometry(QRect(0, 0, 421, 241));
+        comboBox = new QComboBox(centralWidget);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(190, 250, 181, 22));
+        comboBox->setEditable(true);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(60, 250, 121, 21));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -118,6 +126,9 @@ public:
 
         retranslateUi(MainWindow);
 
+        comboBox->setCurrentIndex(0);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
@@ -129,8 +140,36 @@ public:
         actionVersion->setText(QApplication::translate("MainWindow", "Version", 0));
         actionAbout_2->setText(QApplication::translate("MainWindow", "About", 0));
         actionStart_Game_2->setText(QApplication::translate("MainWindow", "Start Game", 0));
-        pbStartGame->setText(QApplication::translate("MainWindow", "Start Game!", 0));
-        lbInfoLabel->setText(QApplication::translate("MainWindow", "This is where the settings will be for our game!", 0));
+        pbStartGame->setText(QApplication::translate("MainWindow", "D\303\251marrer!", 0));
+        textBrowser->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Roboto'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Contr\303\264les :</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">-fpga :</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    -phon\303\250mes : </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-bloc"
+                        "k-indent:0; text-indent:0px;\">    -boutons : bouton 3 -&gt; mouvement gauche</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">                      bouton 0 -&gt; mouvement droite</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">                      bouton 1 -&gt; utilisation power-ups</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">-clavier :</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    - mouvements : fl\303\250ches de gauche et de droite</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;"
+                        " -qt-block-indent:0; text-indent:0px;\">    - utilisation des power-up : fl\303\250che du haut</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Pour d\303\251marrer le jeu, appuyez sur le bouton D\303\251marrer!</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
+        textBrowser->setPlaceholderText(QApplication::translate("MainWindow", "Contr\303\264les :", 0));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "Clavier", 0)
+         << QApplication::translate("MainWindow", "FPGA", 0)
+        );
+        comboBox->setCurrentText(QApplication::translate("MainWindow", "Clavier", 0));
+        label->setText(QApplication::translate("MainWindow", "M\303\251thode de contr\303\264le :", 0));
         menuOption->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
