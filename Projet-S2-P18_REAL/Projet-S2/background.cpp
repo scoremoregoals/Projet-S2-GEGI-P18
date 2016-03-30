@@ -1,5 +1,4 @@
 #include "background.h"
-#include <iostream>
 
 BackGround::BackGround(){}
 
@@ -34,7 +33,6 @@ void BackGround::move()
 		if (backgrounds[i]->y() > SCREEN_HEIGHT)
 		{
 			backgrounds[i]->setPos(_positions[0]);
-			std::cout << "moved background " << std::endl;
 		}
 	}
 }

@@ -23,7 +23,7 @@ void MainWindow::on_pbStartGame_clicked()
     std::cout << "The game is starting - from the push button" << std::endl;
 	this->hide();
 	_platform->set_inputMode(ui->comboBox->currentIndex());
-	_platform->initialize();
+	_platform->initializeGame();
 	//set options to platform (game)
 }
 

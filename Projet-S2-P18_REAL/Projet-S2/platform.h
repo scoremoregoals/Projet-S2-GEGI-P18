@@ -41,10 +41,40 @@ public:
 	 * @brief      Initialize all the attribute of the class... and much more
 	 */
 	Platform();
+
 	/**
 	 * @brief      Deconstructor
 	 */
 	virtual ~Platform();
+
+	/**
+	* @brief      creates game scene and view in QGraphics and initiates them
+	*/
+	void createScene();
+
+	/**
+	* @brief      initializes game settings (platform attributes)
+	*/
+	void initializeSettings();
+	/**
+	* @brief      creates player, list of obstacles, current power up section and initiates them
+	*/
+	void createObjects();
+	/**
+	* @brief      load object textures from ressources
+	*/
+	void loadTextures();
+
+	/**
+	* @brief      load game sounds from ressources
+	*/
+	void loadSounds();
+
+	/**
+	* @brief      create text Objects
+	*/
+	void createTexts();
+
 	/**
 	 * @brief      Remove an obstacle
 	 *
@@ -96,7 +126,7 @@ public:
 	/**
 	 * @brief      Start frame time, music and focus window
 	 */
-	void initialize();
+	void initializeGame();
 
 	/**
 	 * @brief      Activate the power up
@@ -133,6 +163,11 @@ public:
 	*/
 	void initializeGameOver();
 
+	/**
+	* @brief      Updates sounds and animation for gameover scene
+	*/
+	void updateGameOver();
+
 public slots:
 	/**
 	* @brief      Updates the game each FRAMETIME 
@@ -145,6 +180,7 @@ private:
 	bool _gameOver;
 	bool _slowedDown;
 	int _inputMode;
+
 	Runner* _player;
 	GameState _gameState;
 	Liste* _listOfObstacles;
@@ -152,10 +188,23 @@ private:
 	QGraphicsView* _view;
 	QGraphicsPixmapItem* _gameOverImage;
 	PowerUp* _currentPowerUp;
-	QGraphicsPixmapItem* _currentPowerUpImage;
 	BackGround* _background;
 
-	//sounds
+	QGraphicsPixmapItem* _currentPowerUpImage;
+	QGraphicsPixmapItem* _powerUpRect;
+
+	//TEXTURES
+	QPixmap _vLaserTexture;
+	QPixmap _hLaserTexture;
+	QPixmap _slowPowerUpTexture;
+	QPixmap _destroyPowerUpTexture;
+	QPixmap _playerTexture;
+	QPixmap _backgroundTexture;
+	QPixmap _gameOverTexture;
+	QPixmap _powerUpRectTexture;
+	QPixmap _noPowerUpTexture;
+
+	//SOUNDS
 	QMediaPlayer* _bgMusic;
 	QMediaPlayer* _laserCollisionSound;
 	QMediaPlayer* _powerUpCollisionSound;
@@ -163,13 +212,13 @@ private:
 	QMediaPlayer* _destroySound;
 	QMediaPlayer* _slowDownSound;
 
-	//timers
+	//TIMERS
 	QTimer* timerFrame;
 	QElapsedTimer* timerElapsed;
 	QElapsedTimer* timerSlowDown;
 	qint64 currentFrameTime;
 
-	//texts
+	//TEXTS
 	Text* _playerHealth;
 	Text* _gameTime;
 	Text* _levelText;

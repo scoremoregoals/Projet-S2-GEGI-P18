@@ -3,28 +3,74 @@
 
 Platform::~Platform()
 {
+	//DELETE DYNAMIC OBJECTS
 	delete _player;
 	delete _listOfObstacles;
 }
 
 Platform::Platform()
 {
-	//gamestate
+	//PLATFORM ATTRIBUTES
+	initializeSettings();
+	//SCENE, VIEW
+	createScene();
+	//TEXTURES
+	loadTextures();
+	//GAME OBJECTS
+	createObjects();
+	//GAME TEXTS
+	createTexts();
+	//SOUNDS
+	loadSounds();
+}
+
+void Platform::createObjects()
+{
+	//LIST OF OBSTACLES
+	_listOfObstacles = new Liste();
+	//BACKGROUND
+	_background = new BackGround("background.png");
+	_scene->addItem(_background->get_background1());
+	_scene->addItem(_background->get_background2());
+	//CURRENT POWERUP
+	_powerUpRect = new QGraphicsPixmapItem();
+	_powerUpRect->setPixmap(_powerUpRectTexture);
+	_powerUpRect->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 15, 30);
+	_powerUpRect->setZValue(1);
+	_scene->addItem(_powerUpRect);
+	_currentPowerUpImage = new QGraphicsPixmapItem();
+	_currentPowerUpImage->setPixmap(_noPowerUpTexture);
+	_currentPowerUpImage->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 10, 35);
+	_currentPowerUpImage->setZValue(2);
+	_scene->addItem(_currentPowerUpImage);
+	//PLAYER
+	_player = new Runner();
+	_player->setFlag(QGraphicsItem::ItemIsFocusable);
+	_scene->addItem(_player);
+	_player->setPos(_view->width() / 2 - _player->get_width() / 2,
+		_view->height() - _player->get_height() - 5);
+	_player->setPixmap(QPixmap("player.png"));
+	//FRAME TIMER
+	timerFrame = new QTimer();
+	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
+	timerElapsed = new QElapsedTimer();
+}
+
+void Platform::initializeSettings()
+{
+	//GAMESTATE
 	_gameState = NotInitialized;
 	_gameOver = false;
-
-	//level
+	//LEVEL
 	_level = 1;
 	_levelup = false;
-
-	//liste d'obstacle
-	_listOfObstacles = new Liste();
-
-	//powerup
+	//CURRENT POWERUP
 	_currentPowerUp = nullptr;
 	_slowedDown = false;
+}
 
-	//scene and view
+void Platform::createScene()
+{
 	_scene = new QGraphicsScene();
 	_view = new QGraphicsView();
 	_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -32,62 +78,23 @@ Platform::Platform()
 	_view->setFixedSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	_scene->setSceneRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	_view->setScene(_scene);
+}
 
-	//background
-	_background = new BackGround("background.png");
-	_scene->addItem(_background->get_background1());
-	_scene->addItem(_background->get_background2());
-	//container pour powerUp
-	QGraphicsPixmapItem* powerUpRect = new QGraphicsPixmapItem();
-	powerUpRect->setPixmap(QPixmap("powerUpRect.png"));
-	powerUpRect->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 15, 30);
-	powerUpRect->setZValue(1);
-	_scene->addItem(powerUpRect);
-	_currentPowerUpImage = new QGraphicsPixmapItem();
-	_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
-	_currentPowerUpImage->setPos(SCREEN_WIDTH - powerUpRect->boundingRect().width() - 10, 35);
-	_currentPowerUpImage->setZValue(2);
-	_scene->addItem(_currentPowerUpImage);
+void Platform::loadTextures()
+{
+	_playerTexture = QPixmap("player.png");
+	_vLaserTexture = QPixmap("vlaser.png");
+	_hLaserTexture  = QPixmap("hlaser.png");
+	_slowPowerUpTexture =  QPixmap("powerupSlow.png");;
+	_destroyPowerUpTexture = QPixmap("powerupDestroy.png");
+	_backgroundTexture = QPixmap("background.png");
+	_powerUpRectTexture = QPixmap("powerUpRect.png");
+	_gameOverTexture = QPixmap("gameover.png");
+	_noPowerUpTexture = QPixmap("noPowerUp");
+}
 
-	//player
-	_player = new Runner();
-	_player->setPixmap(QPixmap("player.png"));
-	_player->setFlag(QGraphicsItem::ItemIsFocusable);
-	_scene->addItem(_player);
-	_player->setPos(_view->width() / 2 - _player->get_width() / 2,
-		_view->height() - _player->get_height() - 5);
-	_player->set_isRunning(true);
-
-	/*Texts*/
-	//health
-	_playerHealth = new Text();
-	_playerHealth->set_value(_player->get_life());
-	_playerHealth->set_name("Health");
-	_playerHealth->setPos(_playerHealth->x(), _playerHealth->y() + 25);
-	_scene->addItem(_playerHealth);
-	_playerHealth->draw();
-	//gametime
-	_gameTime = new Text();
-	_gameTime->set_value(currentFrameTime / 1000);
-	_gameTime->set_name("GameTime");
-	_scene->addItem(_gameTime);
-	_gameTime->draw();
-	//level
-	_levelText = new Text();
-	_levelText->set_value(_level);
-	_levelText->set_name("Level");
-	_levelText->setPos(_view->width() / 2 - 35, 0);
-	_scene->addItem(_levelText);
-	_levelText->draw();
-	//current power up
-	currentPowerUpText = new QGraphicsTextItem();
-	currentPowerUpText->setPlainText("Current PowerUp :");
-	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
-	currentPowerUpText->setDefaultTextColor(Qt::white);
-	currentPowerUpText->setFont(QFont("times", 14));
-	_scene->addItem(currentPowerUpText);
-
-	/*SOUNDS*/
+void Platform::loadSounds()
+{
 	//background music
 	_bgMusic = new QMediaPlayer();
 	_bgMusic->setMedia(QUrl("backgroundmusic.mp3"));
@@ -99,21 +106,47 @@ Platform::Platform()
 	//gameover
 	_gameOverSound = new QMediaPlayer();
 	_gameOverSound->setMedia(QUrl("gameOver.wav"));
-	//destroy power 
+	//destroy power up 
 	_destroySound = new QMediaPlayer();
 	_destroySound->setMedia(QUrl("destroyPowerup.wav"));
 	//slow down power up
 	_slowDownSound = new QMediaPlayer();
 	_slowDownSound->setMedia(QUrl("slowDownpowerup.wav"));
 	timerSlowDown = new QElapsedTimer();
-
-	//timer frame
-	timerFrame = new QTimer();
-	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
-	timerElapsed = new QElapsedTimer();
 }
 
-void Platform::initialize()
+void Platform::createTexts()
+{
+	//PLAYER HEALTH
+	_playerHealth = new Text();
+	_playerHealth->set_value(_player->get_life());
+	_playerHealth->set_name("Health");
+	_playerHealth->setPos(_playerHealth->x(), _playerHealth->y() + 25);
+	_scene->addItem(_playerHealth);
+	_playerHealth->draw();
+	//GAMETIMER
+	_gameTime = new Text();
+	_gameTime->set_value(currentFrameTime / 1000);
+	_gameTime->set_name("GameTime");
+	_scene->addItem(_gameTime);
+	_gameTime->draw();
+	//LEVEL
+	_levelText = new Text();
+	_levelText->set_value(_level);
+	_levelText->set_name("Level");
+	_levelText->setPos(_view->width() / 2 - 35, 0);
+	_scene->addItem(_levelText);
+	_levelText->draw();
+	//CURRENT POWER UP
+	currentPowerUpText = new QGraphicsTextItem();
+	currentPowerUpText->setPlainText("Current PowerUp :");
+	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
+	currentPowerUpText->setDefaultTextColor(Qt::white);
+	currentPowerUpText->setFont(QFont("times", 14));
+	_scene->addItem(currentPowerUpText);
+}
+
+void Platform::initializeGame()
 {
 	//INITIATE TIMERS
 	timerFrame->setInterval(FRAMETIME);
@@ -141,14 +174,8 @@ void Platform::Update()
 	case GameOver:
 		//CHECKS IF GAME HASN'T BEEN INITIALIZED YET
 		initializeGameOver();
-
-		_bgMusic->setVolume(_bgMusic->volume() - 0.015);
-		_gameOverImage->setOpacity(_gameOverImage->opacity() + 0.01);
-		if (_bgMusic->volume() <= 0)
-		{
-			_gameOverSound->play();
-			_bgMusic->stop();
-		}
+		//GAMEOVER UPDATES
+		updateGameOver();
 		break;
 	case Running:
 		//CHECKS INPUT FOR PLAYER MOVEMENT
@@ -188,6 +215,17 @@ void Platform::initializeGameOver()
 		_gameOverImage->setOpacity(0.00);
 		_scene->addItem(_gameOverImage);
 		_gameOver = true;
+	}
+}
+
+void Platform::updateGameOver()
+{
+	_bgMusic->setVolume(_bgMusic->volume() - 0.015);
+	_gameOverImage->setOpacity(_gameOverImage->opacity() + 0.01);
+	if (_bgMusic->volume() <= 0)
+	{
+		_gameOverSound->play();
+		_bgMusic->stop();
 	}
 }
 
@@ -492,7 +530,7 @@ void Platform::addToGame(TypeObstacle type)
 	case hlaser:
 		temp = new Hlaser();    //on cre l'obstacle
 		_listOfObstacles->ajouter(temp);        //on l'ajoute a la liste
-		temp->setPixmap(QPixmap("hlaser.png"));
+		temp->setPixmap(_hLaserTexture);
 		temp->setPos(0 - temp->get_height(), temp->spawnHorizontal());
 		_scene->addItem(temp);
 		temp->playSpawnSound();
@@ -500,7 +538,7 @@ void Platform::addToGame(TypeObstacle type)
 	case vlaser:
 		temp = new Vlaser();
 		_listOfObstacles->ajouter(temp);
-		temp->setPixmap(QPixmap("vlaser.png"));
+		temp->setPixmap(_vLaserTexture);
 		temp->setPos(temp->spawnVertical(), 0 - temp->get_height());
 		_scene->addItem(temp);
 		temp->playSpawnSound();
