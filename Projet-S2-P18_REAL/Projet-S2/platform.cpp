@@ -61,12 +61,15 @@ void Platform::initializeSettings()
 	//GAMESTATE
 	_gameState = NotInitialized;
 	_gameOver = false;
+	currentFrameTime = 0;
 	//LEVEL
 	_level = 1;
 	_levelup = false;
 	//CURRENT POWERUP
 	_currentPowerUp = nullptr;
 	_slowedDown = false;
+	//FPGA	
+	_fpgaDisconnected = false;
 }
 
 void Platform::createScene()
@@ -148,11 +151,6 @@ void Platform::createTexts()
 
 void Platform::initializeGame()
 {
-	//INITIATE TIMERS
-	timerFrame->setInterval(FRAMETIME);
-	timerFrame->start();
-	timerElapsed->start();
-	currentFrameTime = 0;
 	//CONTROL FOCUS ON PLAYER
 	_player->setFocus();
 	//SET GAMESTATE TO RUNNING
@@ -161,6 +159,13 @@ void Platform::initializeGame()
 	_bgMusic->play();
 	//SHOW GAME
 	_view->show();
+	//INITIATE FPGA COMMUNICATION
+	if (_inputMode == 1)
+		initiateCommunicationFPGA();
+	//INITIATE TIMERS
+	timerFrame->setInterval(FRAMETIME);
+	timerFrame->start();
+	timerElapsed->start();
 }
 
 void Platform::Update()
@@ -213,6 +218,7 @@ void Platform::initializeGameOver()
 		_gameOverImage->setPixmap(QPixmap("gameover.png"));
 		_gameOverImage->setPos(0, 0);
 		_gameOverImage->setOpacity(0.00);
+		_gameOverImage->setZValue(10);
 		_scene->addItem(_gameOverImage);
 		_gameOver = true;
 	}
@@ -320,6 +326,8 @@ void Platform::checkInput()
 	case 1:
 		//FPGA
 		checkPhonemeFPGA();
+		direction = checkPhoneme(LAST_PHONEME);
+		_player->move(direction);
 		break;
 	default:
 		break;
@@ -354,7 +362,7 @@ void Platform::usePowerUp()
 	}
 	else
 	{
-		cout << "pas de current power up a utilise" << endl;
+		cout << "no current powerup to use" << endl;
 	}
 	_player->set_usePowerup(false);
 }
@@ -417,36 +425,75 @@ Direction Platform::checkPhoneme(int input)
 	}
 }
 
-Direction Platform::checkPhonemeFPGA()
+void Platform::initiateCommunicationFPGA()
 {
-	int valeur;
-	switch (valeur)
+	_fpga = new CommunicationFPGA();
+	if (!_fpga->estOk())
 	{
-	case 1:
-		return gauche;
-		break;
-	case 2:
-		return droite;
-		break;
-	case 3:
+		cout << _fpga->messageErreur() << endl;
+		_fpgaDisconnected = true;
+		return;
+	}
+	_fpgaDisconnected = false;
+}
+
+bool Platform::checkStatusFPGA()
+{
+	if (!_fpga->estOk())
+		_fpgaDisconnected = true;
+	if (_inputMode == 1)
+	{
+		if (_fpgaDisconnected)
+		{
+			_fpga = new CommunicationFPGA();
+			if (_fpga->estOk())
+			{
+				initiateCommunicationFPGA();
+				_fpgaDisconnected = false;
+				return true;
+			}
+		}
+		return false;
+	}
+	return true;
+}
+
+void Platform::checkPhonemeFPGA()
+{
+	if (!_fpga->lireRegistre(9, _fpgaValue))
+	{
+		cout << _fpga->messageErreur() << endl;
+		return;
+	}
+
+	if (1 == (_fpgaValue & 1)){
+		LAST_PHONEME = 2;
+		std::cout << "FPGA BUTTON 0 : " << endl;
+	}
+	if (2 == (_fpgaValue & 2)){
 		usePowerUp();
-	default:
-		return nulle;
-		break;
+		std::cout << "FPGA BUTTON 1 : " << endl;
+	}
+	if (4 == (_fpgaValue & 4)){
+		std::cout << "FPGA BUTTON 2 : " << endl;
+	}
+	if (8 == (_fpgaValue & 8)){
+		LAST_PHONEME = 1;
+		std::cout << "FPGA BUTTON 3 : " << endl;
 	}
 }
 
 void Platform::checkCollision()
 {
-	Rectangle* playerRect = new Rectangle(_player->get_width(), _player->get_height(),
-		_player->x(), _player->y());   //rectangle de collision du joueur
+	CollisionRectangle* playerRect = new CollisionRectangle(_player->get_width(), _player->get_height(),
+		_player->x(), _player->y());   //COLLISION RECTANGLE FOR PLAYER
 
 	_listOfObstacles->premier();
 	Obstacle* temp =_listOfObstacles->get_courant();
 	for (int i = 0; i < _listOfObstacles->get_longueur(); i++)
 	{
-		Rectangle* obstacleRect = new Rectangle(temp->get_width(), temp->get_height(), 
-			temp->x(), temp->y());   //rectangle de collision pour obstacle
+		CollisionRectangle* obstacleRect = new CollisionRectangle(temp->get_width(), temp->get_height(),
+			temp->x(), temp->y());   //COLLISION RECTANGLE FOR OBSTACLE
 
 		if (playerRect->checkIntersect(obstacleRect))
 		{
@@ -458,7 +505,7 @@ void Platform::checkCollision()
 					_powerUpCollisionSound->setPosition(0);
 				_powerUpCollisionSound->play();
 
-				//creer deep copie du power up pour affichage dans le coin droit
+				//DEEP COPIE OF CURRENT POWERUP
 				if (_currentPowerUp == nullptr)
 					_currentPowerUp = new PowerUp(temp);
 				else
@@ -504,13 +551,12 @@ void Platform::checkCollision()
 			}
 		}
 		delete obstacleRect;
-		_listOfObstacles->suivant();              //increment temp au prochain element de la liste
+		_listOfObstacles->suivant();  
 		temp = _listOfObstacles->get_courant();
 
-		//si player meure
+		//IF PLAYER DIES
 		if (_player->get_life() <= 0)
 			_gameState = GameOver;
-
 	}
 	delete playerRect;
 	return;
@@ -553,7 +599,6 @@ void Platform::addToGame(TypeObstacle type)
 	default:
 		break;
 	}
-	cout << "added, new length liste : " << _listOfObstacles->get_longueur() << endl;
 }
 
 void Platform::removeObstacle(Obstacle* obstacle)
@@ -567,27 +612,12 @@ void Platform::removeObstacle(Obstacle* obstacle)
 	{
 		if (temp == obstacle) 
 		{
-			switch (obstacle->get_type())
-			{
-			case powerUp:
-				cout << "powerUp delete" << endl;
-				break;
-			case hlaser:
-				cout << "hlaser delete" << endl;
-				break;
-			case vlaser:
-				cout << "vlaser delete" << endl;
-				break;
-			default:
-				break;
-			}
 			_scene->removeItem(temp);                     
 			_listOfObstacles->effacer();           
 		}
 		_listOfObstacles->suivant();     
 		temp = _listOfObstacles->get_courant();
 	}
-	cout << "removed, new length liste : " << _listOfObstacles->get_longueur() << endl;
 }
 
 

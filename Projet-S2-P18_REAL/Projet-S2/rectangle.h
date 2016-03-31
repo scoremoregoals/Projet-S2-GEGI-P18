@@ -1,13 +1,13 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-class Rectangle
+class CollisionRectangle
 {
 public:
 	/**
 	 * @brief      Initialize all of the attributs of the class
 	 */
-	Rectangle();
+	CollisionRectangle();
 	/**
 	 * @brief      Initialize a rectangle
 	 *
@@ -16,11 +16,11 @@ public:
 	 * @param[in]  positionX  Position on the frame in X
 	 * @param[in]  positionY  Position on the frame in Y
 	 */
-	Rectangle(int width, int height, int positionX, int positionY);
+	CollisionRectangle(int width, int height, int positionX, int positionY);
 	/**
 	 * @brief      Deconstructor
 	 */
-	virtual ~Rectangle();
+	virtual ~CollisionRectangle();
 	
 	/**
 	 * @brief      Look if the rectangle intersect with the limit of the frame
@@ -29,7 +29,7 @@ public:
 	 *
 	 * @return     True or false if collide or not
 	 */
-	bool checkIntersect(Rectangle* rect);
+	bool checkIntersect(CollisionRectangle* rect);
 	
 	//getters
 	int get_topY() {return _topY;}

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{48F8B6D3-8BAF-3DAF-B88B-ABF880DAB724}</ProjectGuid>
+    <ProjectGuid>{9BE81807-B94B-3377-886D-17BCA00239CA}</ProjectGuid>
     <RootNamespace>Projet-S2</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
@@ -159,7 +159,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Projet-S2\animation.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\animation.h -o debug\moc_animation.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\animation.h -o debug\moc_animation.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../Projet-S2/animation.h</Message>
@@ -167,7 +167,7 @@ endlocal</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\Projet-S2\animation.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\animation.h -o release\moc_animation.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\animation.h -o release\moc_animation.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../Projet-S2/animation.h</Message>
@@ -180,7 +180,7 @@ endlocal</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\mainwindow.h -o debug\moc_mainwindow.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\mainwindow.h -o debug\moc_mainwindow.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../Projet-S2/mainwindow.h</Message>
@@ -188,7 +188,7 @@ endlocal</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\Projet-S2\mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\mainwindow.h -o release\moc_mainwindow.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\mainwindow.h -o release\moc_mainwindow.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../Projet-S2/mainwindow.h</Message>
@@ -199,7 +199,7 @@ endlocal</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\platform.h -o debug\moc_platform.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\platform.h -o debug\moc_platform.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../Projet-S2/platform.h</Message>
@@ -207,7 +207,7 @@ endlocal</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\Projet-S2\platform.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 if errorlevel 1 goto VCEnd
-C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\platform.h -o release\moc_platform.cpp
+C:\Qt\5.5\msvc2012\bin\moc.exe  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_QML_DEBUG -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.5/msvc2012/mkspecs/win32-msvc2012 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/Projet-S2 -IC:/Users/Patrick/Documents/GitHub/Projet-S2-GEGI-P18/Projet-S2-P18_REAL/CommunicationFPGA -IC:/Qt/5.5/msvc2012/include -IC:/Qt/5.5/msvc2012/include/QtMultimedia -IC:/Qt/5.5/msvc2012/include/QtWidgets -IC:/Qt/5.5/msvc2012/include/QtGui -IC:/Qt/5.5/msvc2012/include/QtANGLE -IC:/Qt/5.5/msvc2012/include/QtNetwork -IC:/Qt/5.5/msvc2012/include/QtCore -I. ..\Projet-S2\platform.h -o release\moc_platform.cpp
 if errorlevel 1 goto VCEnd
 endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../Projet-S2/platform.h</Message>

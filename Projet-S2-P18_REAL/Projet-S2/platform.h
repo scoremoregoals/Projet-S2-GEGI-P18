@@ -13,7 +13,6 @@
 
 #include "obstacle.h"
 #include "runner.h"
-#include "rectangle.h"
 #include "liste.h"
 #include "Hlaser.h"
 #include "Vlaser.h"
@@ -22,6 +21,8 @@
 #include "Text.h"
 #include "animation.h"
 #include "background.h"
+#include "CommunicationFPGA.h"
+#include "rectangle.h"
 
 using namespace std;
 
@@ -90,13 +91,31 @@ public:
 	/**
 	 * @brief      Change the direction with the received input(FPGA)
 	 *
-	 * @param[in]  input  The value of the FPGA
+	 * @param[in]  input  The value of the FPGA or KEYBOARD
 	 *
 	 * @return     The new Direction of the runner
 	 */
 	Direction checkPhoneme(int input);
-	Direction checkPhonemeFPGA();
+
+	/**
+	* @brief      gathers input from fpga and changes LAST_PHONEME
+	*/
+	void checkPhonemeFPGA();
+
+	/**
+	* @brief      checks input according to selected input method
+	*/
 	void checkInput();
+
+	/**
+	* @brief      checks if fpga is disconnected
+	*/
+	bool checkStatusFPGA();
+
+	/**
+	* @brief      initiate communication with fpga and checks status
+	*/
+	void initiateCommunicationFPGA();
 	/**
 	* @brief      checks if slow power up used by the player should end (5 seconds)
 	*/
@@ -180,7 +199,10 @@ private:
 	bool _gameOver;
 	bool _slowedDown;
 	int _inputMode;
+	int _fpgaValue;
+	bool _fpgaDisconnected;
 
+	//OBJECTS
 	Runner* _player;
 	GameState _gameState;
 	Liste* _listOfObstacles;
@@ -189,7 +211,9 @@ private:
 	QGraphicsPixmapItem* _gameOverImage;
 	PowerUp* _currentPowerUp;
 	BackGround* _background;
+	CommunicationFPGA* _fpga;
 
+	//CURRENT POWERUP
 	QGraphicsPixmapItem* _currentPowerUpImage;
 	QGraphicsPixmapItem* _powerUpRect;
 
