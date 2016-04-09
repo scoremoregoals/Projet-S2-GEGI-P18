@@ -100,8 +100,8 @@ void Platform::loadSounds()
 {
 	//background music
 	_bgMusic = new QMediaPlayer();
-	_bgMusic->setVolume(30);
-	_bgMusic->setMedia(QUrl("backgroundmusic.mp3"));
+	_bgMusic->setVolume(70);
+	_bgMusic->setMedia(QUrl("Neon Drive Level - 1 Complete.mp3"));
 	//collisions
 	_laserCollisionSound = new QMediaPlayer();
 	_laserCollisionSound->setMedia(QUrl("laserCollision.wav"));
@@ -115,9 +115,10 @@ void Platform::loadSounds()
 	//destroy power up 
 	_destroySound = new QMediaPlayer();
 	_destroySound->setMedia(QUrl("destroyPowerup.wav"));
-	_destroySound->setVolume(40);
+	_destroySound->setVolume(75);
 	//slow down power up
 	_slowDownSound = new QMediaPlayer();
+	_slowDownSound->setVolume(90);
 	_slowDownSound->setMedia(QUrl("slowDownpowerup.wav"));
 	timerSlowDown = new QElapsedTimer();
 }
