@@ -100,18 +100,22 @@ void Platform::loadSounds()
 {
 	//background music
 	_bgMusic = new QMediaPlayer();
+	_bgMusic->setVolume(30);
 	_bgMusic->setMedia(QUrl("backgroundmusic.mp3"));
 	//collisions
 	_laserCollisionSound = new QMediaPlayer();
 	_laserCollisionSound->setMedia(QUrl("laserCollision.wav"));
+	_laserCollisionSound->setVolume(50);
 	_powerUpCollisionSound = new QMediaPlayer();
 	_powerUpCollisionSound->setMedia(QUrl("powerUpCollision.wav"));
+	_powerUpCollisionSound->setVolume(50);
 	//gameover
 	_gameOverSound = new QMediaPlayer();
 	_gameOverSound->setMedia(QUrl("gameOver.wav"));
 	//destroy power up 
 	_destroySound = new QMediaPlayer();
 	_destroySound->setMedia(QUrl("destroyPowerup.wav"));
+	_destroySound->setVolume(40);
 	//slow down power up
 	_slowDownSound = new QMediaPlayer();
 	_slowDownSound->setMedia(QUrl("slowDownpowerup.wav"));
@@ -244,8 +248,11 @@ void Platform::checkLevelUp()
 		if (currentFrameTime > 100)
 		{
 			_level++;
-			MAX_OBSTACLES_ACTIFS++;
-			cout << "------------LEVEL UP! LEVEL : " << _level << " max obstacles = " << MAX_OBSTACLES_ACTIFS << endl;
+			if (currentFrameTime % 20000 < 20)
+			{
+				MAX_OBSTACLES_ACTIFS++;
+				cout << "MAX OBSTACLE ++ : " << MAX_OBSTACLES_ACTIFS << endl;
+			}
 			_levelup = false;
 		}
 	}
@@ -272,7 +279,7 @@ void Platform::addObstacles()
 		addToGame(vlaser);
 	}
 
-	if (currentFrameTime % 5000 < 25 && _listOfObstacles->get_longueur() > 5)
+	if (currentFrameTime % 5000 < 25 && _listOfObstacles->get_longueur() > 4)
 	{
 		addToGame(powerUp);
 	}

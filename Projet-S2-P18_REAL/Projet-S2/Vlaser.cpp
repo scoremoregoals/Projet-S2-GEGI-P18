@@ -10,6 +10,7 @@ Vlaser::Vlaser()
 
 	//sounds
 	_spawnSound = new QMediaPlayer();
+	_spawnSound->setVolume(20);
 	_spawnSound->setMedia(QUrl("laserSpawn.wav"));
 }
 
