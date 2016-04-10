@@ -37,11 +37,20 @@ void PowerUp::randomizeType()
 	{
 	case 0: 
 		_powerUpType = Slow;
-		setPixmap(QPixmap("powerupSlow.png"));
+		_animation = new Animation(3000, 50, 60,"SlowDownSpriteSheet.png");
+		_frameTimer = new QTimer();
+		_frameTimer->setInterval(FRAMETIME * 8);
+		connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+		_frameTimer->start();
 		break;
 	case 1:
 		_powerUpType = Destroy;
 		setPixmap(QPixmap("powerupDestroy.png"));
+		/*_animation = new Animation(100, 50, 10, FRAMETIME, "VlaserSpriteSheet.png");
+		_frameTimer = new QTimer();
+		_frameTimer->setInterval(FRAMETIME * 8);
+		connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+		_frameTimer->start();*/
 		break;
 	default:
 		break;
@@ -51,6 +60,12 @@ void PowerUp::randomizeType()
 void PowerUp::set_powerUptype(PowerUpType type)
 {
 	_powerUpType = type;
+}
+
+void PowerUp::nextFrame()
+{
+	_animation->nextFrame();
+	setPixmap(QPixmap(_animation->get_currentFrame()));
 }
 
 

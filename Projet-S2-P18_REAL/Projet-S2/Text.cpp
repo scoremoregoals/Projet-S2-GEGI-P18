@@ -2,13 +2,13 @@
 
 Text::Text()
 {
+	setDefaultTextColor(Qt::white);
+	setFont(QFont("times", 16));
 }
 
 void Text::draw()
 {
 	setPlainText(_name + QString(" ") + QString::number(_value));
-	setDefaultTextColor(Qt::white);
-	setFont(QFont("times", 16));
 }
 
 void Text::set_value(float value)

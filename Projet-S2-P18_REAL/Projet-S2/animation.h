@@ -2,13 +2,10 @@
 #define ANIMATION_H
 
 #include <QGraphicsPixmapItem>
-#include <QTimer>
-#include <QObject>
 #include <qimage.h>
 
-class Animation : public QObject
+class Animation
 {
-	Q_OBJECT
 public:
 	/**
 	 * @brief Unused constructor
@@ -21,11 +18,11 @@ public:
 	 *
 	 * @param[in]  width      Size in width of the sprites
 	 * @param[in]  height     Size in height of the sprites
-	 * @param[in]  numFrames  Number of frame of the sprites 
+	 * @param[in]  numFrames  Number of frame of the sprites
 	 * @param[in]  fps        Number of frame per seconds
 	 * @param[in]  sheetPath  Directory of the containing sprites
 	 */
-	Animation(int width, int height, int numFrames, int fps, QString sheetPath);
+	Animation(int width, int height, int numFrames, QString sheetPath);
 
 	/**
 	 * @brief      Deconstructor
@@ -38,8 +35,8 @@ public:
 	 * @return     The image of the sprite
 	 */
 	QGraphicsPixmapItem* get_frame() { return _image; }
+	QPixmap get_currentFrame() { return _frame; }
 
-public slots:
 	/**
 	 * @brief      Load the next frame
 	 */
@@ -48,7 +45,6 @@ public slots:
 private:
 	QPixmap _spriteSheet;
 	QPixmap _frame;
-	QTimer* _frameTimer;
 	QGraphicsPixmapItem* _image;
 	QString _sheetPath;
 	int _numFrames;

@@ -12,6 +12,12 @@ Hlaser::Hlaser()
 	_spawnSound = new QMediaPlayer();
 	_spawnSound->setVolume(20);
 	_spawnSound->setMedia(QUrl("laserSpawn.wav"));
+
+	_animation = new Animation(500, 10, 10, "HlaserSpriteSheet.png");
+	_frameTimer = new QTimer();
+	_frameTimer->setInterval(FRAMETIME * 8);
+	connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+	_frameTimer->start();
 }
 
 Hlaser::~Hlaser()
@@ -54,5 +60,11 @@ void Hlaser::spawnHorizontal()
 void Hlaser::playSpawnSound()
 {
 	_spawnSound->play();
+}
+
+void Hlaser::nextFrame()
+{
+	_animation->nextFrame();
+	setPixmap(QPixmap(_animation->get_currentFrame()));
 }
 

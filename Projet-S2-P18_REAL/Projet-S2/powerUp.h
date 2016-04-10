@@ -1,12 +1,16 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 
+#include <qobject.h>
+#include <qtimer.h>
 #include <QMediaPlayer>
 #include "obstacle.h"
 #include "global.h"
+#include "animation.h"
 
-class PowerUp : public Obstacle
+class PowerUp : public QObject, public Obstacle
 {
+	Q_OBJECT
 public:
 	/**
 	 * @brief      Create a powerup object and set speed, width, height and damage
@@ -44,8 +48,14 @@ public:
 	 * @param[in]  type  Type of the power up
 	 */
 	void set_powerUptype(PowerUpType type);
+
+private slots:
+	void nextFrame();
+
 private:
 	PowerUpType _powerUpType;
+	Animation* _animation;
+	QTimer* _frameTimer;
 };
 
 #endif

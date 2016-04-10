@@ -50,7 +50,6 @@ void Platform::createObjects()
 	_scene->addItem(_player);
 	_player->setPos(_view->width() / 2 - _player->get_width() / 2,
 		_view->height() - _player->get_height() - 5);
-	_player->setPixmap(QPixmap("player.png"));
 	//FRAME TIMER
 	timerFrame = new QTimer();
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
@@ -87,8 +86,6 @@ void Platform::createScene()
 void Platform::loadTextures()
 {
 	_playerTexture = QPixmap("player.png");
-	_vLaserTexture = QPixmap("vlaser.png");
-	_hLaserTexture  = QPixmap("hlaser.png");
 	_slowPowerUpTexture =  QPixmap("powerupSlow.png");;
 	_destroyPowerUpTexture = QPixmap("powerupDestroy.png");
 	_backgroundTexture = QPixmap("background.png");
@@ -128,6 +125,7 @@ void Platform::createTexts()
 {
 	//PLAYER HEALTH
 	_playerHealth = new Text();
+	_playerHealth->setDefaultTextColor(Qt::black);
 	_playerHealth->set_value(_player->get_life());
 	_playerHealth->set_name("Health");
 	_playerHealth->setPos(_playerHealth->x(), _playerHealth->y() + 25);
@@ -135,6 +133,7 @@ void Platform::createTexts()
 	_playerHealth->draw();
 	//GAMETIMER
 	_gameTime = new Text();
+	_gameTime->setDefaultTextColor(Qt::black);
 	_gameTime->set_value(currentFrameTime / 1000);
 	_gameTime->set_name("GameTime");
 	_scene->addItem(_gameTime);
@@ -148,6 +147,7 @@ void Platform::createTexts()
 	_levelText->draw();
 	//CURRENT POWER UP
 	currentPowerUpText = new QGraphicsTextItem();
+	currentPowerUpText->setDefaultTextColor(Qt::black);
 	currentPowerUpText->setPlainText("Current PowerUp :");
 	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
 	currentPowerUpText->setDefaultTextColor(Qt::white);
@@ -589,7 +589,6 @@ void Platform::addToGame(TypeObstacle type)
 	case hlaser:
 		temp = new Hlaser();  
 		_listOfObstacles->ajouter(temp);
-		temp->setPixmap(_hLaserTexture);
 		temp->spawnHorizontal();
 		_scene->addItem(temp);
 		temp->playSpawnSound();
@@ -597,7 +596,6 @@ void Platform::addToGame(TypeObstacle type)
 	case vlaser:
 		temp = new Vlaser();
 		_listOfObstacles->ajouter(temp);
-		temp->setPixmap(_vLaserTexture);
 		temp->spawnVertical();
 		_scene->addItem(temp);
 		temp->playSpawnSound();

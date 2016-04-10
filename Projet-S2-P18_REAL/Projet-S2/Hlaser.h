@@ -1,12 +1,16 @@
 #ifndef HLASER_H
 #define HLASER_H
 
+#include <qobject.h>
+#include <qtimer.h>
 #include <QMediaPlayer>
 #include "obstacle.h"
 #include "global.h"
+#include "animation.h"
 
-class Hlaser : public Obstacle
+class Hlaser : public QObject, public Obstacle
 {
+	Q_OBJECT
 public:
 	/**
 	 * @brief      Create a Hlaser object with those parameters, laser speed slow,
@@ -38,9 +42,14 @@ public:
 	*/
 	void spawnHorizontal();
 
+private slots:
+	void nextFrame();
+
 private:
 	QMediaPlayer* _spawnSound;
 	int _side;
+	Animation* _animation;
+	QTimer* _frameTimer;
 };
 
 #endif

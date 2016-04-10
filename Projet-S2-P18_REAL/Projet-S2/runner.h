@@ -1,14 +1,18 @@
 #ifndef RUNNER_H
 #define RUNNER_H
 
+#include <qobject.h>
+#include <qtimer.h>
 #include <QGraphicsRectItem>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include "global.h"
+#include "animation.h"
 
-class Runner : public QGraphicsPixmapItem
+class Runner : public QObject, public QGraphicsPixmapItem
 {
+	Q_OBJECT
 public:
 	/**
 	 * @brief      Constructor, set the default runner settings
@@ -44,18 +48,21 @@ public:
 	 * @brief      True or false if we want to use power ups
 	 */
 	void usePowerUp();
-	
+
 	//setters
 	void set_life(int life);
 	void set_isRunning(bool run);
 	void set_usePowerup(bool use);
-	
+
 	//getters
-	int get_life() {return _life;}
-	int get_width() {return _width;}
-	int get_height() {return _height;}
+	int get_life() { return _life; }
+	int get_width() { return _width; }
+	int get_height() { return _height; }
 	bool get_isRunning() { return _isRunning; }
 	bool get_usePowerup() { return _usePowerUp; }
+
+private slots:
+	void nextFrame();
 	
 private:
 	int _width;
@@ -64,6 +71,8 @@ private:
 	int _speed;
 	bool _isRunning;
 	bool _usePowerUp;
+	Animation* _animation;
+	QTimer* _frameTimer;
 };
 
 

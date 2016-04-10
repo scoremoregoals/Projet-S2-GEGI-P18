@@ -9,6 +9,12 @@ Runner::Runner()
 	_height = 100;
 	_isRunning = false;
 	_usePowerUp = false;
+
+	_animation = new Animation(800, 100, 10, "spritesheet.png");
+	_frameTimer = new QTimer();
+	_frameTimer->setInterval(FRAMETIME * 8);
+	connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+	_frameTimer->start();
 }
 
 Runner::~Runner()
@@ -62,6 +68,12 @@ void Runner::usePowerUp()
 {
 	std::cout << "use power up" << std::endl;
 	_usePowerUp = true;
+}
+
+void Runner::nextFrame()
+{
+	_animation->nextFrame();
+	setPixmap(QPixmap(_animation->get_currentFrame()));
 }
 
 //setters
