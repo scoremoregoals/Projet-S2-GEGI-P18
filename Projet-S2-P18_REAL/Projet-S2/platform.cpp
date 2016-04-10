@@ -1,5 +1,6 @@
 #include "platform.h"
-#include <iostream> 
+#include <iostream>
+#include <fstream>
 
 Platform::~Platform()
 {
@@ -183,6 +184,10 @@ void Platform::Update()
 
 	case GameOver:
 		//CHECKS IF GAME HASN'T BEEN INITIALIZED YET
+		if (namecount != 1)
+		{
+			WhatYourName();
+		}
 		initializeGameOver();
 		//GAMEOVER UPDATES
 		updateGameOver();
@@ -629,8 +634,67 @@ void Platform::removeObstacle(Obstacle* obstacle)
 }
 
 
+void Platform::WhatYourName()
+{
+	name = new QWidget;
+	wghLayout = new QWidget(name);
+	text = new QLabel(name);
+	Ans = new QLineEdit(name);
+	OK = new QPushButton(name);
+	HNameLayout = new QHBoxLayout(name);
+	NameLayout = new QVBoxLayout(name);
 
+	name->setWindowTitle("Nom pour tableau pointage");
 
+	text->setText("Entrez votre surnom:");
+	HNameLayout->addWidget(text);
 
+	Ans->setReadOnly(false);
+	Ans->setMaxLength(3);
+	connect(Ans, SIGNAL(textChanged(QString)), this, SLOT(Uppercase(QString)));
+	HNameLayout->addWidget(Ans);
+	wghLayout->setLayout(HNameLayout);
+	NameLayout->addWidget(wghLayout);
+
+	OK->setText("OK");
+	OK->setToolTip("confirmer le surnom");
+	connect(OK, SIGNAL(clicked()), this, SLOT(ok()));
+	NameLayout->addWidget(OK);
+
+	name->setLayout(NameLayout);
+	name->show();
+	namecount =1;
+}
+
+void Platform::ok()
+{
+	ofstream output;
+	output.open("ScoreBoard.txt",ios::app);
+	QString contenu = Ans->text();
+	string Contenu = contenu.toStdString();
+	output << Contenu << " " << currentFrameTime/1000<<endl;
+	name->close();
+	output.close();
+}
+
+void Platform::Uppercase(QString text)
+{
+	QString tmp = text;
+
+	tmp.truncate(1); // tmp is now first char of your text
+	tmp = tmp.toUpper();
+
+	if (text.size() > 1)
+	{
+		text.remove(0, 1);
+		text = text.toUpper();
+		text.prepend(tmp);
+		Ans->setText(text);
+	}
+	else
+	{
+		Ans->setText(tmp);
+	}
+}
 
 

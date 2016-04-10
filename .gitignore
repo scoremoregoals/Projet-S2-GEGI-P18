@@ -215,3 +215,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.vcxproj
+Projet-S2-P18_REAL/Projet-S2/Projet-S2.vcxproj.filters
+Projet-S2-P18_REAL/Projet-S2/Projet-S2.sln

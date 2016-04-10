@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QList>
 #include <QElapsedTimer>
+#include <QtWidgets>
 
 #include "obstacle.h"
 #include "runner.h"
@@ -187,11 +188,19 @@ public:
 	*/
 	void updateGameOver();
 
+	void WhatYourName();
+
+	
+
 public slots:
 	/**
 	* @brief      Updates the game each FRAMETIME 
 	*/
 	void Update();
+
+private slots:
+	void ok();
+	void Uppercase(QString text);
 
 private:
 	int _level;
@@ -201,6 +210,7 @@ private:
 	int _inputMode;
 	int _fpgaValue;
 	bool _fpgaDisconnected;
+	int namecount;
 
 	//OBJECTS
 	Runner* _player;
@@ -247,6 +257,14 @@ private:
 	Text* _gameTime;
 	Text* _levelText;
 	QGraphicsTextItem* currentPowerUpText;
+
+	QWidget* name;
+	QWidget* wghLayout;
+	QLabel* text;
+	QLineEdit* Ans;
+	QPushButton* OK;
+	QHBoxLayout* HNameLayout;
+	QVBoxLayout* NameLayout;
 };
 
 #endif //PLATFORM_H

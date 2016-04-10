@@ -43,3 +43,7 @@ void MainWindow::set_platform(Platform* platform)
 {
 	_platform = platform;
 }
+
+
+
+
