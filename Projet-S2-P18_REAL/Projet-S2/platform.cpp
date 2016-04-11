@@ -34,14 +34,9 @@ void Platform::createObjects()
 	_scene->addItem(_background->get_background1());
 	_scene->addItem(_background->get_background2());
 	//CURRENT POWERUP
-	_powerUpRect = new QGraphicsPixmapItem();
-	_powerUpRect->setPixmap(_powerUpRectTexture);
-	_powerUpRect->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 15, 30);
-	_powerUpRect->setZValue(11);
-	_scene->addItem(_powerUpRect);
 	_currentPowerUpImage = new QGraphicsPixmapItem();
 	_currentPowerUpImage->setPixmap(_noPowerUpTexture);
-	_currentPowerUpImage->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 10, 35);
+	_currentPowerUpImage->setPos(SCREEN_WIDTH - 66, 38);
 	_currentPowerUpImage->setZValue(11);
 	_scene->addItem(_currentPowerUpImage);
 	//PLAYER
@@ -53,13 +48,13 @@ void Platform::createObjects()
 	//HUDS
 	//score
 	_scoreHUD = new QGraphicsPixmapItem();
-	_scoreHUD->setPixmap(QPixmap("scoreHUD.png"));
+	_scoreHUD->setPixmap(QPixmap("scoreHUD.jpg"));
 	_scoreHUD->setPos(3, 3);
 	_scoreHUD->setZValue(10);
 	_scene->addItem(_scoreHUD);
 	//current Power
 	_currentPowerHUD = new QGraphicsPixmapItem();
-	_currentPowerHUD->setPixmap(QPixmap("currentPowerHUD.png"));
+	_currentPowerHUD->setPixmap(QPixmap("currentPowerHUD.jpg"));
 	_currentPowerHUD->setPos(_view->width() - 176, 3);
 	_scene->addItem(_currentPowerHUD);
 	_currentPowerHUD->setZValue(10);
@@ -102,9 +97,8 @@ void Platform::loadTextures()
 	_slowPowerUpTexture =  QPixmap("powerupSlow.png");;
 	_destroyPowerUpTexture = QPixmap("powerupDestroy.png");
 	_backgroundTexture = QPixmap("background.png");
-	_powerUpRectTexture = QPixmap("powerUpRect.png");
 	_gameOverTexture = QPixmap("gameover.png");
-	_noPowerUpTexture = QPixmap("noPowerUp");
+	_noPowerUpTexture = QPixmap("noPowerUp.jpg");
 }
 
 void Platform::loadSounds()
@@ -143,19 +137,19 @@ void Platform::createTexts()
 	starWarsFont = QFont(family);
 	//PLAYER HEALTH
 	_playerHealth = new Text();
-	_playerHealth->setDefaultTextColor(Qt::white);
+	_playerHealth->setDefaultTextColor(Qt::black);
 	_playerHealth->setFont(starWarsFont);
 	_playerHealth->set_value(_player->get_life());
 	_playerHealth->set_name("Health");
-	_playerHealth->setPos(_playerHealth->x() + 5, _playerHealth->y() + 27);
+	_playerHealth->setPos(_playerHealth->x() + 10, _playerHealth->y() + 30);
 	_scene->addItem(_playerHealth);
 	_playerHealth->setZValue(11);
 	_playerHealth->draw();
 	//GAMETIMER
 	_gameTime = new Text();
-	_gameTime->setDefaultTextColor(Qt::white);
+	_gameTime->setDefaultTextColor(Qt::black);
 	_gameTime->setFont(starWarsFont);
-	_gameTime->setPos(_gameTime->x() + 2, _gameTime->y() + 2);
+	_gameTime->setPos(_gameTime->x() + 7, _gameTime->y() + 5);
 	_gameTime->set_value(currentFrameTime / 1000);
 	_gameTime->set_name("GameTime");
 	_scene->addItem(_gameTime);
@@ -172,7 +166,7 @@ void Platform::createTexts()
 	//CURRENT POWER UP
 	currentPowerUpText = new QGraphicsTextItem();
 	currentPowerUpText->setFont(QFont(family, 10));
-	currentPowerUpText->setDefaultTextColor(Qt::white);
+	currentPowerUpText->setDefaultTextColor(Qt::black);
 	currentPowerUpText->setPlainText("Current Powerup :");
 	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
 	currentPowerUpText->setZValue(11);
@@ -394,7 +388,7 @@ void Platform::usePowerUp()
 			break;
 		}
 		_currentPowerUp = nullptr;
-		_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
+		_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.jpg"));
 	}
 	else
 	{
@@ -570,9 +564,9 @@ void Platform::checkCollision()
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
 				//explosion
-				//explosion = new Explosion();
-				//explosion->setPos(temp->pos());
-				//_scene->addItem(explosion);
+				explosion = new Explosion();
+				explosion->setPos(temp->pos());
+				_scene->addItem(explosion);
 				removeObstacle(temp);
 				break;
 			case vlaser:
@@ -585,9 +579,9 @@ void Platform::checkCollision()
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
 				//explosion
-				//explosion = new Explosion();
-				//explosion->setPos(temp->pos());
-				//_scene->addItem(explosion);
+				explosion = new Explosion();
+				explosion->setPos(temp->pos().x(), temp->pos().y() + temp->get_height());
+				_scene->addItem(explosion);
 				removeObstacle(temp);
 				break;
 			default:

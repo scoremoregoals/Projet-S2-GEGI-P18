@@ -3,7 +3,7 @@
 Explosion::Explosion()
 {
 	frameCount = 0;
-	_animation = new Animation(600, 50, 12, "explosion.png");
+	_animation = new Animation(215, 15, 12, "explosion.png");
 	setPixmap(_animation->get_currentFrame());
 	_frameTimer = new QTimer();
 	_frameTimer->setInterval(FRAMETIME);
