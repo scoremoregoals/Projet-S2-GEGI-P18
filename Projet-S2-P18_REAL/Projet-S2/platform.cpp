@@ -671,7 +671,7 @@ void Platform::ok()
 	QString contenu = Ans->text();
 	string Contenu = contenu.toStdString();
 	float time = currentFrameTime;
-	output << Contenu << " " << time/1000<<"\n";
+	output << time / 1000 << " " <<Contenu << "\n";
 	name->close();
 	output.close();
 }
