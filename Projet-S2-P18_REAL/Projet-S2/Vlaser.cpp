@@ -23,6 +23,8 @@ Vlaser::Vlaser()
 Vlaser::~Vlaser()
 {
 	delete _spawnSound;
+	delete _animation;
+	delete _frameTimer;
 }
 
 void Vlaser::update()

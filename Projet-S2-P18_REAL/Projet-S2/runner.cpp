@@ -5,12 +5,14 @@ Runner::Runner()
 {
 	_life = 100;
 	_speed = 3;
-	_width = 100;
-	_height = 100;
+	_width = 80;
+	_height = 80;
 	_isRunning = false;
 	_usePowerUp = false;
 
-	_animation = new Animation(800, 100, 10, "spritesheet.png");
+	_animationLeft = new Animation(1200, 100, 12, "bb8-gauche.png");
+	_animationRight = new Animation(1200, 100, 12, "bb8-droite.png");
+	_currentAnimation = new Animation(1200, 100, 12, "bb8-droite.png");
 	_frameTimer = new QTimer();
 	_frameTimer->setInterval(FRAMETIME * 8);
 	connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
@@ -26,19 +28,21 @@ void Runner::move(Direction direction)
 	{
 	case gauche:
 		setPos(x() - _speed, y());
+		_currentAnimation = _animationLeft;
 		break;
 	case droite:
 		setPos(x() + _speed, y());
+		_currentAnimation = _animationRight;
 		break;
 	case nulle :
 		break;
 	default:
 		break;
 	}
-	if (x() >= scene()->width() - _width - 4)
-		setPos(scene()->width() - _width - 4, y());
-	if (x() <= 0)
-		setPos(0, y());
+	if (x() >= scene()->width() - 200)
+		setPos(scene()->width() - 200, y());
+	if (x() <= 100)
+		setPos(100, y());
 }
 
 void Runner::keyPressEvent(QKeyEvent *event)
@@ -72,8 +76,8 @@ void Runner::usePowerUp()
 
 void Runner::nextFrame()
 {
-	_animation->nextFrame();
-	setPixmap(QPixmap(_animation->get_currentFrame()));
+	_currentAnimation->nextFrame();
+	setPixmap(QPixmap(_currentAnimation->get_currentFrame()));
 }
 
 //setters

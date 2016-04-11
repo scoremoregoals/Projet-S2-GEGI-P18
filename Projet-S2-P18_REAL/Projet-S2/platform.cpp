@@ -37,19 +37,32 @@ void Platform::createObjects()
 	_powerUpRect = new QGraphicsPixmapItem();
 	_powerUpRect->setPixmap(_powerUpRectTexture);
 	_powerUpRect->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 15, 30);
-	_powerUpRect->setZValue(1);
+	_powerUpRect->setZValue(11);
 	_scene->addItem(_powerUpRect);
 	_currentPowerUpImage = new QGraphicsPixmapItem();
 	_currentPowerUpImage->setPixmap(_noPowerUpTexture);
 	_currentPowerUpImage->setPos(SCREEN_WIDTH - _powerUpRect->boundingRect().width() - 10, 35);
-	_currentPowerUpImage->setZValue(2);
+	_currentPowerUpImage->setZValue(11);
 	_scene->addItem(_currentPowerUpImage);
 	//PLAYER
 	_player = new Runner();
 	_player->setFlag(QGraphicsItem::ItemIsFocusable);
 	_scene->addItem(_player);
 	_player->setPos(_view->width() / 2 - _player->get_width() / 2,
-		_view->height() - _player->get_height() - 5);
+		_view->height() - _player->get_height() - 30);
+	//HUDS
+	//score
+	_scoreHUD = new QGraphicsPixmapItem();
+	_scoreHUD->setPixmap(QPixmap("scoreHUD.png"));
+	_scoreHUD->setPos(3, 3);
+	_scoreHUD->setZValue(10);
+	_scene->addItem(_scoreHUD);
+	//current Power
+	_currentPowerHUD = new QGraphicsPixmapItem();
+	_currentPowerHUD->setPixmap(QPixmap("currentPowerHUD.png"));
+	_currentPowerHUD->setPos(_view->width() - 176, 3);
+	_scene->addItem(_currentPowerHUD);
+	_currentPowerHUD->setZValue(10);
 	//FRAME TIMER
 	timerFrame = new QTimer();
 	QObject::connect(timerFrame, SIGNAL(timeout()), this, SLOT(Update()));
@@ -99,7 +112,7 @@ void Platform::loadSounds()
 	//background music
 	_bgMusic = new QMediaPlayer();
 	_bgMusic->setVolume(70);
-	_bgMusic->setMedia(QUrl("Neon Drive Level - 1 Complete.mp3"));
+	_bgMusic->setMedia(QUrl("backgroundmusic.mp3"));
 	//collisions
 	_laserCollisionSound = new QMediaPlayer();
 	_laserCollisionSound->setMedia(QUrl("laserCollision.wav"));
@@ -123,23 +136,34 @@ void Platform::loadSounds()
 
 void Platform::createTexts()
 {
+	//FONT
+	QFontDatabase::removeAllApplicationFonts();
+	int id = QFontDatabase::addApplicationFont("Starjedi.ttf");
+	QString family = QFontDatabase::applicationFontFamilies(id).first();
+	starWarsFont = QFont(family);
 	//PLAYER HEALTH
 	_playerHealth = new Text();
-	_playerHealth->setDefaultTextColor(Qt::black);
+	_playerHealth->setDefaultTextColor(Qt::white);
+	_playerHealth->setFont(starWarsFont);
 	_playerHealth->set_value(_player->get_life());
 	_playerHealth->set_name("Health");
-	_playerHealth->setPos(_playerHealth->x(), _playerHealth->y() + 25);
+	_playerHealth->setPos(_playerHealth->x() + 5, _playerHealth->y() + 27);
 	_scene->addItem(_playerHealth);
+	_playerHealth->setZValue(11);
 	_playerHealth->draw();
 	//GAMETIMER
 	_gameTime = new Text();
-	_gameTime->setDefaultTextColor(Qt::black);
+	_gameTime->setDefaultTextColor(Qt::white);
+	_gameTime->setFont(starWarsFont);
+	_gameTime->setPos(_gameTime->x() + 2, _gameTime->y() + 2);
 	_gameTime->set_value(currentFrameTime / 1000);
 	_gameTime->set_name("GameTime");
 	_scene->addItem(_gameTime);
+	_gameTime->setZValue(11);
 	_gameTime->draw();
 	//LEVEL
 	_levelText = new Text();
+	_levelText->setFont(starWarsFont);
 	_levelText->set_value(_level);
 	_levelText->set_name("Level");
 	_levelText->setPos(_view->width() / 2 - 35, 0);
@@ -147,11 +171,11 @@ void Platform::createTexts()
 	_levelText->draw();
 	//CURRENT POWER UP
 	currentPowerUpText = new QGraphicsTextItem();
-	currentPowerUpText->setDefaultTextColor(Qt::black);
-	currentPowerUpText->setPlainText("Current PowerUp :");
-	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
+	currentPowerUpText->setFont(QFont(family, 10));
 	currentPowerUpText->setDefaultTextColor(Qt::white);
-	currentPowerUpText->setFont(QFont("times", 14));
+	currentPowerUpText->setPlainText("Current Powerup :");
+	currentPowerUpText->setPos(SCREEN_WIDTH - 170, 0);
+	currentPowerUpText->setZValue(11);
 	_scene->addItem(currentPowerUpText);
 }
 
@@ -254,7 +278,7 @@ void Platform::checkLevelUp()
 		if (currentFrameTime > 100)
 		{
 			_level++;
-			if (currentFrameTime % 20000 < 20)
+			if (currentFrameTime % 10000 < 20)
 			{
 				MAX_OBSTACLES_ACTIFS++;
 				cout << "MAX OBSTACLE ++ : " << MAX_OBSTACLES_ACTIFS << endl;
@@ -285,7 +309,7 @@ void Platform::addObstacles()
 		addToGame(vlaser);
 	}
 
-	if (currentFrameTime % 5000 < 25 && _listOfObstacles->get_longueur() > 4)
+	if (currentFrameTime % 4000 < 25 && _listOfObstacles->get_longueur() > 3)
 	{
 		addToGame(powerUp);
 	}
@@ -369,7 +393,6 @@ void Platform::usePowerUp()
 		default:
 			break;
 		}
-		delete _currentPowerUp;
 		_currentPowerUp = nullptr;
 		_currentPowerUpImage->setPixmap(QPixmap("noPowerUp.png"));
 	}
@@ -473,24 +496,24 @@ bool Platform::checkStatusFPGA()
 
 void Platform::checkPhonemeFPGA()
 {
-	if (!_fpga->lireRegistre(9, _fpgaValue))
+	if (!_fpga->lireRegistre(1, _fpgaValue))
 	{
 		cout << _fpga->messageErreur() << endl;
 		return;
 	}
 
-	if (1 == (_fpgaValue & 1)){
+	if (2 == (_fpgaValue & 2)){
 		LAST_PHONEME = 2;
 		std::cout << "FPGA BUTTON 0 : " << endl;
 	}
-	if (2 == (_fpgaValue & 2)){
+	if (4 == (_fpgaValue & 4)){
 		usePowerUp();
 		std::cout << "FPGA BUTTON 1 : " << endl;
 	}
-	if (4 == (_fpgaValue & 4)){
+	if (8 == (_fpgaValue & 8)){
 		std::cout << "FPGA BUTTON 2 : " << endl;
 	}
-	if (8 == (_fpgaValue & 8)){
+	if (1 == (_fpgaValue & 1)){
 		LAST_PHONEME = 1;
 		std::cout << "FPGA BUTTON 3 : " << endl;
 	}
@@ -527,10 +550,10 @@ void Platform::checkCollision()
 				switch (_currentPowerUp->get_powerUpType())
 				{
 				case Slow:
-					_currentPowerUpImage->setPixmap(QPixmap("powerupSlow.png"));
+					_currentPowerUpImage->setPixmap(QPixmap("slowDown.png"));
 					break;
 				case Destroy:
-					_currentPowerUpImage->setPixmap(QPixmap("powerupDestroy.png"));
+					_currentPowerUpImage->setPixmap(QPixmap("bomb.png"));
 					break;
 				default:
 					break;
@@ -546,6 +569,10 @@ void Platform::checkCollision()
 				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
+				//explosion
+				//explosion = new Explosion();
+				//explosion->setPos(temp->pos());
+				//_scene->addItem(explosion);
 				removeObstacle(temp);
 				break;
 			case vlaser:
@@ -557,6 +584,10 @@ void Platform::checkCollision()
 				if (_laserCollisionSound->state() == QMediaPlayer::PlayingState)
 					_laserCollisionSound->setPosition(0);
 				_laserCollisionSound->play();
+				//explosion
+				//explosion = new Explosion();
+				//explosion->setPos(temp->pos());
+				//_scene->addItem(explosion);
 				removeObstacle(temp);
 				break;
 			default:

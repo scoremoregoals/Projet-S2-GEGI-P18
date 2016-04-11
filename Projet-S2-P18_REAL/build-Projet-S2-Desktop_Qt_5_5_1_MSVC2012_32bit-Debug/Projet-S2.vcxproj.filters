@@ -52,6 +52,9 @@
     <ClCompile Include="..\Projet-S2\background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Projet-S2\explosion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\Projet-S2\global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,21 +84,24 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Projet-S2\Hlaser.h">
+    <CustomBuild Include="..\Projet-S2\Hlaser.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <ClInclude Include="..\Projet-S2\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\Vlaser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <CustomBuild Include="..\Projet-S2\animation.h">
+    <CustomBuild Include="..\Projet-S2\Vlaser.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="..\Projet-S2\animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\Projet-S2\background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="..\Projet-S2\explosion.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="..\Projet-S2\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -111,21 +117,33 @@
     <CustomBuild Include="..\Projet-S2\platform.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\powerUp.h">
+    <CustomBuild Include="..\Projet-S2\powerUp.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <ClInclude Include="..\Projet-S2\rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\runner.h">
+    <CustomBuild Include="..\Projet-S2\runner.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug\moc_animation.cpp">
+    <ClCompile Include="debug\moc_Hlaser.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_animation.cpp">
+    <ClCompile Include="release\moc_Hlaser.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_Vlaser.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_Vlaser.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_explosion.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_explosion.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_mainwindow.cpp">
@@ -138,6 +156,18 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_platform.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_powerUp.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_powerUp.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_runner.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_runner.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClInclude Include="ui_mainwindow.h">

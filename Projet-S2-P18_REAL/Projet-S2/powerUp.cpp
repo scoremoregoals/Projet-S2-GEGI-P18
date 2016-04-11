@@ -23,6 +23,8 @@ PowerUp::PowerUp(Obstacle* copy)
 
 PowerUp::~PowerUp()
 {	
+	delete _animation;
+	delete _frameTimer;
 }
 
 void PowerUp::update()
@@ -45,12 +47,11 @@ void PowerUp::randomizeType()
 		break;
 	case 1:
 		_powerUpType = Destroy;
-		setPixmap(QPixmap("powerupDestroy.png"));
-		/*_animation = new Animation(100, 50, 10, FRAMETIME, "VlaserSpriteSheet.png");
+		_animation = new Animation(600, 50, 12, "bombSpriteSheet.png");
 		_frameTimer = new QTimer();
 		_frameTimer->setInterval(FRAMETIME * 8);
 		connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-		_frameTimer->start();*/
+		_frameTimer->start();
 		break;
 	default:
 		break;
