@@ -116,7 +116,7 @@ void MainWindow::creerActions()
 
 void MainWindow::showScoreBoard()
 {
-	/*ifstream input;
+	ifstream input;
 	input.open("ScoreBoard.txt");
 	string NAME;
 	float SCORE;
@@ -131,6 +131,9 @@ void MainWindow::showScoreBoard()
 	int NPersonne = COUNT;
 	string* name=new string[NPersonne];
 	float* score=new float[NPersonne];
+	int i;
+	for (i = 0; i < NPersonne; i++)
+		score[i] = 0;
 	COUNT = 0;
 	while (!input.eof())
 	{
@@ -138,10 +141,11 @@ void MainWindow::showScoreBoard()
 		COUNT++;
 	}
 	input.close();
+
 	int Ipivot = 0;
 	float tempS;
 	string tempN;
-	while (Ipivot <=4)
+	while (Ipivot <=NPersonne)
 	{
 		COUNT = Ipivot + 1;
 		for (COUNT; COUNT < NPersonne; COUNT++)
@@ -157,7 +161,7 @@ void MainWindow::showScoreBoard()
 			}
 		}
 		Ipivot++;
-	}*/
+	}
 	QWidget* ScoreBoard;
 	QLabel* Title;
 	QLabel* Number1;
@@ -165,13 +169,14 @@ void MainWindow::showScoreBoard()
 	QLabel* Number3;
 	QLabel* Number4;
 	QLabel* Number5;
+	QPushButton* PBOk;
 	
 	QVBoxLayout* scLayout;
 
 	statusBar()->showMessage(tr("Affichage du tableau des scores"));
 
 	ScoreBoard = new QWidget();
-	ScoreBoard->setFixedSize(270,130);
+	ScoreBoard->setFixedSize(270,200);
 	ScoreBoard->setWindowTitle("Tableau de pointages");
 	scLayout = new QVBoxLayout(ScoreBoard);
 
@@ -180,35 +185,56 @@ void MainWindow::showScoreBoard()
 	Title->setAlignment(Qt::AlignCenter);
 	scLayout->addWidget(Title);
 
-	Number1 = new QLabel(ScoreBoard);
-	Number1->setAlignment(Qt::AlignCenter);
-	//Number1->setText(tr("1. ") + QString::fromStdString(name[0])+ tr(" ")+ QString::number(score[0]));
-	scLayout->addWidget(Number1);
 
-	Number2 = new QLabel(ScoreBoard);
-	Number2->setAlignment(Qt::AlignCenter);
-	//Number2->setText(tr("2. ") + QString::fromStdString(name[1]) + tr(" ") + QString::number(score[1]));
-	scLayout->addWidget(Number2);
+	if (score[0]!=0)
+	{
+		Number1 = new QLabel(ScoreBoard);
+		Number1->setAlignment(Qt::AlignCenter);
+		Number1->setText(tr("1. ") + QString::fromStdString(name[0]) + tr(" ") + QString::number(score[0]));
+		scLayout->addWidget(Number1);
+	}
 
-	Number3 = new QLabel(ScoreBoard);
-	Number3->setAlignment(Qt::AlignCenter);
-	//Number3->setText(tr("3. ") + QString::fromStdString(name[2]) + tr(" ") + QString::number(score[2]));
-	scLayout->addWidget(Number3);
+	if (score[1] != 0)
+	{
+		Number2 = new QLabel(ScoreBoard);
+		Number2->setAlignment(Qt::AlignCenter);
+		Number2->setText(tr("2. ") + QString::fromStdString(name[1]) + tr(" ") + QString::number(score[1]));
+		scLayout->addWidget(Number2);
+	}
 
-	Number4 = new QLabel(ScoreBoard);
-	Number4->setAlignment(Qt::AlignCenter);
-	//Number4->setText(tr("4. ") + QString::fromStdString(name[3]) + tr(" ") + QString::number(score[3]));
-	scLayout->addWidget(Number4);
+	if (NPersonne>2)
+	{
+		Number3 = new QLabel(ScoreBoard);
+		Number3->setAlignment(Qt::AlignCenter);
+		Number3->setText(tr("3. ") + QString::fromStdString(name[2]) + tr(" ") + QString::number(score[2]));
+		scLayout->addWidget(Number3);
+	}
 
-	Number5 = new QLabel(ScoreBoard);
-	Number5->setAlignment(Qt::AlignCenter);
-	//Number5->setText(tr("5. ") + QString::fromStdString(name[4]) + tr(" ") + QString::number(score[4]));
-	scLayout->addWidget(Number5);
+	if (NPersonne>3)
+	{
+		Number4 = new QLabel(ScoreBoard);
+		Number4->setAlignment(Qt::AlignCenter);
+		Number4->setText(tr("4. ") + QString::fromStdString(name[3]) + tr(" ") + QString::number(score[3]));
+		scLayout->addWidget(Number4);
+	}
+
+	if (NPersonne>4)
+	{
+		Number5 = new QLabel(ScoreBoard);
+		Number5->setAlignment(Qt::AlignCenter);
+		Number5->setText(tr("5. ") + QString::fromStdString(name[4]) + tr(" ") + QString::number(score[4]));
+		scLayout->addWidget(Number5);
+	}
+
+	PBOk = new QPushButton(ScoreBoard);
+	PBOk->setText("OK");
+	connect(PBOk,SIGNAL(clicked()), ScoreBoard, SLOT(close()));
+	scLayout->addWidget(PBOk);
 
 	ScoreBoard->setLayout(scLayout);
-	
-	//delete[] score;
-	//delete[] name;
+
+	delete[] score;
+	delete[] name;
 	ScoreBoard->show();
 }
 
