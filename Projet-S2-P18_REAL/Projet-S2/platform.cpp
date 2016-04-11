@@ -670,7 +670,8 @@ void Platform::ok()
 	output.open("ScoreBoard.txt",ios::app);
 	QString contenu = Ans->text();
 	string Contenu = contenu.toStdString();
-	output << Contenu << " " << currentFrameTime/1000<<"\n";
+	float time = currentFrameTime;
+	output << Contenu << " " << time/1000<<"\n";
 	name->close();
 	output.close();
 }
