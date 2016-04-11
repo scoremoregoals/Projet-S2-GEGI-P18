@@ -118,6 +118,7 @@ void MainWindow::showScoreBoard()
 {
 	ifstream input;
 	input.open("ScoreBoard.txt");
+	
 	string NAME;
 	float SCORE;
 	int COUNT = 0;
@@ -132,7 +133,7 @@ void MainWindow::showScoreBoard()
 	string* name=new string[NPersonne];
 	float* score=new float[NPersonne];
 	int i;
-	for (i = 0; i < NPersonne; i++)
+	for (i = 0; i < NPersonne-1; i++)
 		score[i] = 0;
 	COUNT = 0;
 	while (!input.eof())
@@ -202,7 +203,7 @@ void MainWindow::showScoreBoard()
 		scLayout->addWidget(Number2);
 	}
 
-	if (NPersonne>2)
+	if (NPersonne-1>2)
 	{
 		Number3 = new QLabel(ScoreBoard);
 		Number3->setAlignment(Qt::AlignCenter);
@@ -210,7 +211,7 @@ void MainWindow::showScoreBoard()
 		scLayout->addWidget(Number3);
 	}
 
-	if (NPersonne>3)
+	if (NPersonne-1>3)
 	{
 		Number4 = new QLabel(ScoreBoard);
 		Number4->setAlignment(Qt::AlignCenter);
@@ -218,7 +219,7 @@ void MainWindow::showScoreBoard()
 		scLayout->addWidget(Number4);
 	}
 
-	if (NPersonne>4)
+	if (NPersonne-1>4)
 	{
 		Number5 = new QLabel(ScoreBoard);
 		Number5->setAlignment(Qt::AlignCenter);
