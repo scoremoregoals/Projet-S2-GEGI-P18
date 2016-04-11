@@ -1,34 +1,47 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
-#include <QMainWindow>
 #include <QtWidgets>
-#include<QKeyEvent>
+#include <QObject>
+#include <QMainWindow>
+#include <fstream>
+#include <string>
 #include "platform.h"
 
-namespace Ui {
-class MainWindow;
-}
+using namespace std;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
+public :
+	MainWindow();
+	~MainWindow();
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-
-	void set_platform(Platform* platform);
-
+	void creerObjets();
+	void creerMenus();
+	void creerActions();
+	void creerLayout();
 
 private slots:
-    void on_pbStartGame_clicked();
+	void showScoreBoard();
+	void fermer();
+	void aPropos();
+	void pbDemarrer_cliquee();
+	void demarrer();
 
-private:
-    Ui::MainWindow *ui;
-    void keyPressEvent(QKeyEvent *keyevent);
+private :
+	QWidget* wgMainWidget;
+	QWidget* wgHLayoutWidget;
+	QVBoxLayout* vbLayout;
+	QHBoxLayout* hbLayout;
+	QLabel* lbControles;
+	QLabel* lbBlank;
+	QTextEdit* txteInfo;
+	QPushButton* pbDemarrer;
+	QComboBox* cbControles;
 	Platform* _platform;
-	
-};
 
-#endif // MAINWINDOW_H
+	//MENUS
+	QMenu* menuFichier;
+	QMenu* menuAide;
+	QAction* actFermer;
+	QAction* actScoreboard;
+	QAction* actAPropos;
+};

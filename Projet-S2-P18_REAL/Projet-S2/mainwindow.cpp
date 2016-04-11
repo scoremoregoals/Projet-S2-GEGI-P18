@@ -1,49 +1,239 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-#include <iostream>
+using namespace std;
 
-
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow()
 {
-    ui->setupUi(this);
+	//SETTINGS
+	setWindowTitle("Interface Runner");
+	setFixedSize(421, 370);
+	setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
+	statusBar()->show();
+
+	_platform = new Platform();
+
+	creerObjets();
+	creerLayout();
+	creerActions();
+	creerMenus();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 	delete _platform;
 }
 
-
-void MainWindow::on_pbStartGame_clicked()
+void MainWindow::creerLayout()
 {
-    std::cout << "The game is starting - from the push button" << std::endl;
+	hbLayout->addWidget(lbControles, 0, Qt::AlignLeft);
+	hbLayout->addWidget(cbControles, 0, Qt::AlignLeft);
+	hbLayout->addWidget(lbBlank, 0, Qt::AlignLeft);
+	wgHLayoutWidget->setLayout(hbLayout);
+
+	vbLayout->addWidget(txteInfo);
+	vbLayout->addWidget(wgHLayoutWidget);
+	vbLayout->addWidget(pbDemarrer);
+
+	wgMainWidget->setLayout(vbLayout);
+	setCentralWidget(wgMainWidget);
+}
+
+void MainWindow::creerObjets()
+{
+	//Widgets
+	wgMainWidget = new QWidget(this);
+	wgHLayoutWidget = new QWidget(wgMainWidget);
+	vbLayout = new QVBoxLayout(wgMainWidget);
+	hbLayout = new QHBoxLayout(wgHLayoutWidget);
+
+	//Demarrer bouton
+	pbDemarrer = new QPushButton(wgMainWidget);
+	pbDemarrer->setText(QLatin1String("Démarrer!"));
+	pbDemarrer->setToolTip(QLatin1String("Démarrer le jeu"));
+	connect(pbDemarrer, SIGNAL(clicked()), this, SLOT(pbDemarrer_cliquee()));
+
+	//Controles label et combobox
+	cbControles = new QComboBox(wgMainWidget);
+	cbControles->addItem("FPGA");
+	cbControles->addItem("Clavier");
+	cbControles->setToolTip(QLatin1String("Choix de la méthode de contrôle pour le jeu"));
+	lbBlank = new QLabel(wgMainWidget);
+	lbControles = new QLabel(wgMainWidget);
+	lbControles->setText(QLatin1String("Méthode de contrôles :"));
+
+	//Informations controles texte
+	txteInfo = new QTextEdit(wgMainWidget);
+	txteInfo->setReadOnly(true);
+	txteInfo->setPlainText(QLatin1String("Contrôles :\n\n"
+		"- fpga :\n"
+		"      - phonèmes :\n"
+		"\tO -> mouvement gauche\n"
+		"\tI -> mouvement droite\n"
+		"\tShh -> utilisation power-ups\n"
+		"      - boutons :\n"
+		"\tbouton 3->mouvement gauche\n"
+		"\tbouton 0->mouvement droite\n"
+		"\tbouton 1->utilisation power-ups\n\n"
+		"- clavier :\n"
+		"      - mouvements : flèches de gauche et de droite\n"
+		"      - utilisations des power-ups : flèche du haut\n\n"
+		"Pour démarrer le jeu, appuyez sur le bouton Démarrer!"));
+}
+
+void MainWindow::creerMenus()
+{
+	//fichier
+	menuFichier = menuBar()->addMenu(tr("&Fichier"));
+	//menuFichier->addAction(actDemarrer);
+	menuFichier->addAction(actScoreboard);
+	menuFichier->addAction(actFermer);
+
+	//aide
+	menuAide = menuBar()->addMenu(tr("&Aide"));
+	menuAide->addAction(actAPropos);
+}
+
+void MainWindow::creerActions()
+{
+	actFermer = new QAction(this);
+	actFermer->setText("Fermer");
+	actFermer->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F));
+	actFermer->setStatusTip(tr("Fermer le programme"));
+	connect(actFermer, SIGNAL(triggered()), this, SLOT(fermer()));
+
+	actScoreboard = new QAction(this);
+	actScoreboard->setText("ScoreBoard");
+	actScoreboard->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
+	actScoreboard->setStatusTip(tr("Afficher la table des pointages"));
+	connect(actScoreboard, SIGNAL(triggered()), this, SLOT(showScoreBoard()));
+
+	actAPropos = new QAction(this);
+	actAPropos->setText(QLatin1String("À propos"));
+	actAPropos->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_A));
+	actAPropos->setStatusTip(tr("Informations sur le programme"));
+	connect(actAPropos, SIGNAL(triggered()), this, SLOT(aPropos()));
+}
+
+void MainWindow::showScoreBoard()
+{
+	/*ifstream input;
+	input.open("ScoreBoard.txt");
+	string NAME;
+	float SCORE;
+	int COUNT = 0;
+	while (!input.eof())
+	{
+		input >> SCORE >> NAME;
+		COUNT++;
+	}
+	input.close();
+	input.open("ScoreBoard.txt");
+	int NPersonne = COUNT;
+	string* name=new string[NPersonne];
+	float* score=new float[NPersonne];
+	COUNT = 0;
+	while (!input.eof())
+	{
+		input >> score[COUNT] >> name[COUNT];
+		COUNT++;
+	}
+	input.close();
+	int Ipivot = 0;
+	float tempS;
+	string tempN;
+	while (Ipivot <=4)
+	{
+		COUNT = Ipivot + 1;
+		for (COUNT; COUNT < NPersonne; COUNT++)
+		{
+			if (score[Ipivot]<score[COUNT])
+			{
+				tempS = score[Ipivot];
+				tempN = name[Ipivot];
+				score[Ipivot] = score[COUNT];
+				name[Ipivot] = name[COUNT];
+				score[COUNT] = tempS;
+				name[COUNT] = tempN;
+			}
+		}
+		Ipivot++;
+	}*/
+	QWidget* ScoreBoard;
+	QLabel* Title;
+	QLabel* Number1;
+	QLabel* Number2;
+	QLabel* Number3;
+	QLabel* Number4;
+	QLabel* Number5;
+	
+	QVBoxLayout* scLayout;
+
+	statusBar()->showMessage(tr("Affichage du tableau des scores"));
+
+	ScoreBoard = new QWidget();
+	ScoreBoard->setFixedSize(270,130);
+	ScoreBoard->setWindowTitle("Tableau de pointages");
+	scLayout = new QVBoxLayout(ScoreBoard);
+
+	Title = new QLabel(ScoreBoard);
+	Title->setText(" TOP 5 :");
+	Title->setAlignment(Qt::AlignCenter);
+	scLayout->addWidget(Title);
+
+	Number1 = new QLabel(ScoreBoard);
+	Number1->setAlignment(Qt::AlignCenter);
+	//Number1->setText(tr("1. ") + QString::fromStdString(name[0])+ tr(" ")+ QString::number(score[0]));
+	scLayout->addWidget(Number1);
+
+	Number2 = new QLabel(ScoreBoard);
+	Number2->setAlignment(Qt::AlignCenter);
+	//Number2->setText(tr("2. ") + QString::fromStdString(name[1]) + tr(" ") + QString::number(score[1]));
+	scLayout->addWidget(Number2);
+
+	Number3 = new QLabel(ScoreBoard);
+	Number3->setAlignment(Qt::AlignCenter);
+	//Number3->setText(tr("3. ") + QString::fromStdString(name[2]) + tr(" ") + QString::number(score[2]));
+	scLayout->addWidget(Number3);
+
+	Number4 = new QLabel(ScoreBoard);
+	Number4->setAlignment(Qt::AlignCenter);
+	//Number4->setText(tr("4. ") + QString::fromStdString(name[3]) + tr(" ") + QString::number(score[3]));
+	scLayout->addWidget(Number4);
+
+	Number5 = new QLabel(ScoreBoard);
+	Number5->setAlignment(Qt::AlignCenter);
+	//Number5->setText(tr("5. ") + QString::fromStdString(name[4]) + tr(" ") + QString::number(score[4]));
+	scLayout->addWidget(Number5);
+
+	ScoreBoard->setLayout(scLayout);
+	
+	//delete[] score;
+	//delete[] name;
+	ScoreBoard->show();
+}
+
+
+
+void MainWindow::fermer()
+{
+	statusBar()->showMessage(tr("Fermeture du programme"));
+	exit(1);
+}
+
+void MainWindow::aPropos()
+{
+	statusBar()->showMessage(QLatin1String("Affichage à propos"));
+}
+
+void MainWindow::pbDemarrer_cliquee()
+{
+	statusBar()->showMessage(QLatin1String("Jeu demarré"));
 	this->hide();
-	_platform->set_inputMode(ui->comboBox->currentIndex());
+	_platform->set_inputMode(cbControles->currentIndex());
 	_platform->initializeGame();
-	//set options to platform (game)
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *keyevent)
+void MainWindow::demarrer()
 {
-    if(keyevent->key() == Qt::Key_W)
-        std::cout << "Key Up pressed" << std::endl;
-    else if(keyevent->key() == Qt::Key_S)
-        std::cout << "Key Down pressed" << std::endl;
-    else if(keyevent->key() == Qt::Key_A)
-        std::cout << "Key Left pressed" << std::endl;
-    else if(keyevent->key() == Qt::Key_D)
-        std::cout << "Key Right pressed" << std::endl;
+	statusBar()->showMessage(QLatin1String("Jeu demarré"));
 }
-
-void MainWindow::set_platform(Platform* platform)
-{
-	_platform = platform;
-}
-
-
-
-

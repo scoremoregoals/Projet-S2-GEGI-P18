@@ -12,4 +12,3 @@ HEADERS += mainwindow.h obstacle.h platform.h powerUp.h Hlaser.h liste.h Vlaser.
 
 INCLUDEPATH += ../CommunicationFPGA
 LIBS	    += ../CommunicationFPGA/CommunicationFPGA.lib
-FORMS    += mainwindow.ui
