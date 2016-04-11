@@ -23,6 +23,8 @@ Hlaser::Hlaser()
 Hlaser::~Hlaser()
 {
 	delete _spawnSound;
+	delete _animation;
+	delete _frameTimer;
 }
 
 void Hlaser::update()

@@ -16,7 +16,7 @@ void Obstacle::spawnHorizontal()
 
 void Obstacle::spawnVertical()  
 {  
-	int random = rand() % (SCREEN_WIDTH - 10);
+	int random = rand() % (SCREEN_WIDTH/2) + 100;
 	setPos(random, 0 - _height);
 }
 

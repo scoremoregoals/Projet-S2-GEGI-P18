@@ -71,7 +71,9 @@ private:
 	int _speed;
 	bool _isRunning;
 	bool _usePowerUp;
-	Animation* _animation;
+	Animation* _animationLeft;
+	Animation* _animationRight;
+	Animation* _currentAnimation;
 	QTimer* _frameTimer;
 };
 

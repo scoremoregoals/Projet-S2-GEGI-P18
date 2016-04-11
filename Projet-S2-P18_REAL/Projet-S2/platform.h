@@ -11,6 +11,7 @@
 #include <QList>
 #include <QElapsedTimer>
 #include <QtWidgets>
+#include <QFontDataBase>
 
 #include "obstacle.h"
 #include "runner.h"
@@ -24,6 +25,7 @@
 #include "background.h"
 #include "CommunicationFPGA.h"
 #include "rectangle.h"
+#include "explosion.h"
 
 using namespace std;
 
@@ -219,9 +221,12 @@ private:
 	QGraphicsScene* _scene;
 	QGraphicsView* _view;
 	QGraphicsPixmapItem* _gameOverImage;
+	QGraphicsPixmapItem* _scoreHUD;
+	QGraphicsPixmapItem* _currentPowerHUD;
 	PowerUp* _currentPowerUp;
 	BackGround* _background;
 	CommunicationFPGA* _fpga;
+	Explosion* explosion;
 
 	//CURRENT POWERUP
 	QGraphicsPixmapItem* _currentPowerUpImage;
@@ -257,6 +262,7 @@ private:
 	Text* _gameTime;
 	Text* _levelText;
 	QGraphicsTextItem* currentPowerUpText;
+	QFont starWarsFont;
 
 	QWidget* name;
 	QWidget* wghLayout;
