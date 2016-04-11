@@ -10,9 +10,9 @@ Runner::Runner()
 	_isRunning = false;
 	_usePowerUp = false;
 
-	_animationLeft = new Animation(1200, 100, 12, "bb8-gauche.png");
-	_animationRight = new Animation(1200, 100, 12, "bb8-droite.png");
-	_currentAnimation = new Animation(1200, 100, 12, "bb8-droite.png");
+	_animationLeft = new Animation(1000, 100, 10, "bb8-gauche.png");
+	_animationRight = new Animation(1000, 100, 10, "bb8-droite.png");
+	_currentAnimation = new Animation(1000, 100, 10, "bb8-droite.png");
 	_frameTimer = new QTimer();
 	_frameTimer->setInterval(FRAMETIME * 8);
 	connect(_frameTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));

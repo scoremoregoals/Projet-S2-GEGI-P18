@@ -240,7 +240,6 @@ private:
 	QPixmap _playerTexture;
 	QPixmap _backgroundTexture;
 	QPixmap _gameOverTexture;
-	QPixmap _powerUpRectTexture;
 	QPixmap _noPowerUpTexture;
 
 	//SOUNDS
