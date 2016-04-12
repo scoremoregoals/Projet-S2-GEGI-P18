@@ -6,9 +6,9 @@ TARGET = Projet-S2
 TEMPLATE = vcapp
 CONFIG      += warn_on qt debug_and_release windows console
 
-SOURCES += main.cpp mainwindow.cpp obstacle.cpp platform.cpp Hlaser.cpp liste.cpp powerUp.cpp Vlaser.cpp rectangle.cpp runner.cpp global.cpp Text.cpp animation.cpp background.cpp explosion.cpp
+SOURCES += Sources/main.cpp Sources/mainwindow.cpp Sources/obstacle.cpp Sources/platform.cpp Sources/Hlaser.cpp Sources/liste.cpp Sources/powerUp.cpp Sources/Vlaser.cpp Sources/rectangle.cpp Sources/runner.cpp Sources/global.cpp Sources/Text.cpp Sources/animation.cpp Sources/background.cpp Sources/explosion.cpp
 
-HEADERS += mainwindow.h obstacle.h platform.h powerUp.h Hlaser.h liste.h Vlaser.h rectangle.h runner.h global.h Text.h animation.h background.h explosion.h
+HEADERS += Headers/mainwindow.h Headers/obstacle.h Headers/platform.h Headers/powerUp.h Headers/Hlaser.h Headers/liste.h Headers/Vlaser.h Headers/rectangle.h Headers/runner.h Headers/global.h Headers/Text.h Headers/animation.h Headers/background.h Headers/explosion.h
 
 INCLUDEPATH += ../CommunicationFPGA
 LIBS	    += ../CommunicationFPGA/CommunicationFPGA.lib

@@ -27,93 +27,93 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Projet-S2\Hlaser.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\Hlaser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\Text.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\Vlaser.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\Vlaser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\animation.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\background.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\background.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\explosion.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\explosion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\global.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\liste.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\liste.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\main.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\mainwindow.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\obstacle.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\obstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\platform.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\powerUp.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\powerUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\rectangle.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Projet-S2\runner.cpp">
+    <ClCompile Include="..\Projet-S2\Sources\runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Projet-S2\Hlaser.h">
+    <CustomBuild Include="..\Projet-S2\Headers\Hlaser.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\Text.h">
+    <ClInclude Include="..\Projet-S2\Headers\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="..\Projet-S2\Vlaser.h">
+    <CustomBuild Include="..\Projet-S2\Headers\Vlaser.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\animation.h">
+    <ClInclude Include="..\Projet-S2\Headers\animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\background.h">
+    <ClInclude Include="..\Projet-S2\Headers\background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="..\Projet-S2\explosion.h">
+    <CustomBuild Include="..\Projet-S2\Headers\explosion.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\global.h">
+    <ClInclude Include="..\Projet-S2\Headers\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projet-S2\liste.h">
+    <ClInclude Include="..\Projet-S2\Headers\liste.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="..\Projet-S2\mainwindow.h">
+    <CustomBuild Include="..\Projet-S2\Headers\mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\obstacle.h">
+    <ClInclude Include="..\Projet-S2\Headers\obstacle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="..\Projet-S2\platform.h">
+    <CustomBuild Include="..\Projet-S2\Headers\platform.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\Projet-S2\powerUp.h">
+    <CustomBuild Include="..\Projet-S2\Headers\powerUp.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\Projet-S2\rectangle.h">
+    <ClInclude Include="..\Projet-S2\Headers\rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="..\Projet-S2\runner.h">
+    <CustomBuild Include="..\Projet-S2\Headers\runner.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
