@@ -4,14 +4,12 @@ using namespace std;
 
 MainWindow::MainWindow()
 {
+	_platform = nullptr;
 	//SETTINGS
 	setWindowTitle("Interface Runner");
 	setFixedSize(421, 370);
 	setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 	statusBar()->show();
-
-	_platform = new Platform();
-
 	creerObjets();
 	creerLayout();
 	creerActions();
@@ -163,7 +161,7 @@ void MainWindow::showScoreBoard()
 		}
 		Ipivot++;
 	}
-	QWidget* ScoreBoard;
+
 	QLabel* Title;
 	QLabel* Number1;
 	QLabel* Number2;
@@ -226,10 +224,10 @@ void MainWindow::showScoreBoard()
 		Number5->setText(tr("5. ") + QString::fromStdString(name[4]) + tr(" ") + QString::number(score[4]));
 		scLayout->addWidget(Number5);
 	}
-
+	
 	PBOk = new QPushButton(ScoreBoard);
 	PBOk->setText("OK");
-	connect(PBOk,SIGNAL(clicked()), ScoreBoard, SLOT(close()));
+	connect(PBOk,SIGNAL(clicked()), this, SLOT(NewGame()));
 	scLayout->addWidget(PBOk);
 
 	ScoreBoard->setLayout(scLayout);
@@ -239,7 +237,18 @@ void MainWindow::showScoreBoard()
 	ScoreBoard->show();
 }
 
-
+void MainWindow::NewGame()
+{
+	ScoreBoard->close();
+	if (_platform!=nullptr)
+	{
+		_platform->get_view()->close();
+		delete _platform;
+		_platform = nullptr;
+		this->show();
+	}
+	
+}
 
 void MainWindow::fermer()
 {
@@ -256,11 +265,77 @@ void MainWindow::pbDemarrer_cliquee()
 {
 	statusBar()->showMessage(QLatin1String("Jeu demarré"));
 	this->hide();
+	_platform = new Platform();
 	_platform->set_inputMode(cbControles->currentIndex());
 	_platform->initializeGame();
+
+	connect(_platform, SIGNAL(gameover()), this, SLOT(WhatYourName()));
 }
 
 void MainWindow::demarrer()
 {
 	statusBar()->showMessage(QLatin1String("Jeu demarré"));
+}
+
+void MainWindow::WhatYourName()
+{
+	name = new QWidget;
+	wghLayout = new QWidget(name);
+	text = new QLabel(name);
+	Ans = new QLineEdit(name);
+	OK = new QPushButton(name);
+	HNameLayout = new QHBoxLayout(name);
+	NameLayout = new QVBoxLayout(name);
+
+	name->setWindowTitle("Nom pour tableau pointage");
+
+	text->setText("Entrez votre surnom:");
+	HNameLayout->addWidget(text);
+
+	Ans->setReadOnly(false);
+	Ans->setMaxLength(3);
+	connect(Ans, SIGNAL(textChanged(QString)), this, SLOT(Uppercase(QString)));
+	HNameLayout->addWidget(Ans);
+	wghLayout->setLayout(HNameLayout);
+	NameLayout->addWidget(wghLayout);
+
+	OK->setText("OK");
+	OK->setToolTip("confirmer le surnom");
+	connect(OK, SIGNAL(clicked()), this, SLOT(ok()));
+	NameLayout->addWidget(OK);
+
+	name->setLayout(NameLayout);
+	name->show();
+}
+
+void MainWindow::ok()
+{
+	ofstream output;
+	output.open("ScoreBoard.txt", ios::app);
+	QString contenu = Ans->text();
+	string Contenu = contenu.toStdString();
+	output << _platform->get_currentFrame() << " " << Contenu << "\n";
+	name->close();
+	output.close();
+	showScoreBoard();
+}
+
+void MainWindow::Uppercase(QString text)
+{
+	QString tmp = text;
+
+	tmp.truncate(1); // tmp is now first char of your text
+	tmp = tmp.toUpper();
+
+	if (text.size() > 1)
+	{
+		text.remove(0, 1);
+		text = text.toUpper();
+		text.prepend(tmp);
+		Ans->setText(text);
+	}
+	else
+	{
+		Ans->setText(tmp);
+	}
 }

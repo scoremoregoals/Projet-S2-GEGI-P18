@@ -184,9 +184,13 @@ public:
 	*/
 	void updateGameOver();
 
-	void WhatYourName();
-
 	
+	qint64 get_currentFrame();
+
+	QGraphicsView* get_view() { return _view; }
+	
+signals:
+	void gameover();
 
 public slots:
 	/**
@@ -194,9 +198,7 @@ public slots:
 	*/
 	void Update();
 
-private slots:
-	void ok();
-	void Uppercase(QString text);
+
 
 private:
 	int _level;
@@ -206,7 +208,7 @@ private:
 	int _inputMode;
 	int _fpgaValue;
 	bool _fpgaDisconnected;
-	int namecount;
+	int gameoverCount;
 
 	//OBJECTS
 	Runner* _player;
@@ -257,13 +259,7 @@ private:
 	QGraphicsTextItem* currentPowerUpText;
 	QFont starWarsFont;
 
-	QWidget* name;
-	QWidget* wghLayout;
-	QLabel* text;
-	QLineEdit* Ans;
-	QPushButton* OK;
-	QHBoxLayout* HNameLayout;
-	QVBoxLayout* NameLayout;
+	
 };
 
 #endif //PLATFORM_H
