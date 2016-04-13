@@ -24,12 +24,16 @@ private slots:
 	void WhatYourName();
 	void showScoreBoard();
 	void fermer();
+	void ModifVolume();
 	void aPropos();
 	void pbDemarrer_cliquee();
 	void demarrer();
 	void ok();
 	void Uppercase(QString text);
 	void NewGame();
+	void onValueChanged();
+	void set_MusicVolume();
+	void set_bgMusic();
 private :
 	QWidget* wgMainWidget;
 	QWidget* wgHLayoutWidget;
@@ -41,13 +45,20 @@ private :
 	QPushButton* pbDemarrer;
 	QComboBox* cbControles;
 	Platform* _platform;
+	int MusicVolume=50;
 
 	//MENUS
 	QMenu* menuFichier;
 	QMenu* menuAide;
+	QMenu* menuEdition;
 	QAction* actFermer;
 	QAction* actScoreboard;
 	QAction* actAPropos;
+	QAction* actVolume;
+	QWidget* Win_aPropos;
+	QVBoxLayout* VLayout;
+	QPushButton* BoutonPropos;
+	QTextEdit* Texte_Propos;
 
 	//Scoreboard
 	QWidget* ScoreBoard;
@@ -66,4 +77,10 @@ private :
 	QLabel* Number5;
 	QPushButton* PBOk;
 	QVBoxLayout* scLayout;
+
+	QWidget* MainVolume;
+	QVBoxLayout* VMusicLayout;
+	QSlider *slider;
+	QPushButton* pbVolume;
+	QLineEdit* Valeur;
 };

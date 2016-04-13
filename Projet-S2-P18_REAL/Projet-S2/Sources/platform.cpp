@@ -96,7 +96,7 @@ void Platform::loadSounds()
 {
 	//background music
 	_bgMusic = new QMediaPlayer();
-	_bgMusic->setVolume(20);
+	
 	_bgMusic->setMedia(QUrl("sounds/backgroundmusic.mp3"));
 	//collisions
 	_laserCollisionSound = new QMediaPlayer();
@@ -121,6 +121,7 @@ void Platform::loadSounds()
 
 void Platform::createTexts()
 {
+	
 	//FONT
 	QFontDatabase::removeAllApplicationFonts();
 	int id = QFontDatabase::addApplicationFont("font/Starjedi.ttf");
@@ -166,6 +167,7 @@ void Platform::createTexts()
 
 void Platform::initializeGame()
 {
+	emit set_bg();
 	//CONTROL FOCUS ON PLAYER
 	_player->setFocus();
 	//SET GAMESTATE TO RUNNING
@@ -203,6 +205,8 @@ void Platform::Update()
 		updateGameOver();
 		break;
 	case Running:
+	
+		
 		//CHECKS INPUT FOR PLAYER MOVEMENT
 		checkInput();
 		//CHECK FOR END OF SLOW POWERUP
@@ -641,4 +645,5 @@ qint64 Platform::get_currentFrame()
 	return currentFrameTime;
 }
 
-
+void Platform::set_BackgMusic(int value)
+{ _bgMusic->setVolume(value); }

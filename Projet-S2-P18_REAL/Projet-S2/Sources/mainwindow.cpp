@@ -1,4 +1,5 @@
 #include "Headers/mainwindow.h"
+#include <QLatin1String>
 
 using namespace std;
 
@@ -82,13 +83,17 @@ void MainWindow::creerMenus()
 {
 	//fichier
 	menuFichier = menuBar()->addMenu(tr("&Fichier"));
-	//menuFichier->addAction(actDemarrer);
 	menuFichier->addAction(actScoreboard);
 	menuFichier->addAction(actFermer);
 
+	//setting
+	menuEdition = menuBar()->addMenu(QLatin1String("Édition"));
+	menuEdition->addAction(actVolume);
 	//aide
 	menuAide = menuBar()->addMenu(tr("&Aide"));
 	menuAide->addAction(actAPropos);
+
+	
 }
 
 void MainWindow::creerActions()
@@ -104,6 +109,12 @@ void MainWindow::creerActions()
 	actScoreboard->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_S));
 	actScoreboard->setStatusTip(tr("Afficher la table des pointages"));
 	connect(actScoreboard, SIGNAL(triggered()), this, SLOT(showScoreBoard()));
+
+	actVolume = new QAction(this);
+	actVolume->setText("Volumes");
+	actVolume->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
+	actVolume->setStatusTip(tr("Modifier Volume"));
+	connect(actVolume,SIGNAL(triggered()),this,SLOT(ModifVolume()));
 
 	actAPropos = new QAction(this);
 	actAPropos->setText(QLatin1String("À propos"));
@@ -180,7 +191,7 @@ void MainWindow::showScoreBoard()
 	scLayout = new QVBoxLayout(ScoreBoard);
 
 	Title = new QLabel(ScoreBoard);
-	Title->setText(" TOP 5 :");
+	Title->setText(tr(" TOP 5 :"));
 	Title->setAlignment(Qt::AlignCenter);
 	scLayout->addWidget(Title);
 
@@ -256,9 +267,74 @@ void MainWindow::fermer()
 	exit(1);
 }
 
+void MainWindow::ModifVolume()
+{
+	MainVolume = new QWidget();
+	QLabel* background=new QLabel(MainVolume);
+	VMusicLayout = new QVBoxLayout(MainVolume);
+	slider = new QSlider(Qt::Horizontal,MainVolume);
+	pbVolume = new QPushButton(MainVolume);
+	Valeur = new QLineEdit(MainVolume);
+
+	background->setText("Volume de la musique principale:");
+	VMusicLayout->addWidget(background);
+
+	slider->setOrientation(Qt::Horizontal);
+	slider->setMinimum(0);
+	slider->setMaximum(100);
+	slider->setSliderPosition(50);
+	VMusicLayout->addWidget(slider);
+
+	Valeur->setAlignment(Qt::AlignCenter);
+	connect(slider, SIGNAL(valueChanged(int)),this, SLOT(onValueChanged()));
+	connect(slider, SIGNAL(valueChanged(int)), this, SLOT(set_MusicVolume()));
+
+	pbVolume->setText("OK");
+	connect(pbVolume,SIGNAL(clicked()),MainVolume,SLOT(close()));
+	VMusicLayout->addWidget(Valeur);
+	VMusicLayout->addWidget(pbVolume);
+
+	MainVolume->setLayout(VMusicLayout);
+	MainVolume->show();
+}
+
+
 void MainWindow::aPropos()
 {
 	statusBar()->showMessage(QLatin1String("Affichage à propos"));
+	QWidget* Win_aPropos;
+	QVBoxLayout* VLayout;
+	QPushButton* BoutonPropos;
+	QTextEdit* Texte_Propos;
+
+	Win_aPropos = new QWidget();
+	VLayout = new QVBoxLayout(Win_aPropos);
+	BoutonPropos  = new QPushButton(Win_aPropos);
+	Texte_Propos = new QTextEdit(Win_aPropos);
+
+	Win_aPropos->setWindowTitle(QLatin1String("À Propos"));
+	Win_aPropos->setStatusTip(QLatin1String("À Propos"));
+	Win_aPropos->setFixedSize(485, 200);
+
+	Texte_Propos->setReadOnly(true);
+	Texte_Propos->setPlainText(QLatin1String("Oh! Rich! Contre Aliens\n\n"
+		" L'équipe INGENIUM NATUS a pour but dans ce projet d'exploiter\n"
+		"la reconnaissance vocale afin "
+		"de jouer à un jeu de style rétro dans l'univers de Star Wars.\n\n"
+		"Dans ce jeux le joueur (BB8) a pour but de rester le plus longtemps\n "
+		"en vie en évitant les lasers qui lui sont tirés dessus, ce dans une\n "
+		"zone restreinte. "
+		"L'utilisateur a deplus la possibilité d'utiliser des pouvoirs\n facilitant la partie au joueur.\n\n"
+		"La musique provient du jeu Neon Drive et le style est fortement inspiré de Star Wars."
+		));
+
+	BoutonPropos->setText("OK");
+	BoutonPropos->setToolTip(QLatin1String("Fermer la fenêtre"));
+	connect(BoutonPropos,SIGNAL(clicked()),Win_aPropos,SLOT(close()));
+	VLayout->addWidget(Texte_Propos);
+	VLayout->addWidget(BoutonPropos);
+	Win_aPropos->setLayout(VLayout);
+	Win_aPropos->show();
 }
 
 void MainWindow::pbDemarrer_cliquee()
@@ -266,10 +342,12 @@ void MainWindow::pbDemarrer_cliquee()
 	statusBar()->showMessage(QLatin1String("Jeu demarré"));
 	this->hide();
 	_platform = new Platform();
+	connect(_platform, SIGNAL(set_bg()), this, SLOT(set_bgMusic()));
 	_platform->set_inputMode(cbControles->currentIndex());
 	_platform->initializeGame();
 
 	connect(_platform, SIGNAL(gameover()), this, SLOT(WhatYourName()));
+	
 }
 
 void MainWindow::demarrer()
@@ -338,4 +416,22 @@ void MainWindow::Uppercase(QString text)
 	{
 		Ans->setText(tmp);
 	}
+}
+void MainWindow::onValueChanged()
+{
+	int pos = slider->sliderPosition();
+	QString text = QString::number(pos);
+	Valeur->setText(text);
+}
+
+void MainWindow::set_MusicVolume()
+{
+	int pos = slider->sliderPosition();
+	MusicVolume = pos;
+	
+}
+
+void MainWindow::set_bgMusic()
+{
+	_platform->set_BackgMusic(MusicVolume);
 }

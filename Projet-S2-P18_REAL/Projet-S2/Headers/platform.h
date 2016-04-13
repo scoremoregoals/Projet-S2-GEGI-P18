@@ -188,16 +188,19 @@ public:
 	qint64 get_currentFrame();
 
 	QGraphicsView* get_view() { return _view; }
+
+	void set_BackgMusic(int value);
 	
 signals:
 	void gameover();
+	void set_bg();
 
 public slots:
 	/**
 	* @brief      Updates the game each FRAMETIME 
 	*/
 	void Update();
-
+	
 
 
 private:
