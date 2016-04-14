@@ -245,7 +245,6 @@ private:
 	QMediaPlayer* _bgMusic;
 	QMediaPlayer* _laserCollisionSound;
 	QMediaPlayer* _powerUpCollisionSound;
-	QMediaPlayer* _gameOverSound;
 	QMediaPlayer* _destroySound;
 	QMediaPlayer* _slowDownSound;
 

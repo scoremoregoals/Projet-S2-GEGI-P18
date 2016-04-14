@@ -10,7 +10,7 @@ Vlaser::Vlaser()
 
 	//sounds
 	_spawnSound = new QMediaPlayer();
-	_spawnSound->setVolume(20);
+	_spawnSound->setVolume(50);
 	_spawnSound->setMedia(QUrl("sounds/laserSpawn.wav"));
 
 	_animation = new Animation(70, 50, 7, "spritesheets/VlaserSpriteSheet.png");

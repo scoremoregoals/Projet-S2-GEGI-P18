@@ -7,7 +7,7 @@ MainWindow::MainWindow()
 {
 	_platform = nullptr;
 	//SETTINGS
-	setWindowTitle("Interface Runner");
+	setWindowTitle("Projet P18");
 	setFixedSize(421, 370);
 	setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 	statusBar()->show();
@@ -67,7 +67,7 @@ void MainWindow::creerObjets()
 		"- fpga :\n"
 		"      - phonèmes :\n"
 		"\tO -> mouvement gauche\n"
-		"\tI -> mouvement droite\n"
+		"\tA -> mouvement droite\n"
 		"\tShh -> utilisation power-ups\n"
 		"      - boutons :\n"
 		"\tbouton 3->mouvement gauche\n"
@@ -284,6 +284,8 @@ void MainWindow::ModifVolume()
 	slider->setMaximum(100);
 	slider->setSliderPosition(50);
 	VMusicLayout->addWidget(slider);
+	Valeur->setText("50");
+	Valeur->setReadOnly(true);
 
 	Valeur->setAlignment(Qt::AlignCenter);
 	connect(slider, SIGNAL(valueChanged(int)),this, SLOT(onValueChanged()));

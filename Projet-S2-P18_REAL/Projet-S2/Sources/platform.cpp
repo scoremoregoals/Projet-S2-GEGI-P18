@@ -101,13 +101,10 @@ void Platform::loadSounds()
 	//collisions
 	_laserCollisionSound = new QMediaPlayer();
 	_laserCollisionSound->setMedia(QUrl("sounds/laserCollision.wav"));
-	_laserCollisionSound->setVolume(50);
+	_laserCollisionSound->setVolume(80);
 	_powerUpCollisionSound = new QMediaPlayer();
 	_powerUpCollisionSound->setMedia(QUrl("sounds/powerUpCollision.wav"));
 	_powerUpCollisionSound->setVolume(50);
-	//gameover
-	_gameOverSound = new QMediaPlayer();
-	_gameOverSound->setMedia(QUrl("sounds/gameOver.wav"));
 	//destroy power up 
 	_destroySound = new QMediaPlayer();
 	_destroySound->setMedia(QUrl("sounds/destroyPowerup.wav"));
@@ -253,7 +250,6 @@ void Platform::updateGameOver()
 	_gameOverImage->setOpacity(_gameOverImage->opacity() + 0.01);
 	if (_bgMusic->volume() <= 0)
 	{
-		_gameOverSound->play();
 		_bgMusic->stop();
 	}
 }
